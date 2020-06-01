@@ -57,18 +57,29 @@ class Client extends BaseClient
     }
 
     /**
+     * @param int $page
+     * @return ResponseInterface
+     * @throws GuzzleException
+     * @throws InvalidArgumentException
+     */
+    public function getPage(int $page): ResponseInterface
+    {
+        $api = $this->api->newRequest(
+            'GET',
+            $this->generateUrl($page)
+        );
+
+        return $api->getResponse();
+    }
+
+    /**
      * @return ResponseInterface
      * @throws GuzzleException
      * @throws InvalidArgumentException
      */
     public function getAll()
     {
-        $api = $this->api->newRequest(
-            'GET',
-            $this->generateUrl(0)
-        );
-
-        $response = $api->getResponse();
+        $response = $this->getPage(0);
         $result = $this->getAsJson($response);
 
         if ($result->totalPages == 1) {
@@ -79,12 +90,7 @@ class Client extends BaseClient
 
         // update content to get all contacts
         for ($i = 1; $i < $result->totalPages; $i++) {
-            $api = $this->api->newRequest(
-                'GET',
-                $this->generateUrl($i)
-            );
-
-            $responsePage = $api->getResponse();
+            $responsePage = $this->getPage($i);
             $resultPage = $this->getAsJson($responsePage);
 
             foreach ($resultPage->content as $contact) {

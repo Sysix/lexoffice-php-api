@@ -98,6 +98,10 @@ $client->statuses = [
 // get everything what we can, not recommend:
 //$client->setToEverything()
 
+// get a page
+$client->getPage(0);
+
+//get all
 $client->getAll();
 ```
 
