@@ -2,8 +2,6 @@
 
 ## Install
 
-// TODO: setup composer package
-
 composer:  
 `composer require clicksports/lex-office-api`
 
@@ -42,7 +40,6 @@ $response = $api->contact()->delete($contactId);
 
 ### Invoices Endpoint
 ```php
-$api = new \Clicksports\LexOffice\Api($apiKey);
 $response = $api->invoice()->getAll();
 $response = $api->invoice()->get($invoiceId);
 $response = $api->invoice()->create($data);
