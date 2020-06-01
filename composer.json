@@ -1,0 +1,33 @@
+{
+  "name": "clicksports/lex-office-api",
+  "type": "library",
+  "description": "Simple API Integration for Lex-Office",
+  "keywords": [
+    "lex-office",
+    "lexoffice",
+    "rest",
+    "api"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^7.4",
+    "guzzlehttp/guzzle": "^6.3",
+    "psr/cache": "^1.0"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "^1.9.1",
+    "phpunit/phpunit": "^8.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Clicksports\\LexOffice\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
