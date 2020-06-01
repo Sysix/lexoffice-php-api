@@ -35,7 +35,6 @@ $response = $api->contact()->getAll();
 $response = $api->contact()->get($contactId);
 $response = $api->contact()->create($data);
 $response = $api->contact()->update($contactId, $data);
-$response = $api->contact()->delete($contactId);
 ```
 
 ### Invoices Endpoint
@@ -43,8 +42,6 @@ $response = $api->contact()->delete($contactId);
 $response = $api->invoice()->getAll();
 $response = $api->invoice()->get($invoiceId);
 $response = $api->invoice()->create($data);
-$response = $api->invoice()->update($invoiceId, $data);
-$response = $api->invoice()->delete($invoiceId);
 ```
 
 
