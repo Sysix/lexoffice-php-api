@@ -53,8 +53,6 @@ $response = $api->invoice()->delete($invoiceId);
 $response = $api->orderConfirmation()->getAll();
 $response = $api->orderConfirmation()->get($entityId);
 $response = $api->orderConfirmation()->create($data);
-$response = $api->orderConfirmation()->update($entityId, $data);
-$response = $api->orderConfirmation()->delete($entityId);
 ```
 
 ### Quotation Endpoint
@@ -62,8 +60,6 @@ $response = $api->orderConfirmation()->delete($entityId);
 $response = $api->quotation()->getAll();
 $response = $api->quotation()->get($entityId);
 $response = $api->quotation()->create($data);
-$response = $api->quotation()->update($entityId, $data);
-$response = $api->quotation()->delete($entityId);
 ```
 
 ### Voucher Endpoint
@@ -72,7 +68,6 @@ $response = $api->voucher()->getAll();
 $response = $api->voucher()->get($entityId);
 $response = $api->voucher()->create($data);
 $response = $api->voucher()->update($entityId, $data);
-$response = $api->voucher()->delete($entityId);
 ```
 
 ### Voucherlist Endpoint
