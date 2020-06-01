@@ -24,6 +24,11 @@ use function GuzzleHttp\Psr7\stream_for;
 class Api
 {
     /**
+     * the library version
+     */
+    const VERSION = "0.9.0";
+
+    /**
      * the lex-office api url
      *
      * @var string $apiUrl
