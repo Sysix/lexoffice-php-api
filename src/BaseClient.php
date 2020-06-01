@@ -8,11 +8,11 @@ use Psr\Http\Message\ResponseInterface;
 abstract class BaseClient implements ClientInterface
 {
     /**
-     * @var LexOffice $api
+     * @var Api $api
      */
-    protected LexOffice $api;
+    protected Api $api;
 
-    public function __construct(LexOffice $lexOffice)
+    public function __construct(Api $lexOffice)
     {
         $this->api = $lexOffice;
     }

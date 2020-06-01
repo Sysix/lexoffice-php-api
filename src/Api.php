@@ -21,7 +21,7 @@ use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use function GuzzleHttp\Psr7\stream_for;
 
-class LexOffice
+class Api
 {
     /**
      * the lex-office api url

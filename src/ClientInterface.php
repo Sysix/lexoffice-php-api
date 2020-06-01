@@ -8,9 +8,9 @@ interface ClientInterface
 {
     /**
      * ClientInterface constructor.
-     * @param LexOffice $lexOffice
+     * @param Api $lexOffice
      */
-    public function __construct(LexOffice $lexOffice);
+    public function __construct(Api $lexOffice);
 
     /**
      * @param array $data

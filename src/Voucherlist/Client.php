@@ -43,7 +43,11 @@ class Client extends BaseClient
         ];
     }
 
-    protected function generateUrl($page)
+    /**
+     * @param int $page
+     * @return string
+     */
+    protected function generateUrl(int $page): string
     {
         return 'voucherlist?page=' . $page .
             '&size=100' .
