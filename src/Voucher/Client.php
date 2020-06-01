@@ -87,6 +87,6 @@ class Client extends BaseClient
      */
     public function delete(string $id)
     {
-        throw new BadMethodCallException('method delete is defined for vouchers');
+        throw new BadMethodCallException('method delete is defined for voucher');
     }
 }

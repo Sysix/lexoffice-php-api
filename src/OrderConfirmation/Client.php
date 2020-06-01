@@ -39,7 +39,7 @@ class Client extends BaseClient
      */
     public function update(string $id, array $data)
     {
-       throw new BadMethodCallException('method update() is not implemented yet');
+       throw new BadMethodCallException('method update is defined for order confirmation');
     }
 
 
@@ -77,7 +77,7 @@ class Client extends BaseClient
      */
     public function delete(string $id)
     {
-        throw new BadMethodCallException('method delete() is not implemented yet');
+        throw new BadMethodCallException('method delete is defined for order confirmation');
     }
 
     /**

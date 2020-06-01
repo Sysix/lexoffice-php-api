@@ -2,9 +2,9 @@
 
 namespace Clicksports\LexOffice\Invoice;
 
+use BadMethodCallException;
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
-use BadMethodCallException;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
@@ -35,20 +35,11 @@ class Client extends BaseClient
     /**
      * @param string $id
      * @param array $data
-     * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws BadMethodCallException
      */
     public function update(string $id, array $data)
     {
-        $api = $this->api->newRequest('PUT', 'invoices/' . $id);
-
-        $api->request = $api->request->withBody(stream_for(
-            http_build_query($data)
-        ));
-
-        return $api->getResponse();
+        throw new BadMethodCallException('method update is defined for invoices');
     }
 
 
