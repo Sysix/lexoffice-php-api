@@ -66,8 +66,6 @@ class Client extends BaseClient
             return $response;
         }
 
-        $result->content = [];
-
         // update content to get all contacts
         for ($i = 1; $i < $result->totalPages; $i++) {
             $api = $this->api->newRequest('GET', 'contacts?page=' . $i . '&size=100&direction=ASC&property=name');
@@ -75,8 +73,11 @@ class Client extends BaseClient
             $responsePage = $api->getResponse();
             $resultPage = $this->getAsJson($responsePage);
 
-            foreach ($resultPage->content as $contact) {
-                $result->content[] = $contact;
+            foreach ($resultPage->content as $entity) {
+                $result->content = [
+                    ...$result->content,
+                    $entity
+                ];
             }
         }
 
