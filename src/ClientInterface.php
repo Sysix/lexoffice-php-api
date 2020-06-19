@@ -35,10 +35,4 @@ interface ClientInterface
      * @return ResponseInterface
      */
     public function get(string $id);
-
-    /**
-     * @param string $id
-     * @return ResponseInterface
-     */
-    public function delete(string $id);
 }

@@ -2,15 +2,13 @@
 
 namespace Clicksports\LexOffice\Voucherlist;
 
-use Clicksports\LexOffice\BaseClient;
 use BadMethodCallException;
-use GuzzleHttp\Exception\GuzzleException;
-use Psr\Cache\InvalidArgumentException;
-use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
+use Clicksports\LexOffice\PaginationClient;
 
-class Client extends BaseClient
+class Client extends PaginationClient
 {
+    protected string $resource = 'voucherlist';
+
     public string $sortColumn = 'voucherNumber';
     public string $sortDirection = 'DESC';
 
@@ -49,57 +47,10 @@ class Client extends BaseClient
      */
     protected function generateUrl(int $page): string
     {
-        return 'voucherlist?page=' . $page .
-            '&size=100' .
+        return parent::generateUrl($page) .
             '&sort=' . $this->sortColumn . ',' . $this->sortDirection .
             '&voucherType=' . implode(',', $this->types) .
             '&voucherStatus=' . implode(',', $this->statuses);
-    }
-
-    /**
-     * @param int $page
-     * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
-     */
-    public function getPage(int $page): ResponseInterface
-    {
-        $api = $this->api->newRequest(
-            'GET',
-            $this->generateUrl($page)
-        );
-
-        return $api->getResponse();
-    }
-
-    /**
-     * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
-     */
-    public function getAll()
-    {
-        $response = $this->getPage(0);
-        $result = $this->getAsJson($response);
-
-        if ($result->totalPages == 1) {
-            return $response;
-        }
-
-        // update content to get all contacts
-        for ($i = 1; $i < $result->totalPages; $i++) {
-            $responsePage = $this->getPage($i);
-            $resultPage = $this->getAsJson($responsePage);
-
-            foreach ($resultPage->content as $entity) {
-                $result->content = [
-                    ...$result->content,
-                    $entity
-                ];
-            }
-        }
-
-        return $response->withBody(stream_for(json_encode($result)));
     }
 
     /**
@@ -108,7 +59,7 @@ class Client extends BaseClient
      */
     public function create(array $data)
     {
-        throw new BadMethodCallException('method create is not defined for voucherlist');
+        throw new BadMethodCallException('method create is not supported for ' . $this->resource);
     }
 
     /**
@@ -118,7 +69,7 @@ class Client extends BaseClient
      */
     public function update(string $id, array $data)
     {
-        throw new BadMethodCallException('method update is not defined for voucherlist');
+        throw new BadMethodCallException('method update is not supported for ' . $this->resource);
     }
 
     /**
@@ -127,15 +78,6 @@ class Client extends BaseClient
      */
     public function get(string $id)
     {
-        throw new BadMethodCallException('method get is not defined for voucherlist');
-    }
-
-    /**
-     * @param string $id
-     * @throws BadMethodCallException
-     */
-    public function delete(string $id)
-    {
-        throw new BadMethodCallException('method delete is not defined for voucherlist');
+        throw new BadMethodCallException('method get is not supported for ' . $this->resource);
     }
 }

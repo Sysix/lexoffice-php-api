@@ -9,27 +9,13 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Cache\InvalidArgumentException;
-use function GuzzleHttp\Psr7\stream_for;
-
 class Client extends BaseClient
 {
+    protected string $resource = 'event-subscriptions';
 
-    /**
-     * @param array $data
-     * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
-     */
-    public function create(array $data)
+    public function get(string $id)
     {
-        $api = $this->api->newRequest('POST', 'event-subscriptions');
-
-        $api->request = $api->request->withBody(stream_for(
-            json_encode($data)
-        ));
-
-        return $api->getResponse();
+        throw new BadMethodCallException('method get() is not supported');
     }
 
     /**
@@ -53,20 +39,6 @@ class Client extends BaseClient
         return $this->api->newRequest('GET', 'event-subscriptions')
             ->getResponse();
     }
-
-    /**
-     * @param string $id
-     * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
-     */
-    public function get(string $id)
-    {
-        return $this->api->newRequest('GET', 'event-subscriptions/' . $id)
-            ->getResponse();
-    }
-
     /**
      * @param string $id
      * @return ResponseInterface
