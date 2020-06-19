@@ -1,6 +1,6 @@
 {
   "name": "clicksports/lex-office-api",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "type": "library",
   "description": "Simple API Integration for Lex-Office",
   "keywords": [
