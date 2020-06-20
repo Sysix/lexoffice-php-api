@@ -1,5 +1,8 @@
 # Lexoffice PHP API
 
+![tests](https://github.com/clicksports/lexoffice-php-api/workflows/tests/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/clicksports/lex-office-api/v)](//packagist.org/packages/clicksports/lex-office-api)
+[![License](https://poser.pugx.org/clicksports/lex-office-api/license)](//packagist.org/packages/clicksports/lex-office-api)
 
 ## Requirements
 
