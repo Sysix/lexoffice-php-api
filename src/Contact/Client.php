@@ -16,7 +16,7 @@ class Client extends PaginationClient
      * @param int $page
      * @return string
      */
-    protected function generateUrl(int $page): string
+    public function generateUrl(int $page): string
     {
         return parent::generateUrl($page) .
             '&direction=' . $this->sortDirection .

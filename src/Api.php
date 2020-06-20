@@ -17,6 +17,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use function GuzzleHttp\Psr7\stream_for;
@@ -87,20 +88,29 @@ class Api
      */
     public function newRequest($method, $resource, $headers = []): self
     {
-        $headers = $headers + [
-                'Authorization' => 'Bearer ' . $this->apiKey,
-                'Accept' => 'application/json',
-            ];
+        $this->setRequest(
+            new Request($method, $this->createApiUrl($resource), $headers)
+        );
 
-        if (in_array($method, ['POST', 'PUT'])) {
-            $headers['Content-Type'] = 'application/json';
+        return $this;
+    }
+
+    /**
+     * @param RequestInterface $request
+     * @return $this
+     */
+    public function setRequest(RequestInterface $request)
+    {
+        $request = $request
+            ->withHeader('Authorization', 'Bearer ' . $this->apiKey)
+            ->withHeader('Accept', 'application/json');
+
+
+        if (in_array($request->getMethod(), ['POST', 'PUT'])) {
+            $request = $request->withHeader('Content-Type', 'application/json');
         }
 
-        $this->request = new Request(
-            $method,
-            $this->createApiUrl($resource),
-            $headers
-        );
+        $this->request = $request;
 
         return $this;
     }

@@ -13,7 +13,7 @@ abstract class PaginationClient extends BaseClient
      * @param int $page
      * @return string
      */
-    protected function generateUrl(int $page): string
+    public function generateUrl(int $page): string
     {
         return $this->resource . '?page=' . $page . '&size=' . $this->size;
     }
