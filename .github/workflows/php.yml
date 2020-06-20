@@ -41,7 +41,8 @@ jobs:
 
     - uses: php-actions/composer@v1
 
-    - uses: php-actions/phpunit@v1
-
     - name: Run test suite
+      uses: php-actions/phhpunit@v1
       run: vendor/bin/phpunit --verbose
+      with:
+        config: phpunit.xml
