@@ -1,8 +1,9 @@
 <?php
 
-namespace Tests\Src\Voucher;
+namespace Tests\Src\Event;
 
-use Clicksports\LexOffice\Voucher\Client;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\Event\Client;
 use GuzzleHttp\Psr7\Response;
 use Tests\TestClient;
 
@@ -11,7 +12,7 @@ class ClientTest extends TestClient
 
     public function testCreate()
     {
-        $stub  = $this->createClientMockObject(
+        $stub = $this->createClientMockObject(
             Client::class,
             new Response(200, [], 'body'),
             ['create']
@@ -26,20 +27,20 @@ class ClientTest extends TestClient
 
     public function testGet()
     {
-        $stub  = $this->createClientMockObject(
+        $this->expectException(BadMethodCallException::class);
+
+        $stub = $this->createClientMockObject(
             Client::class,
             new Response(200, [], 'body'),
             ['get']
         );
 
-        $response = $stub->get('resource-id');
-
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $stub->get('resource-id');
     }
 
     public function testGetAll()
     {
-        $stub  = $this->createClientMockObject(
+        $stub = $this->createClientMockObject(
             Client::class,
             new Response(200, [], '{"content": [], "totalPages": 1}'),
             ['getAll']
@@ -52,14 +53,28 @@ class ClientTest extends TestClient
 
     public function testUpdate()
     {
+        $this->expectException(BadMethodCallException::class);
+
         $stub  = $this->createClientMockObject(
             Client::class,
             new Response(200, [], '{}'),
             ['update']
         );
 
-        $response = $stub->update('resource-id', []);
-
-        $this->assertEquals('{}', $response->getBody()->__toString());
+        $stub->update('resource-id', []);
     }
+
+    public function testDelete()
+    {
+        $stub = $this->createClientMockObject(
+            Client::class,
+            new Response(200, [], 'body'),
+            ['delete']
+        );
+
+        $response = $stub->delete('resource-id');
+
+        $this->assertEquals('body', $response->getBody()->__toString());
+    }
+
 }
