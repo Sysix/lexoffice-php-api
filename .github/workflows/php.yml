@@ -43,6 +43,5 @@ jobs:
 
     - name: Run test suite
       uses: php-actions/phhpunit@v1
-      run: vendor/bin/phpunit --verbose
       with:
         config: phpunit.xml
