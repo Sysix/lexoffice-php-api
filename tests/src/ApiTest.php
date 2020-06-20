@@ -41,6 +41,7 @@ class ApiTest extends TestClient
         $stub = $this->createApiMockObject($responseMock);
 
         $response = $stub->getResponse();
+
         $this->assertEquals($responseMock->getHeaders(), $response->getHeaders());
         $this->assertEquals($responseMock->getBody(), $response->getBody());
         $this->assertEquals($responseMock->getStatusCode(), $response->getStatusCode());
@@ -53,7 +54,7 @@ class ApiTest extends TestClient
         $cacheInterface = new FilesystemAdapter(
             'lexoffice',
             3600,
-            __DIR__ . '/cache'
+            __DIR__ . '/../cache'
         );
 
         $cacheKey = 'lex-office--v1--';
@@ -63,7 +64,6 @@ class ApiTest extends TestClient
             ['setCacheInterface', 'setCacheResponse', 'getCacheResponse']
         );
 
-        /** @noinspection PhpUndefinedMethodInspection */
         $stub->setCacheInterface($cacheInterface);
 
         // execute response "curl" with caching in background
