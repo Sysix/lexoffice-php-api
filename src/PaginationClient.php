@@ -7,7 +7,7 @@ use function GuzzleHttp\Psr7\stream_for;
 
 abstract class PaginationClient extends BaseClient
 {
-    public string $size;
+    public int $size = 100;
 
     /**
      * @param int $page
