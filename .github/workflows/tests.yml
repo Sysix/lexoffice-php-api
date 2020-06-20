@@ -1,10 +1,10 @@
-name: PHP Composer
+name: tests
 
 on:
   push:
     branches: [ development ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, development ]
 
 jobs:
   build:
@@ -30,18 +30,7 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
-
-  build-test:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-
-    - uses: php-actions/composer@v1
-
     - name: Run test suite
-      uses: php-actions/phpunit@v1
-      with:
-        config: phpunit.xml
+        uses: php-actions/phpunit@v1
+        with:
+          config: phpunit.xml
