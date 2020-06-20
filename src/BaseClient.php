@@ -4,8 +4,8 @@
 namespace Clicksports\LexOffice;
 
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 use function GuzzleHttp\Psr7\stream_for;
-use function json_decode;
 
 abstract class BaseClient implements ClientInterface
 {
@@ -30,9 +30,7 @@ abstract class BaseClient implements ClientInterface
     {
         $api = $this->api->newRequest('POST', $this->resource);
 
-        $api->request = $api->request->withBody(stream_for(
-            json_encode($data)
-        ));
+        $api->request = $api->request->withBody($this->createStream($data));
 
         return $api->getResponse();
     }
@@ -68,6 +66,15 @@ abstract class BaseClient implements ClientInterface
     {
         $body = $response->getBody()->__toString();
 
-        return json_decode($body);
+        return \GuzzleHttp\json_decode($body);
+    }
+
+    /**
+     * @param array $content
+     * @return StreamInterface
+     */
+    public function createStream(array $content): StreamInterface
+    {
+        return stream_for(\GuzzleHttp\json_encode($content));
     }
 }

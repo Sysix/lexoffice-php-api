@@ -2,7 +2,7 @@
 
 namespace Clicksports\LexOffice\Voucherlist;
 
-use BadMethodCallException;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\PaginationClient;
 
 class Client extends PaginationClient
@@ -45,7 +45,7 @@ class Client extends PaginationClient
      * @param int $page
      * @return string
      */
-    protected function generateUrl(int $page): string
+    public function generateUrl(int $page): string
     {
         return parent::generateUrl($page) .
             '&sort=' . $this->sortColumn . ',' . $this->sortDirection .

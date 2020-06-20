@@ -7,7 +7,6 @@ use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 class Client extends BaseClient
 {
@@ -24,9 +23,7 @@ class Client extends BaseClient
     {
         $api = $this->api->newRequest('PUT', $this->resource . '/' . $id);
 
-        $api->request = $api->request->withBody(stream_for(
-            http_build_query($data)
-        ));
+        $api->request = $api->request->withBody($this->createStream($data));
 
         return $api->getResponse();
     }

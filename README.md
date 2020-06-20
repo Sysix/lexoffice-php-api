@@ -27,11 +27,11 @@ $api = new \Clicksports\LexOffice\Api($apiKey);
 ```php
 // can be any PSR-6 compatibly cache handler
 // in this example we are using symfony/cache
-$cacheInterface = new \Symfony\Component\Cache\Adapter\FilesystemAdapter([
+$cacheInterface = new \Symfony\Component\Cache\Adapter\FilesystemAdapter(
   'lexoffice',
   3600,
  __DIR__ . '/cache'
-]);
+);
 
 $api->setCacheInterface($cacheInterface);
 ```
