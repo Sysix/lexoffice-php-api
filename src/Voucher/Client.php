@@ -3,11 +3,10 @@
 namespace Clicksports\LexOffice\Voucher;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
-use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Cache\InvalidArgumentException;
 use function GuzzleHttp\Psr7\stream_for;
 
 class Client extends BaseClient
@@ -18,9 +17,8 @@ class Client extends BaseClient
      * @param string $id
      * @param array $data
      * @return ResponseInterface
-     * @throws InvalidArgumentException
-     * @throws Exception
-     * @throws GuzzleException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function update(string $id, array $data)
     {
@@ -35,8 +33,8 @@ class Client extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function getAll()
     {

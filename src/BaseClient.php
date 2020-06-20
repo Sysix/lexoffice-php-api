@@ -3,10 +3,9 @@
 
 namespace Clicksports\LexOffice;
 
-use GuzzleHttp\Exception\GuzzleException;
-use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\Psr7\stream_for;
+use function json_decode;
 
 abstract class BaseClient implements ClientInterface
 {
@@ -24,9 +23,8 @@ abstract class BaseClient implements ClientInterface
     /**
      * @param array $data
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function create(array $data)
     {
@@ -47,15 +45,14 @@ abstract class BaseClient implements ClientInterface
      */
     public function update(string $id, array $data)
     {
-        throw new BadMethodCallException('method update is defined for ' . $this->resource);
+        throw new Exceptions\BadMethodCallException('method update is defined for ' . $this->resource);
     }
 
     /**
      * @param string $id
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function get(string $id)
     {
@@ -67,10 +64,10 @@ abstract class BaseClient implements ClientInterface
      * @param ResponseInterface $response
      * @return object
      */
-    function getAsJson(ResponseInterface $response)
+    public function getAsJson(ResponseInterface $response)
     {
         $body = $response->getBody()->__toString();
 
-        return \GuzzleHttp\json_decode($body);
+        return json_decode($body);
     }
 }

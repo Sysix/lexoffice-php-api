@@ -4,11 +4,11 @@
 namespace Clicksports\LexOffice\Event;
 
 use Clicksports\LexOffice\BaseClient;
-use BadMethodCallException;
-use Exception;
-use GuzzleHttp\Exception\GuzzleException;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Cache\InvalidArgumentException;
+
 class Client extends BaseClient
 {
     protected string $resource = 'event-subscriptions';
@@ -30,21 +30,20 @@ class Client extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function getAll()
     {
         return $this->api->newRequest('GET', 'event-subscriptions')
             ->getResponse();
     }
+
     /**
      * @param string $id
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function delete(string $id)
     {

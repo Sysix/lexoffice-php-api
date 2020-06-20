@@ -3,24 +3,22 @@
 namespace Clicksports\LexOffice\Quotation;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
-use BadMethodCallException;
-use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Cache\InvalidArgumentException;
 
 class Client extends BaseClient
 {
-    protected string $resource = 'quotations'
-    ;
+    protected string $resource = 'quotations';
+
     /**
      * @param array $data
      * @param bool $finalized
      * @return ResponseInterface
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws GuzzleException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function create(array $data, $finalized = false)
     {
@@ -35,8 +33,8 @@ class Client extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function getAll()
     {
