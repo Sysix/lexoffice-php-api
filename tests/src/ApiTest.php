@@ -1,36 +1,17 @@
 <?php
 
-namespace Tests;
+namespace Tests\Src;
 
-use Clicksports\LexOffice\Api;
 use Clicksports\LexOffice\Exceptions\CacheException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Tests\TestClient;
 
-class ApiTest extends TestCase
+class ApiTest extends TestClient
 {
-    public function createApiMock(Response $response, $methodExcept = [])
+    public function createApiMockObject(Response $response, $methodExcept = [])
     {
-        $responseMock = new MockHandler([$response]);
-
-        $stub = $this
-            ->getMockBuilder(Api::class)
-            ->setConstructorArgs([
-                '',
-                new Client([
-                    'handler' => HandlerStack::create($responseMock)
-                ])
-            ])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'newRequest',
-                'getResponse'
-            ])
-            ->getMock();
+        $stub = parent::createApiMockObject($response, $methodExcept);
 
         /** @noinspection PhpUndefinedMethodInspection */
         $stub->newRequest('GET', '/');
@@ -40,7 +21,7 @@ class ApiTest extends TestCase
 
     public function testClients()
     {
-        $stub = $this->createApiMock(
+        $stub = $this->createApiMockObject(
             new Response(),
             ['contact', 'event', 'invoice', 'orderConfirmation', 'quotation', 'voucher', 'voucherlist']
         );
@@ -54,6 +35,19 @@ class ApiTest extends TestCase
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucherlist\Client::class, $stub->voucherlist());
     }
 
+    public function testGetResponse()
+    {
+        $responseMock =  new Response(200, [], 'response-body');
+        $stub = $this->createApiMockObject($responseMock);
+
+        $response = $stub->getResponse();
+        $this->assertEquals($responseMock->getHeaders(), $response->getHeaders());
+        $this->assertEquals($responseMock->getBody(), $response->getBody());
+        $this->assertEquals($responseMock->getStatusCode(), $response->getStatusCode());
+        $this->assertEquals($responseMock->getProtocolVersion(), $response->getProtocolVersion());
+        $this->assertEquals($responseMock->getReasonPhrase(), $response->getReasonPhrase());
+    }
+
     public function testSetCacheInterface()
     {
         $cacheInterface = new FilesystemAdapter(
@@ -64,7 +58,7 @@ class ApiTest extends TestCase
 
         $cacheKey = 'lex-office--v1--';
 
-        $stub = $this->createApiMock(
+        $stub = $this->createApiMockObject(
             new Response(200, [], '{"cache": true}'),
             ['setCacheInterface', 'setCacheResponse', 'getCacheResponse']
         );
@@ -72,12 +66,8 @@ class ApiTest extends TestCase
         /** @noinspection PhpUndefinedMethodInspection */
         $stub->setCacheInterface($cacheInterface);
 
-        $response = $stub->getResponse();
-
-        $this->assertEquals(
-            '{"cache": true}',
-            $response->getBody()->__toString()
-        );
+        // execute response "curl" with caching in background
+        $stub->getResponse();
 
         $this->assertEquals(
             '{"status":200,"headers":[],"body":"{\"cache\": true}","version":"1.1","reason":"OK"}',
@@ -104,7 +94,7 @@ class ApiTest extends TestCase
 
     public function testRequestHeaders()
     {
-        $stub = $this->createApiMock(
+        $stub = $this->createApiMockObject(
             new Response(200, [], 'post-content')
         );
 
@@ -122,7 +112,7 @@ class ApiTest extends TestCase
     {
         $this->expectException(CacheException::class);
 
-        $stub = $this->createApiMock(
+        $stub = $this->createApiMockObject(
             new Response(),
             ['setCacheResponse']
         );
@@ -132,7 +122,7 @@ class ApiTest extends TestCase
 
     public function testCacheOnPost()
     {
-        $stub = $this->createApiMock(
+        $stub = $this->createApiMockObject(
             new Response(),
             ['setCacheResponse']
         );
