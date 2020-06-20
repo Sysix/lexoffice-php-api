@@ -20,7 +20,6 @@ use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use function GuzzleHttp\Psr7\stream_for;
-use function json_decode;
 
 class Api
 {
@@ -68,12 +67,16 @@ class Api
     /**
      * LexOffice constructor.
      * @param string $apiKey
+     * @param Client|null $client
      */
-    public function __construct(string $apiKey)
+    public function __construct(string $apiKey, $client = null)
     {
-        $this->apiKey = $apiKey;
+        if (!$client instanceof Client) {
+            $client = new Client();
+        }
 
-        $this->client = new Client();
+        $this->apiKey = $apiKey;
+        $this->client = $client;
     }
 
     /**
@@ -142,7 +145,7 @@ class Api
             $cache = $this->cacheInterface->getItem($cacheName);
 
             if ($cache && $cache->isHit()) {
-                $cache = json_decode($cache->get());
+                $cache = \GuzzleHttp\json_decode($cache->get());
 
                 return new Response(
                     $cache->status,

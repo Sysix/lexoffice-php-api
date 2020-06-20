@@ -18,7 +18,8 @@
   },
   "require-dev": {
     "fzaninotto/faker": "^1.9.1",
-    "phpunit/phpunit": "^8.5"
+    "phpunit/phpunit": "^8.5",
+    "symfony/cache": "^5.1"
   },
   "autoload": {
     "psr-4": {
