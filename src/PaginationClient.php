@@ -1,9 +1,8 @@
 <?php
 
 namespace Clicksports\LexOffice;
-use GuzzleHttp\Exception\GuzzleException;
+
 use Psr\Http\Message\ResponseInterface;
-use Psr\Cache\InvalidArgumentException;
 use function GuzzleHttp\Psr7\stream_for;
 
 abstract class PaginationClient extends BaseClient
@@ -22,8 +21,8 @@ abstract class PaginationClient extends BaseClient
     /**
      * @param int $page
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function getPage(int $page): ResponseInterface
     {
@@ -37,8 +36,8 @@ abstract class PaginationClient extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function getAll()
     {

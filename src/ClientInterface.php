@@ -15,6 +15,8 @@ interface ClientInterface
     /**
      * @param array $data
      * @return ResponseInterface
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function create(array $data);
 
@@ -33,6 +35,8 @@ interface ClientInterface
     /**
      * @param string $id
      * @return ResponseInterface
+     * @throws Exceptions\CacheException
+     * @throws Exceptions\LexOfficeApiException
      */
     public function get(string $id);
 }

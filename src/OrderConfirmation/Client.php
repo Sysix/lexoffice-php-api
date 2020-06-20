@@ -3,11 +3,11 @@
 namespace Clicksports\LexOffice\OrderConfirmation;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
-use BadMethodCallException;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Cache\InvalidArgumentException;
 
 class Client extends BaseClient
 {
@@ -16,8 +16,8 @@ class Client extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws GuzzleException
-     * @throws InvalidArgumentException
+     * @throws CacheException
+     * @throws LexOfficeApiException
      */
     public function getAll()
     {
