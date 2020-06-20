@@ -12,6 +12,7 @@
   "license": "MIT",
   "require": {
     "php": "^7.4",
+    "ext-json": "*",
     "guzzlehttp/guzzle": "^6.3",
     "psr/cache": "^1.0"
   },
