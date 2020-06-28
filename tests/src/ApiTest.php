@@ -2,9 +2,7 @@
 
 namespace Tests\Src;
 
-use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Psr7\Response;
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 use Tests\TestClient;
 
 class ApiTest extends TestClient
@@ -13,7 +11,6 @@ class ApiTest extends TestClient
     {
         $stub = parent::createApiMockObject($response, $methodExcept);
 
-        /** @noinspection PhpUndefinedMethodInspection */
         $stub->newRequest('GET', '/');
 
         return $stub;
@@ -49,49 +46,6 @@ class ApiTest extends TestClient
         $this->assertEquals($responseMock->getReasonPhrase(), $response->getReasonPhrase());
     }
 
-    public function testSetCacheInterface()
-    {
-        $cacheInterface = new FilesystemAdapter(
-            'lexoffice',
-            3600,
-            __DIR__ . '/../cache'
-        );
-
-        $cacheKey = 'lex-office--v1--';
-
-        $stub = $this->createApiMockObject(
-            new Response(200, [], '{"cache": true}'),
-            ['setCacheInterface', 'setCacheResponse', 'getCacheResponse']
-        );
-
-        $stub->setCacheInterface($cacheInterface);
-
-        // execute response "curl" with caching in background
-        $stub->getResponse();
-
-        $this->assertEquals(
-            '{"status":200,"headers":[],"body":"{\"cache\": true}","version":"1.1","reason":"OK"}',
-            $cacheInterface->getItem($cacheKey)->get()
-        );
-
-        $this->assertEquals(
-            $cacheInterface->getItem($cacheKey)->get(),
-            $this->transformToString($stub->getCacheResponse())
-        );
-
-        $fakeResponse = new Response(200, [], 'fake');
-
-        $stub->setCacheResponse($fakeResponse);
-
-        $this->assertEquals(
-            $cacheInterface->getItem($cacheKey)->get(),
-            $this->transformToString($fakeResponse)
-        );
-
-        // remove cache
-        $cacheInterface->deleteItem($cacheKey);
-    }
-
     public function testRequestHeaders()
     {
         $stub = $this->createApiMockObject(
@@ -106,44 +60,5 @@ class ApiTest extends TestClient
 
         $stub->newRequest('PUT', '/');
         $this->assertEquals('application/json', $stub->request->getHeaderLine('Content-Type'));
-    }
-
-    public function testCacheExceptions()
-    {
-        $this->expectException(CacheException::class);
-
-        $stub = $this->createApiMockObject(
-            new Response(),
-            ['setCacheResponse']
-        );
-
-        $stub->setCacheResponse(new Response());
-    }
-
-    public function testCacheOnPost()
-    {
-        $stub = $this->createApiMockObject(
-            new Response(),
-            ['setCacheResponse']
-        );
-
-        $stub->newRequest('POST', '/');
-
-        $this->assertEquals(
-            $stub,
-            $stub->setCacheResponse(new Response())
-        );
-    }
-
-    protected function transformToString(Response $response)
-    {
-        $obj = new \stdClass();
-        $obj->status = $response->getStatusCode();
-        $obj->headers = $response->getHeaders();
-        $obj->body = $response->getBody()->__toString();
-        $obj->version = $response->getProtocolVersion();
-        $obj->reason = $response->getReasonPhrase();
-
-        return json_encode($obj);
     }
 }
