@@ -66,14 +66,33 @@ class ClientTest extends TestClient
 
     public function testDocument()
     {
-        $this->expectException(BadMethodCallException::class);
-
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
+            new Response(200, [], '{"documentFileId": "fake-id"}'),
             ['document']
         );
 
-        $stub->document('resource-id');
+        $response = $stub->document('resource-id');
+
+        $this->assertEquals(
+            '{"documentFileId": "fake-id"}',
+            $response->getBody()->__toString()
+        );
+
+        $stub  = $this->createClientMultiMockObject(
+            Client::class,
+            [
+                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, [], '{}')
+            ],
+            ['document']
+        );
+
+        $response = $stub->document('resource-id', true);
+
+        $this->assertEquals(
+            '{}',
+            $response->getBody()->__toString()
+        );
     }
 }

@@ -64,4 +64,35 @@ class ClientTest extends TestClient
         $stub->update('resource-id', []);
     }
 
+    public function testDocument()
+    {
+        $stub  = $this->createClientMockObject(
+            Client::class,
+            new Response(200, [], '{"documentFileId": "fake-id"}'),
+            ['document']
+        );
+
+        $response = $stub->document('resource-id');
+
+        $this->assertEquals(
+            '{"documentFileId": "fake-id"}',
+            $response->getBody()->__toString()
+        );
+
+        $stub  = $this->createClientMultiMockObject(
+            Client::class,
+            [
+                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, [], '{}')
+            ],
+            ['document']
+        );
+
+        $response = $stub->document('resource-id', true);
+
+        $this->assertEquals(
+            '{}',
+            $response->getBody()->__toString()
+        );
+    }
 }
