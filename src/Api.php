@@ -7,6 +7,7 @@ use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
 use Clicksports\LexOffice\Event\Client as EventClient;
 use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
 use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
+use Clicksports\LexOffice\Profile\Client as ProfileClient;
 use Clicksports\LexOffice\Quotation\Client as QuotationClient;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
 use Clicksports\LexOffice\Voucher\Client as VoucherClient;
@@ -213,5 +214,13 @@ class Api
     public function voucherlist()
     {
         return new VoucherlistClient($this);
+    }
+
+    /**
+     * @return ProfileClient
+     */
+    public function profile()
+    {
+        return new ProfileClient($this);
     }
 }
