@@ -3,6 +3,7 @@
 namespace Clicksports\LexOffice;
 
 use Clicksports\LexOffice\Contact\Client as ContactClient;
+use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
 use Clicksports\LexOffice\Event\Client as EventClient;
 use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
 use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
@@ -180,6 +181,14 @@ class Api
     public function orderConfirmation()
     {
         return new OrderConfirmationClient($this);
+    }
+
+    /**
+     * @return CreditNoteClient
+     */
+    public function creditNote()
+    {
+        return new CreditNoteClient($this);
     }
 
     /**
