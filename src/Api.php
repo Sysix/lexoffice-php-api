@@ -5,6 +5,7 @@ namespace Clicksports\LexOffice;
 use Clicksports\LexOffice\Contact\Client as ContactClient;
 use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
 use Clicksports\LexOffice\Event\Client as EventClient;
+use Clicksports\LexOffice\File\Client as FileClient;
 use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
 use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
 use Clicksports\LexOffice\Profile\Client as ProfileClient;
@@ -101,7 +102,7 @@ class Api
             ->withHeader('Accept', 'application/json');
 
 
-        if (in_array($request->getMethod(), ['POST', 'PUT'])) {
+        if (!$request->hasHeader('Content-Type') && in_array($request->getMethod(), ['POST', 'PUT'])) {
             $request = $request->withHeader('Content-Type', 'application/json');
         }
 
@@ -222,5 +223,13 @@ class Api
     public function profile()
     {
         return new ProfileClient($this);
+    }
+
+    /**
+     * @return FileClient
+     */
+    public function file()
+    {
+        return new FileClient($this);
     }
 }
