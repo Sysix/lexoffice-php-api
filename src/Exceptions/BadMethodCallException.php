@@ -2,7 +2,7 @@
 
 namespace Clicksports\LexOffice\Exceptions;
 
-class BadMethodCallException extends \BadMethodCallException
+class BadMethodCallException extends \BadMethodCallException implements \Throwable
 {
 
 }

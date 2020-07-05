@@ -2,7 +2,7 @@
 
 namespace Clicksports\LexOffice\Exceptions;
 
-class LexOfficeApiException extends \Exception
+class LexOfficeApiException extends \Exception implements \Throwable
 {
 
 }
