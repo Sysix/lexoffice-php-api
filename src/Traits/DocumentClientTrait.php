@@ -6,6 +6,7 @@ use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\File\Client as FileClient;
 use Psr\Http\Message\ResponseInterface;
+use stdClass;
 
 trait DocumentClientTrait
 {
@@ -25,6 +26,7 @@ trait DocumentClientTrait
             return $response;
         }
 
+        /** @var stdClass{documentField: string} $content */
         $content = $this->getAsJson($response);
         $fileClient = new FileClient($this->api);
 
