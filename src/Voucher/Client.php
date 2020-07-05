@@ -14,12 +14,12 @@ class Client extends BaseClient
 
     /**
      * @param string $id
-     * @param array $data
+     * @param array[] $data
      * @return ResponseInterface
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function update(string $id, array $data)
+    public function update(string $id, array $data): ResponseInterface
     {
         $api = $this->api->newRequest('PUT', $this->resource . '/' . $id);
 
@@ -33,7 +33,7 @@ class Client extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         $client = new VoucherlistClient($this->api);
 

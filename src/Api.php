@@ -17,6 +17,7 @@ use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -57,9 +58,9 @@ class Api
     protected Client $client;
 
     /**
-     * @var Request|null $request
+     * @var RequestInterface $request
      */
-    public ?Request $request = null;
+    public RequestInterface $request;
 
     /**
      * LexOffice constructor.
@@ -77,12 +78,12 @@ class Api
     }
 
     /**
-     * @param $method
-     * @param $resource
-     * @param array $headers
+     * @param string $method
+     * @param string $resource
+     * @param string[] $headers
      * @return $this
      */
-    public function newRequest($method, $resource, $headers = []): self
+    public function newRequest(string $method, string $resource, $headers = []): self
     {
         $this->setRequest(
             new Request($method, $this->createApiUrl($resource), $headers)
@@ -133,9 +134,16 @@ class Api
         }
 
         // when no cacheInterface is set or the cache is invalid
-        if (!isset($response) || !$response) {
+        if (!isset($response)) {
             try {
                 $response = $this->client->send($this->request);
+            } catch (RequestException $exception) {
+                $response = $exception->getResponse();
+                throw new LexOfficeApiException(
+                    $exception->getMessage(),
+                    $response ? $response->getStatusCode() : $exception->getCode(),
+                    $exception
+                );
             } catch (GuzzleException $exception) {
                 throw new LexOfficeApiException(
                     $exception->getMessage(),

@@ -16,13 +16,13 @@ class Client extends BaseClient
     protected string $resource = 'quotations';
 
     /**
-     * @param array $data
+     * @param array[] $data
      * @param bool $finalized
      * @return ResponseInterface
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function create(array $data, $finalized = false)
+    public function create(array $data, $finalized = false): ResponseInterface
     {
         $oldResource = $this->resource;
 
@@ -38,7 +38,7 @@ class Client extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         $client = new VoucherlistClient($this->api);
 

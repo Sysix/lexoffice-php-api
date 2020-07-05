@@ -13,24 +13,24 @@ interface ClientInterface
     public function __construct(Api $lexOffice);
 
     /**
-     * @param array $data
+     * @param array[] $data
      * @return ResponseInterface
      * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
-    public function create(array $data);
+    public function create(array $data) : ResponseInterface;
 
     /**
      * @param string $id
-     * @param array $data
+     * @param array[] $data
      * @return ResponseInterface
      */
-    public function update(string $id, array $data);
+    public function update(string $id, array $data): ResponseInterface;
 
     /**
      * @return ResponseInterface
      */
-    public function getAll();
+    public function getAll() : ResponseInterface;
 
     /**
      * @param string $id
@@ -38,5 +38,5 @@ interface ClientInterface
      * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
-    public function get(string $id);
+    public function get(string $id): ResponseInterface;
 }

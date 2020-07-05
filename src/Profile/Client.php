@@ -19,24 +19,26 @@ class Client extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function get(string $id = null)
+    public function get(string $id = null): ResponseInterface
     {
         return $this->api->newRequest('GET', $this->resource)
             ->getResponse();
     }
+
     /**
      * @throws BadMethodCallException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         throw new BadMethodCallException('method create is defined for ' . $this->resource);
     }
 
     /**
-     * @param array $data
+     * @param array[] $data
+     * @return ResponseInterface
      * @throws BadMethodCallException
      */
-    public function create(array $data)
+    public function create(array $data): ResponseInterface
     {
         throw new BadMethodCallException('method create is defined for ' . $this->resource);
     }
@@ -44,10 +46,11 @@ class Client extends BaseClient
 
     /**
      * @param string $id
-     * @param array $data
+     * @param array[] $data
+     * @return ResponseInterface
      * @throws BadMethodCallException
      */
-    public function update(string $id, array $data)
+    public function update(string $id, array $data): ResponseInterface
     {
         throw new BadMethodCallException('method update is defined for ' . $this->resource);
     }

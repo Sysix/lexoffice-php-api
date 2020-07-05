@@ -20,7 +20,7 @@ class Client extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         $client = new VoucherlistClient($this->api);
 

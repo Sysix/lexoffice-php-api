@@ -18,9 +18,9 @@
     "psr/cache": "^1.0"
   },
   "require-dev": {
-    "fzaninotto/faker": "^1.9.1",
     "phpunit/phpunit": "^8.5",
-    "symfony/cache": "^5.1"
+    "symfony/cache": "^5.1",
+    "phpstan/phpstan": "^0.12.32"
   },
   "autoload": {
     "psr-4": {

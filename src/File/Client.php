@@ -14,6 +14,7 @@ class Client extends BaseClient
 
     protected string $resource = 'files';
 
+    /** @var string[] */
     protected array $supportedExtension = ['png', 'jpg', 'pdf'];
 
     /**
@@ -23,7 +24,7 @@ class Client extends BaseClient
      * @throws LexOfficeApiException
      * @throws CacheException
      */
-    public function upload(string $filepath, string $type)
+    public function upload(string $filepath, string $type): ResponseInterface
     {
         $regex = '/.(' . implode('|', $this->supportedExtension) . ')/';
         $matchResult = preg_match($regex, $filepath, $matches);
@@ -53,10 +54,11 @@ class Client extends BaseClient
     }
 
     /**
-     * @param array $data
+     * @param array[] $data
+     * @return ResponseInterface
      * @throws BadMethodCallException
      */
-    public function create(array $data)
+    public function create(array $data): ResponseInterface
     {
         throw new BadMethodCallException('method update is defined for ' . $this->resource);
     }
@@ -64,7 +66,7 @@ class Client extends BaseClient
     /**
      * @throws BadMethodCallException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         throw new BadMethodCallException('method update is defined for ' . $this->resource);
     }

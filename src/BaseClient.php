@@ -3,6 +3,7 @@
 
 namespace Clicksports\LexOffice;
 
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use GuzzleHttp\Psr7\MultipartStream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -22,12 +23,12 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param array $data
+     * @param array[] $data
      * @return ResponseInterface
      * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
-    public function create(array $data)
+    public function create(array $data): ResponseInterface
     {
         $api = $this->api->newRequest('POST', $this->resource);
 
@@ -38,13 +39,13 @@ abstract class BaseClient implements ClientInterface
 
     /**
      * @param string $id
-     * @param array $data
-     * @return void
-     * @throws Exception
+     * @param array[] $data
+     * @return ResponseInterface
+     * @throws BadMethodCallException
      */
-    public function update(string $id, array $data)
+    public function update(string $id, array $data): ResponseInterface
     {
-        throw new Exceptions\BadMethodCallException('method update is defined for ' . $this->resource);
+        throw new BadMethodCallException('method update is defined for ' . $this->resource);
     }
 
     /**
@@ -53,7 +54,7 @@ abstract class BaseClient implements ClientInterface
      * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
-    public function get(string $id)
+    public function get(string $id): ResponseInterface
     {
         return $this->api->newRequest('GET', $this->resource . '/' . $id)
             ->getResponse();
@@ -63,7 +64,7 @@ abstract class BaseClient implements ClientInterface
      * @param ResponseInterface $response
      * @return object
      */
-    public function getAsJson(ResponseInterface $response)
+    public function getAsJson(ResponseInterface $response): object
     {
         $body = $response->getBody()->__toString();
 
@@ -71,7 +72,7 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param array $content
+     * @param array[] $content
      * @return StreamInterface
      */
     public function createStream(array $content): StreamInterface
@@ -80,7 +81,7 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param array $content
+     * @param string[]|bool[]|resource[] $content
      * @return MultipartStream
      */
     public function createMultipartStream(array $content): MultipartStream

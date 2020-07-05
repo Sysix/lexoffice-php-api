@@ -16,7 +16,7 @@ trait DocumentClientTrait
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function document(string $id, bool $asContent = false)
+    public function document(string $id, bool $asContent = false): ResponseInterface
     {
         $response = $this->api->newRequest('GET', $this->resource . '/' . $id . '/document')
             ->getResponse();

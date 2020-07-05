@@ -39,7 +39,7 @@ abstract class PaginationClient extends BaseClient
      * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         $response = $this->getPage(0);
         $result = $this->getAsJson($response);
