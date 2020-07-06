@@ -13,4 +13,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run Psalm
-        run: ./vendor/bin/phpstan --output-format=github --shepherd
+        run: ./vendor/bin/phpstan  --show-info=false --shepherd --diff --output-format=checkstyle | cs2pr
