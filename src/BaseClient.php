@@ -81,11 +81,13 @@ abstract class BaseClient implements ClientInterface
 
     /**
      * @param array $content
+     * @param string|null $boundary
      * @return MultipartStream
      */
-    public function createMultipartStream(array $content): MultipartStream
+    public function createMultipartStream(array $content, string $boundary = null): MultipartStream
     {
         $stream = [];
+        $boundary = $boundary ?: '--lexoffice';
 
         foreach ($content as $key => $value) {
             $stream[] = [
@@ -94,6 +96,6 @@ abstract class BaseClient implements ClientInterface
             ];
         }
 
-        return new MultipartStream($stream);
+        return new MultipartStream($stream, $boundary);
     }
 }
