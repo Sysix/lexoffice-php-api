@@ -67,6 +67,9 @@ $response = $client->update($entityId, $data);
 $response = $api->invoice()->getAll();
 $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
+$response = $api->invoice()->document($entityId); // get document ID
+$response = $api->invoice()->document($entityId, true); // get file content
+
 ```
 
 
@@ -75,6 +78,8 @@ $response = $api->invoice()->create($data);
 $response = $api->orderConfirmation()->getAll();
 $response = $api->orderConfirmation()->get($entityId);
 $response = $api->orderConfirmation()->create($data);
+$response = $api->orderConfirmation()->document($entityId); // get document ID
+$response = $api->orderConfirmation()->document($entityId, true); // get file content
 ```
 
 ### Quotation Endpoint
@@ -82,6 +87,8 @@ $response = $api->orderConfirmation()->create($data);
 $response = $api->quotation()->getAll();
 $response = $api->quotation()->get($entityId);
 $response = $api->quotation()->create($data);
+$response = $api->quotation()->document($entityId); // get document ID
+$response = $api->quotation()->document($entityId, true); // get file content
 ```
 
 ### Voucher Endpoint
@@ -90,6 +97,23 @@ $response = $api->voucher()->getAll();
 $response = $api->voucher()->get($entityId);
 $response = $api->voucher()->create($data);
 $response = $api->voucher()->update($entityId, $data);
+$response = $api->voucher()->document($entityId); // get document ID
+$response = $api->voucher()->document($entityId, true); // get file content
+```
+
+
+### Credit Notes Endpoint
+```php
+$response = $api->creditNote()->getAll();
+$response = $api->creditNote()->get($entityId);
+$response = $api->creditNote()->create($data);
+$response = $api->creditNote()->document($entityId); // get document ID
+$response = $api->creditNote()->document($entityId, true); // get file content
+```
+
+### Profile Endpoint
+```php
+$response = $api->profile()->get();
 ```
 
 ### Voucherlist Endpoint
@@ -129,6 +153,13 @@ $response = $client->getPage(0);
 //get all
 $response = $client->getAll();
 ```
+
+### File Endpoint
+```php
+$response = $api->file()->upload($filePath, $voucherType);
+$response = $api->file()->get($entityId);
+```
+
 
 ### get JSON from Response
 

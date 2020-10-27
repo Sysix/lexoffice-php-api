@@ -20,7 +20,7 @@ class ApiTest extends TestClient
     {
         $stub = $this->createApiMockObject(
             new Response(),
-            ['contact', 'event', 'invoice', 'orderConfirmation', 'quotation', 'voucher', 'voucherlist']
+            ['contact', 'event', 'invoice', 'orderConfirmation', 'quotation', 'voucher', 'voucherlist', 'profile', 'creditNote', 'file']
         );
 
         $this->assertInstanceOf(\Clicksports\LexOffice\Contact\Client::class, $stub->contact());
@@ -30,6 +30,9 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(\Clicksports\LexOffice\Quotation\Client::class, $stub->quotation());
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucher\Client::class, $stub->voucher());
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucherlist\Client::class, $stub->voucherlist());
+        $this->assertInstanceOf(\Clicksports\LexOffice\Profile\Client::class, $stub->profile());
+        $this->assertInstanceOf(\Clicksports\LexOffice\CreditNote\Client::class, $stub->creditNote());
+        $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
     }
 
     public function testGetResponse()

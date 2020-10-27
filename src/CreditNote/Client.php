@@ -1,10 +1,12 @@
 <?php
 
-namespace Clicksports\LexOffice\Quotation;
+namespace Clicksports\LexOffice\CreditNote;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Clicksports\LexOffice\File\Client as FileClient;
 use Clicksports\LexOffice\Traits\DocumentClientTrait;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +15,7 @@ class Client extends BaseClient
 {
     use DocumentClientTrait;
 
-    protected string $resource = 'quotations';
+    protected string $resource = 'credit-notes';
 
     /**
      * @param array $data
@@ -43,7 +45,7 @@ class Client extends BaseClient
         $client = new VoucherlistClient($this->api);
 
         $client->setToEverything();
-        $client->types = ['quotation'];
+        $client->types = ['creditnote'];
 
         return $client->getAll();
     }

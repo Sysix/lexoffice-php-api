@@ -60,7 +60,18 @@ class TestClient extends TestCase
      */
     public function createClientMockObject(string $className, Response $response, array $methodExcept = [])
     {
-        $api = $this->createApiMockObject($response);
+        return $this->createClientMultiMockObject($className, [$response], $methodExcept);
+    }
+
+    /**
+     * @param string $className
+     * @param Response[] $responses
+     * @param array $methodExcept
+     * @return MockObject
+     */
+    public function createClientMultiMockObject(string $className, array $responses, array $methodExcept = [])
+    {
+        $api = $this->createApiMultiMockObject($responses);
 
         return $this
             ->getMockBuilder($className)

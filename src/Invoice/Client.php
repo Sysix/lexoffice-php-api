@@ -5,11 +5,14 @@ namespace Clicksports\LexOffice\Invoice;
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Clicksports\LexOffice\Traits\DocumentClientTrait;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Psr\Http\Message\ResponseInterface;
 
 class Client extends BaseClient
 {
+    use DocumentClientTrait;
+
     protected string $resource = 'invoices';
 
     /**

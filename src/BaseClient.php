@@ -3,6 +3,7 @@
 
 namespace Clicksports\LexOffice;
 
+use GuzzleHttp\Psr7\MultipartStream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use function GuzzleHttp\Psr7\stream_for;
@@ -76,5 +77,25 @@ abstract class BaseClient implements ClientInterface
     public function createStream(array $content): StreamInterface
     {
         return stream_for(\GuzzleHttp\json_encode($content));
+    }
+
+    /**
+     * @param array $content
+     * @param string|null $boundary
+     * @return MultipartStream
+     */
+    public function createMultipartStream(array $content, string $boundary = null): MultipartStream
+    {
+        $stream = [];
+        $boundary = $boundary ?: '--lexoffice';
+
+        foreach ($content as $key => $value) {
+            $stream[] = [
+                'name' => $key,
+                'contents' => $value
+            ];
+        }
+
+        return new MultipartStream($stream, $boundary);
     }
 }
