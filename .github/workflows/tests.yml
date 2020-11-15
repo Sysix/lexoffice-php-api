@@ -33,4 +33,4 @@ jobs:
     - name: Run test suite
       uses: php-actions/phpunit@v1
       with:
-        config: phpunit.xml
+        configuration: phpunit.xml
