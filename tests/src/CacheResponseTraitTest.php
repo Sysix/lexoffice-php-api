@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\src\Traits;
+namespace Tests\Src;
 
 use CacheResponseTrait;
 use Clicksports\LexOffice\Api;

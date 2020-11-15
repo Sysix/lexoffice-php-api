@@ -3,10 +3,8 @@
 namespace Clicksports\LexOffice\CreditNote;
 
 use Clicksports\LexOffice\BaseClient;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\File\Client as FileClient;
 use Clicksports\LexOffice\Traits\DocumentClientTrait;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Psr\Http\Message\ResponseInterface;
