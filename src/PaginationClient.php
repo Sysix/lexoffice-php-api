@@ -3,7 +3,6 @@
 namespace Clicksports\LexOffice;
 
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 abstract class PaginationClient extends BaseClient
 {
@@ -61,6 +60,6 @@ abstract class PaginationClient extends BaseClient
             }
         }
 
-        return $response->withBody(stream_for(json_encode($result)));
+        return $response->withBody($this->createStream($result));
     }
 }
