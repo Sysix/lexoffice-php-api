@@ -1,10 +1,10 @@
 <?php
 
-namespace src\CreditNote;
+namespace Clicksports\LexOffice\Tests\CreditNote;
 
 use Clicksports\LexOffice\CreditNote\Client;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
+use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {

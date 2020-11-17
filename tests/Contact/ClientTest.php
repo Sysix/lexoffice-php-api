@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Src\Contact;
+namespace Clicksports\LexOffice\Tests\Contact;
 
 use Clicksports\LexOffice\Contact\Client;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
+use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Clicksports\LexOffice\Tests;
 
 use Clicksports\LexOffice\Api;
 use Clicksports\LexOffice\ClientInterface;

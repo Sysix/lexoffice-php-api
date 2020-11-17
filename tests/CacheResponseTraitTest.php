@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Src;
+namespace Clicksports\LexOffice\Tests;
 
 use CacheResponseTrait;
 use Clicksports\LexOffice\Api;
@@ -11,7 +11,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 use Symfony\Component\Cache\Adapter\FilesystemAdapter;
-use Tests\TestClient;
 
 class CacheResponseTraitTest extends TestClient
 {
