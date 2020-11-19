@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Src\Invoice;
+namespace Clicksports\LexOffice\Tests\Invoice;
 
 use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Invoice\Client;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
+use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {

@@ -14,12 +14,12 @@
     "php": "^7.4",
     "ext-json": "*",
     "ext-curl": "*",
-    "guzzlehttp/guzzle": "^6.3",
+    "guzzlehttp/guzzle": "^6.2 | ^7.0",
     "psr/cache": "^1.0"
   },
   "require-dev": {
     "fzaninotto/faker": "^1.9.1",
-    "phpunit/phpunit": "^8.5",
+    "phpunit/phpunit": "^9.0",
     "symfony/cache": "^5.1"
   },
   "autoload": {
@@ -29,7 +29,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Clicksports\\LexOffice\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",
