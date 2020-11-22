@@ -7,7 +7,6 @@ use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use GuzzleHttp\Psr7\MultipartStream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 abstract class BaseClient implements ClientInterface
 {
@@ -68,25 +67,53 @@ abstract class BaseClient implements ClientInterface
     {
         $body = $response->getBody()->__toString();
 
+        if (class_exists('\GuzzleHttp\Utils', false)) {
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
+            return \GuzzleHttp\Utils::jsonDecode($body);
+        }
+
+        /**
+         * fallback for guzzle 6
+         *
+         * @noinspection PhpDeprecationInspection
+         */
         return \GuzzleHttp\json_decode($body);
     }
 
     /**
-     * @param array[] $content
+     * @param mixed $content
      * @return StreamInterface
      */
-    public function createStream(array $content): StreamInterface
+    protected function createStream($content): StreamInterface
     {
-        return stream_for(\GuzzleHttp\json_encode($content));
+        if (class_exists('\GuzzleHttp\Utils', false)) {
+            /** @noinspection PhpFullyQualifiedNameUsageInspection */
+            return \GuzzleHttp\Psr7\Utils::streamFor(
+                \GuzzleHttp\Utils::jsonEncode($content)
+            );
+        }
+
+
+        /**
+         * fallback for guzzle 6
+         *
+         * @noinspection PhpDeprecationInspection
+         * @noinspection PhpFullyQualifiedNameUsageInspection
+         */
+        return \GuzzleHttp\Psr7\stream_for(
+            \GuzzleHttp\json_encode($content)
+        );
     }
 
     /**
      * @param string[]|bool[]|resource[] $content
+     * @param string|null $boundary
      * @return MultipartStream
      */
-    public function createMultipartStream(array $content): MultipartStream
+    protected function createMultipartStream(array $content, string $boundary = null): MultipartStream
     {
         $stream = [];
+        $boundary = $boundary ?: '--lexoffice';
 
         foreach ($content as $key => $value) {
             $stream[] = [
@@ -95,6 +122,6 @@ abstract class BaseClient implements ClientInterface
             ];
         }
 
-        return new MultipartStream($stream);
+        return new MultipartStream($stream, $boundary);
     }
 }

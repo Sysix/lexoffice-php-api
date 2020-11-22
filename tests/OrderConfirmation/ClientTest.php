@@ -1,10 +1,11 @@
 <?php
 
-namespace Tests\Src\Voucher;
+namespace Clicksports\LexOffice\Tests\OrderConfirmation;
 
-use Clicksports\LexOffice\Voucher\Client;
+use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\OrderConfirmation\Client;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
+use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {
@@ -52,14 +53,46 @@ class ClientTest extends TestClient
 
     public function testUpdate()
     {
+        $this->expectException(BadMethodCallException::class);
+
         $stub  = $this->createClientMockObject(
             Client::class,
             new Response(200, [], '{}'),
             ['update']
         );
 
-        $response = $stub->update('resource-id', []);
+        $stub->update('resource-id', []);
+    }
 
-        $this->assertEquals('{}', $response->getBody()->__toString());
+    public function testDocument()
+    {
+        $stub  = $this->createClientMockObject(
+            Client::class,
+            new Response(200, [], '{"documentFileId": "fake-id"}'),
+            ['document']
+        );
+
+        $response = $stub->document('resource-id');
+
+        $this->assertEquals(
+            '{"documentFileId": "fake-id"}',
+            $response->getBody()->__toString()
+        );
+
+        $stub  = $this->createClientMultiMockObject(
+            Client::class,
+            [
+                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, [], '{}')
+            ],
+            ['document']
+        );
+
+        $response = $stub->document('resource-id', true);
+
+        $this->assertEquals(
+            '{}',
+            $response->getBody()->__toString()
+        );
     }
 }

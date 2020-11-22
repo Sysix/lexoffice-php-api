@@ -41,14 +41,16 @@ class Client extends BaseClient
             throw new LexOfficeApiException('file is to big to upload: ' . $filepath . ', max upload size: ' . self::MAX_FILE_SIZE . 'bytes');
         }
 
-        $api = $this->api->newRequest('POST', $this->resource, [
-            'Content-Type' => 'multipart/form-data'
-        ]);
-
-        $api->request = $api->request->withBody($this->createMultipartStream([
+        $body = $this->createMultipartStream([
             'file' => fopen($filepath, 'r'),
             'type' => $type
-        ]));
+        ]);
+
+        $api = $this->api->newRequest('POST', $this->resource, [
+            'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
+        ]);
+
+        $api->request = $api->request->withBody($body);
 
         return $api->getResponse();
     }

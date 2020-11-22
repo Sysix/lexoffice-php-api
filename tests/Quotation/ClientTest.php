@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Src\Event;
+namespace Clicksports\LexOffice\Tests\Quotation;
 
 use Clicksports\LexOffice\Exceptions\BadMethodCallException;
-use Clicksports\LexOffice\Event\Client;
+use Clicksports\LexOffice\Quotation\Client;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
+use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {
@@ -27,15 +27,15 @@ class ClientTest extends TestClient
 
     public function testGet()
     {
-        $this->expectException(BadMethodCallException::class);
-
         $stub = $this->createClientMockObject(
             Client::class,
             new Response(200, [], 'body'),
             ['get']
         );
 
-        $stub->get('resource-id');
+        $response = $stub->get('resource-id');
+
+        $this->assertEquals('body', $response->getBody()->__toString());
     }
 
     public function testGetAll()
@@ -55,7 +55,7 @@ class ClientTest extends TestClient
     {
         $this->expectException(BadMethodCallException::class);
 
-        $stub  = $this->createClientMockObject(
+        $stub = $this->createClientMockObject(
             Client::class,
             new Response(200, [], '{}'),
             ['update']
@@ -64,17 +64,35 @@ class ClientTest extends TestClient
         $stub->update('resource-id', []);
     }
 
-    public function testDelete()
+    public function testDocument()
     {
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['delete']
+            new Response(200, [], '{"documentFileId": "fake-id"}'),
+            ['document']
         );
 
-        $response = $stub->delete('resource-id');
+        $response = $stub->document('resource-id');
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertEquals(
+            '{"documentFileId": "fake-id"}',
+            $response->getBody()->__toString()
+        );
+
+        $stub = $this->createClientMultiMockObject(
+            Client::class,
+            [
+                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, [], '{}')
+            ],
+            ['document']
+        );
+
+        $response = $stub->document('resource-id', true);
+
+        $this->assertEquals(
+            '{}',
+            $response->getBody()->__toString()
+        );
     }
-
 }

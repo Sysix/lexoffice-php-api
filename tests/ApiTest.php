@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Src;
+namespace Clicksports\LexOffice\Tests;
 
 use GuzzleHttp\Psr7\Response;
-use Tests\TestClient;
 
 class ApiTest extends TestClient
 {
