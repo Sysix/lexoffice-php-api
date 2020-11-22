@@ -2,9 +2,9 @@
 
 namespace Clicksports\LexOffice\Traits;
 
+use Clicksports\LexOffice\Clients\File;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\File\Client as FileClient;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 
@@ -28,7 +28,7 @@ trait DocumentClientTrait
 
         /** @var stdClass{documentField: string} $content */
         $content = $this->getAsJson($response);
-        $fileClient = new FileClient($this->api);
+        $fileClient = new File($this->api);
 
         return $fileClient->get($content->documentFileId);
     }

@@ -2,17 +2,17 @@
 
 namespace Clicksports\LexOffice;
 
-use Clicksports\LexOffice\Contact\Client as ContactClient;
-use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
-use Clicksports\LexOffice\Event\Client as EventClient;
-use Clicksports\LexOffice\File\Client as FileClient;
-use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
-use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
-use Clicksports\LexOffice\Profile\Client as ProfileClient;
-use Clicksports\LexOffice\Quotation\Client as QuotationClient;
+use Clicksports\LexOffice\Clients\Contact;
+use Clicksports\LexOffice\Clients\CreditNote;
+use Clicksports\LexOffice\Clients\Event;
+use Clicksports\LexOffice\Clients\File;
+use Clicksports\LexOffice\Clients\Invoice;
+use Clicksports\LexOffice\Clients\OrderConfirmation;
+use Clicksports\LexOffice\Clients\Profile;
+use Clicksports\LexOffice\Clients\Quotation;
+use Clicksports\LexOffice\Clients\Voucher;
+use Clicksports\LexOffice\Clients\VoucherList;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
-use Clicksports\LexOffice\Voucher\Client as VoucherClient;
-use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Client;
@@ -162,82 +162,82 @@ class Api
     }
 
     /**
-     * @return ContactClient
+     * @return Contact
      */
     public function contact()
     {
-        return new ContactClient($this);
+        return new Contact($this);
     }
 
     /**
-     * @return EventClient
+     * @return Event
      */
     public function event()
     {
-        return new EventClient($this);
+        return new Event($this);
     }
 
     /**
-     * @return InvoiceClient
+     * @return Invoice
      */
     public function invoice()
     {
-        return new InvoiceClient($this);
+        return new Invoice($this);
     }
 
     /**
-     * @return OrderConfirmationClient
+     * @return OrderConfirmation
      */
     public function orderConfirmation()
     {
-        return new OrderConfirmationClient($this);
+        return new OrderConfirmation($this);
     }
 
     /**
-     * @return CreditNoteClient
+     * @return CreditNote
      */
     public function creditNote()
     {
-        return new CreditNoteClient($this);
+        return new CreditNote($this);
     }
 
     /**
-     * @return QuotationClient
+     * @return Quotation
      */
     public function quotation()
     {
-        return new QuotationClient($this);
+        return new Quotation($this);
     }
 
     /**
-     * @return VoucherClient
+     * @return Voucher
      */
     public function voucher()
     {
-        return new VoucherClient($this);
+        return new Voucher($this);
     }
 
     /**
-     * @return VoucherlistClient
+     * @return VoucherList
      */
     public function voucherlist()
     {
-        return new VoucherlistClient($this);
+        return new VoucherList($this);
     }
 
     /**
-     * @return ProfileClient
+     * @return Profile
      */
     public function profile()
     {
-        return new ProfileClient($this);
+        return new Profile($this);
     }
 
     /**
-     * @return FileClient
+     * @return File
      */
     public function file()
     {
-        return new FileClient($this);
+        return new File($this);
     }
 }
