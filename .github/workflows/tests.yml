@@ -21,7 +21,7 @@ jobs:
           - guzzle: 7.*
           - guzzle: 6.2
 
-    name: P${{ matrix.php }} - L${{ matrix.guzzle }} - ${{ matrix.dependency-version }}
+    name: PHP${{ matrix.php }} - G${{ matrix.guzzle }} - ${{ matrix.dependency-version }}
 
     steps:
       - name: Checkout code

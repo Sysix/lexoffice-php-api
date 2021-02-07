@@ -3,13 +3,13 @@
 namespace Clicksports\LexOffice\Traits;
 
 use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Utils;
 use GuzzleHttp\Psr7\Response;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
-use function GuzzleHttp\Psr7\stream_for;
 
 trait CacheResponseTrait
 {
@@ -53,12 +53,12 @@ trait CacheResponseTrait
                 $cache = $this->cacheInterface->getItem($cacheName);
 
                 if ($cache && $cache->isHit()) {
-                    $cache = \GuzzleHttp\json_decode($cache->get());
+                    $cache = Utils::jsonDecode($cache->get());
 
                     return new Response(
                         $cache->status,
                         (array)$cache->headers,
-                        stream_for($cache->body),
+                        Utils::streamFor($cache->body),
                         $cache->version,
                         $cache->reason
                     );
@@ -102,7 +102,7 @@ trait CacheResponseTrait
             $cache->reason = $response->getReasonPhrase();
 
             $item = $this->cacheInterface->getItem($cacheName);
-            $item->set(\GuzzleHttp\json_encode($cache));
+            $item->set(Utils::jsonEncode($cache));
 
             $this->cacheInterface->save($item);
         } catch (InvalidArgumentException $exception) {
