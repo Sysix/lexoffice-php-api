@@ -39,7 +39,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "guzzlehttp/guzzle:${{ matrix.laravel }}" --no-interaction --no-update
+          composer require "guzzlehttp/guzzle:${{ matrix.guzzle }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
