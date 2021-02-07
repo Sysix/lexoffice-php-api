@@ -3,7 +3,6 @@
 namespace Clicksports\LexOffice\Tests\Clients;
 
 use Clicksports\LexOffice\Clients\Quotation;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use GuzzleHttp\Psr7\Response;
 use Clicksports\LexOffice\Tests\TestClient;
 
@@ -49,19 +48,6 @@ class QuotationTest extends TestClient
         $response = $stub->getAll();
 
         $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
-    }
-
-    public function testUpdate()
-    {
-        $this->expectException(BadMethodCallException::class);
-
-        $stub = $this->createClientMockObject(
-            Quotation::class,
-            new Response(200, [], '{}'),
-            ['update']
-        );
-
-        $stub->update('resource-id', []);
     }
 
     public function testDocument()

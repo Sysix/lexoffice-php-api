@@ -2,10 +2,15 @@
 
 namespace Clicksports\LexOffice\Clients;
 
+use Clicksports\LexOffice\Clients\Traits\CreateTrait;
+use Clicksports\LexOffice\Clients\Traits\GetTrait;
 use Clicksports\LexOffice\PaginationClient;
 
 class Contact extends PaginationClient
 {
+    use CreateTrait;
+    use GetTrait;
+
     protected string $resource = 'contacts';
 
     public string $sortDirection = 'ASC';

@@ -3,7 +3,6 @@
 namespace CliockSports\LexOffice\Tests\Clients;
 
 use Clicksports\LexOffice\Clients\File;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
@@ -77,31 +76,5 @@ class FileTest extends TestClient
         unlink($file);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-    }
-
-    public function testCreate()
-    {
-        $this->expectException(BadMethodCallException::class);
-
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}'),
-            ['create']
-        );
-
-        $stub->create([]);
-    }
-
-    public function testGetAll()
-    {
-        $this->expectException(BadMethodCallException::class);
-
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}'),
-            ['getAll']
-        );
-
-        $stub->getAll();
     }
 }

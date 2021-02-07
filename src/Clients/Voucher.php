@@ -3,29 +3,20 @@
 namespace Clicksports\LexOffice\Clients;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Clients\Traits\CreateTrait;
+use Clicksports\LexOffice\Clients\Traits\GetTrait;
+use Clicksports\LexOffice\Clients\Traits\UpdateTrait;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 class Voucher extends BaseClient
 {
+    use CreateTrait;
+    use GetTrait;
+    use UpdateTrait;
+
     protected string $resource = 'vouchers';
-
-    /**
-     * @param string $id
-     * @param array[] $data
-     * @return ResponseInterface
-     * @throws CacheException
-     * @throws LexOfficeApiException
-     */
-    public function update(string $id, array $data): ResponseInterface
-    {
-        $api = $this->api->newRequest('PUT', $this->resource . '/' . $id);
-
-        $api->request = $api->request->withBody($this->createStream($data));
-
-        return $api->getResponse();
-    }
 
     /**
      * @return ResponseInterface

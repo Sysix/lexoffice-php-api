@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Traits;
+namespace Clicksports\LexOffice\Clients\Traits;
 
 use Clicksports\LexOffice\Clients\File;
-use Clicksports\LexOffice\Exceptions\CacheException;
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
 
@@ -14,8 +12,6 @@ trait DocumentClientTrait
      * @param string $id
      * @param bool $asContent
      * @return ResponseInterface
-     * @throws CacheException
-     * @throws LexOfficeApiException
      */
     public function document(string $id, bool $asContent = false): ResponseInterface
     {

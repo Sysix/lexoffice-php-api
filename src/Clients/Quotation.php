@@ -3,34 +3,20 @@
 namespace Clicksports\LexOffice\Clients;
 
 use Clicksports\LexOffice\BaseClient;
+use Clicksports\LexOffice\Clients\Traits\CreateFinalizeTrait;
+use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
+use Clicksports\LexOffice\Clients\Traits\GetTrait;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\Traits\DocumentClientTrait;
 use Psr\Http\Message\ResponseInterface;
 
 class Quotation extends BaseClient
 {
+    use GetTrait;
     use DocumentClientTrait;
+    use CreateFinalizeTrait;
 
     protected string $resource = 'quotations';
-
-    /**
-     * @param array[] $data
-     * @param bool $finalized
-     * @return ResponseInterface
-     * @throws CacheException
-     * @throws LexOfficeApiException
-     */
-    public function create(array $data, $finalized = false): ResponseInterface
-    {
-        $oldResource = $this->resource;
-
-        $this->resource .= $finalized ? '?finalize=true' : '';
-        $response = parent::create($data);
-        $this->resource = $oldResource;
-
-        return $response;
-    }
 
     /**
      * @return ResponseInterface

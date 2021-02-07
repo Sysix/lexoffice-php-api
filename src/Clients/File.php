@@ -3,13 +3,15 @@
 namespace Clicksports\LexOffice\Clients;
 
 use Clicksports\LexOffice\BaseClient;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
+use Clicksports\LexOffice\Clients\Traits\GetTrait;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 class File extends BaseClient
 {
+    use GetTrait;
+
     const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     protected string $resource = 'files';
@@ -53,23 +55,5 @@ class File extends BaseClient
         $api->request = $api->request->withBody($body);
 
         return $api->getResponse();
-    }
-
-    /**
-     * @param array[] $data
-     * @return ResponseInterface
-     * @throws BadMethodCallException
-     */
-    public function create(array $data): ResponseInterface
-    {
-        throw new BadMethodCallException('method update is defined for ' . $this->resource);
-    }
-
-    /**
-     * @throws BadMethodCallException
-     */
-    public function getAll(): ResponseInterface
-    {
-        throw new BadMethodCallException('method update is defined for ' . $this->resource);
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Clicksports\LexOffice\Clients;
 
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\PaginationClient;
-use Psr\Http\Message\ResponseInterface;
 
 class VoucherList extends PaginationClient
 {
@@ -59,36 +57,5 @@ class VoucherList extends PaginationClient
             '&sort=' . $this->sortColumn . ',' . $this->sortDirection .
             '&voucherType=' . implode(',', $this->types) .
             '&voucherStatus=' . implode(',', $this->statuses);
-    }
-
-    /**
-     * @param array[] $data
-     * @return ResponseInterface
-     * @throws BadMethodCallException
-     */
-    public function create(array $data): ResponseInterface
-    {
-        throw new BadMethodCallException('method create is not supported for ' . $this->resource);
-    }
-
-    /**
-     * @param string $id
-     * @param array[] $data
-     * @return ResponseInterface
-     * @throws BadMethodCallException
-     */
-    public function update(string $id, array $data): ResponseInterface
-    {
-        throw new BadMethodCallException('method update is not supported for ' . $this->resource);
-    }
-
-    /**
-     * @param string $id
-     * @return ResponseInterface
-     * @throws BadMethodCallException
-     */
-    public function get(string $id): ResponseInterface
-    {
-        throw new BadMethodCallException('method get is not supported for ' . $this->resource);
     }
 }
