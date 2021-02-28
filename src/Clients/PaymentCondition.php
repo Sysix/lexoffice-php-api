@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 
 namespace Clicksports\LexOffice\Clients;
 
@@ -18,7 +17,7 @@ class PaymentCondition extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         return $this->api->newRequest('GET', $this->resource)
             ->getResponse();

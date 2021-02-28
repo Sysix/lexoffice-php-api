@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Clicksports\LexOffice\Clients;
 
@@ -22,7 +22,7 @@ class DownPaymentInvoice extends BaseClient
      * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getAll()
+    public function getAll(): ResponseInterface
     {
         $client = new VoucherList($this->api);
 
