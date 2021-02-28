@@ -29,6 +29,7 @@ class ApiTest extends TestClient
             'voucherlist',
             'profile',
             'creditNote',
+            'payment',
             'paymentCondition',
             'file'
         ]);
@@ -44,6 +45,7 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucherlist\Client::class, $stub->voucherlist());
         $this->assertInstanceOf(\Clicksports\LexOffice\Profile\Client::class, $stub->profile());
         $this->assertInstanceOf(\Clicksports\LexOffice\CreditNote\Client::class, $stub->creditNote());
+        $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
         $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
         $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
     }

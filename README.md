@@ -123,6 +123,11 @@ $response = $api->creditNote()->document($entityId); // get document ID
 $response = $api->creditNote()->document($entityId, true); // get file content
 ```
 
+### Payment  Endpoint
+```php
+$response = $api->payment()->get($entityId);
+```
+
 ### Payment Conditions Endpoint
 ```php
 $response = $api->paymentCondition()->getAll();
