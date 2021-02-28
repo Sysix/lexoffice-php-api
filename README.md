@@ -66,6 +66,7 @@ $response = $client->update($entityId, $data);
 ```php
 $response = $api->country()->getAll();
 ```
+
 ### Invoices Endpoint
 ```php
 $response = $api->invoice()->getAll();
@@ -120,6 +121,11 @@ $response = $api->creditNote()->get($entityId);
 $response = $api->creditNote()->create($data);
 $response = $api->creditNote()->document($entityId); // get document ID
 $response = $api->creditNote()->document($entityId, true); // get file content
+```
+
+### Payment Conditions Endpoint
+```php
+$response = $api->paymentCondition()->getAll();
 ```
 
 ### Profile Endpoint

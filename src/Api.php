@@ -10,6 +10,7 @@ use Clicksports\LexOffice\Event\Client as EventClient;
 use Clicksports\LexOffice\File\Client as FileClient;
 use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
 use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
+use Clicksports\LexOffice\PaymentCondition\Client as PaymentConditionClient;
 use Clicksports\LexOffice\Profile\Client as ProfileClient;
 use Clicksports\LexOffice\Quotation\Client as QuotationClient;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
@@ -201,6 +202,14 @@ class Api
     public function orderConfirmation()
     {
         return new OrderConfirmationClient($this);
+    }
+
+    /**
+     * @return PaymentConditionClient
+     */
+    public function paymentCondition()
+    {
+        return new PaymentConditionClient($this);
     }
 
     /**
