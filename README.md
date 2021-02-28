@@ -62,6 +62,11 @@ $response = $client->create($data);
 $response = $client->update($entityId, $data);
 ```
 
+### Country Endpoint
+```php
+$response = $api->country()->getAll();
+```
+
 ### Invoices Endpoint
 ```php
 $response = $api->invoice()->getAll();
@@ -69,9 +74,16 @@ $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
 $response = $api->invoice()->document($entityId); // get document ID
 $response = $api->invoice()->document($entityId, true); // get file content
-
 ```
 
+### Down Payment Invoices Endpoint
+```php
+$response = $api->downPaymentInvoice()->getAll();
+$response = $api->downPaymentInvoice()->get($entityId);
+$response = $api->downPaymentInvoice()->create($data);
+$response = $api->downPaymentInvoice()->document($entityId); // get document ID
+$response = $api->downPaymentInvoice()->document($entityId, true); // get file content
+```
 
 ### Order Confirmation Endpoint
 ```php
@@ -111,6 +123,16 @@ $response = $api->creditNote()->document($entityId); // get document ID
 $response = $api->creditNote()->document($entityId, true); // get file content
 ```
 
+### Payment  Endpoint
+```php
+$response = $api->payment()->get($entityId);
+```
+
+### Payment Conditions Endpoint
+```php
+$response = $api->paymentCondition()->getAll();
+```
+
 ### Profile Endpoint
 ```php
 $response = $api->profile()->get();
@@ -129,6 +151,7 @@ $client->types = [
     'purchaseinvoice',
     'purchasecreditnote',
     'invoice',
+    'downpaymentinvoice',
     'creditnote',
     'orderconfirmation',
     'quotation'
@@ -164,5 +187,5 @@ $response = $api->file()->get($entityId);
 ### get JSON from Response
 
 ```php
-$json = $api->voucher()->getAsJson($response);
+$json = $api->*()->getAsJson($response);
 ```

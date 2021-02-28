@@ -28,6 +28,7 @@ class VoucherList extends PaginationClient
             'purchaseinvoice',
             'purchasecreditnote',
             'invoice',
+            'downpaymentinvoice',
             'creditnote',
             'orderconfirmation',
             'quotation'

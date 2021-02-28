@@ -3,11 +3,15 @@
 namespace Clicksports\LexOffice;
 
 use Clicksports\LexOffice\Clients\Contact;
+use Clicksports\LexOffice\Country\Client as CountryClient;
 use Clicksports\LexOffice\Clients\CreditNote;
+use Clicksports\LexOffice\DownPaymentInvoice\Client as DownPaymentInvoiceClient;
 use Clicksports\LexOffice\Clients\Event;
 use Clicksports\LexOffice\Clients\File;
 use Clicksports\LexOffice\Clients\Invoice;
 use Clicksports\LexOffice\Clients\OrderConfirmation;
+use Clicksports\LexOffice\Payment\Client as PaymentClient;
+use Clicksports\LexOffice\PaymentCondition\Client as PaymentConditionClient;
 use Clicksports\LexOffice\Clients\Profile;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
@@ -29,7 +33,7 @@ class Api
     /**
      * the library version
      */
-    public const VERSION = "0.12.0";
+    public const VERSION = "0.13.0";
 
     /**
      * the lex-office api url
@@ -170,6 +174,14 @@ class Api
     }
 
     /**
+     * @return CountryClient
+     */
+    public function country()
+    {
+        return new CountryClient($this);
+    }
+
+    /**
      * @return Event
      */
     public function event()
@@ -186,11 +198,35 @@ class Api
     }
 
     /**
+     * @return DownPaymentInvoiceClient
+     */
+    public function downPaymentInvoice()
+    {
+        return new DownPaymentInvoiceClient($this);
+    }
+
+    /**
      * @return OrderConfirmation
      */
     public function orderConfirmation()
     {
         return new OrderConfirmation($this);
+    }
+
+    /**
+     * @return PaymentClient
+     */
+    public function payment()
+    {
+        return new PaymentClient($this);
+    }
+
+    /**
+     * @return PaymentConditionClient
+     */
+    public function paymentCondition()
+    {
+        return new PaymentConditionClient($this);
     }
 
     /**
