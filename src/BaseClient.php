@@ -67,17 +67,7 @@ abstract class BaseClient implements ClientInterface
     {
         $body = $response->getBody()->__toString();
 
-        if (class_exists('\GuzzleHttp\Utils', false)) {
-            /** @noinspection PhpFullyQualifiedNameUsageInspection */
-            return \GuzzleHttp\Utils::jsonDecode($body);
-        }
-
-        /**
-         * fallback for guzzle 6
-         *
-         * @noinspection PhpDeprecationInspection
-         */
-        return \GuzzleHttp\json_decode($body);
+        return Utils::jsonDecode($body);
     }
 
     /**
@@ -86,22 +76,8 @@ abstract class BaseClient implements ClientInterface
      */
     protected function createStream($content): StreamInterface
     {
-        if (class_exists('\GuzzleHttp\Utils', false)) {
-            /** @noinspection PhpFullyQualifiedNameUsageInspection */
-            return \GuzzleHttp\Psr7\Utils::streamFor(
-                \GuzzleHttp\Utils::jsonEncode($content)
-            );
-        }
-
-
-        /**
-         * fallback for guzzle 6
-         *
-         * @noinspection PhpDeprecationInspection
-         * @noinspection PhpFullyQualifiedNameUsageInspection
-         */
-        return \GuzzleHttp\Psr7\stream_for(
-            \GuzzleHttp\json_encode($content)
+        return Utils::streamFor(
+            Utils::jsonEncode($content)
         );
     }
 
