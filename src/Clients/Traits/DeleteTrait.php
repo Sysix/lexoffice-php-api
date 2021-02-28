@@ -12,7 +12,7 @@ trait DeleteTrait
      */
     public function delete(string $id): ResponseInterface
     {
-        return $this->api->newRequest('DELETE', 'event-subscriptions/' . $id)
+        return $this->api->newRequest('DELETE', $this->resource . '/' . $id)
             ->getResponse();
     }
 }

@@ -2,6 +2,10 @@
   "name": "clicksports/lex-office-api",
   "type": "library",
   "description": "Simple API Integration for Lex-Office",
+  "scripts": {
+    "test": "phpunit",
+    "lint": "phpstan analyse --ansi --error-format raw"
+  },
   "keywords": [
     "lex-office",
     "lexoffice",
