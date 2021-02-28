@@ -69,9 +69,16 @@ $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
 $response = $api->invoice()->document($entityId); // get document ID
 $response = $api->invoice()->document($entityId, true); // get file content
-
 ```
 
+### Down Payment Invoices Endpoint
+```php
+$response = $api->downPaymentInvoice()->getAll();
+$response = $api->downPaymentInvoice()->get($entityId);
+$response = $api->downPaymentInvoice()->create($data);
+$response = $api->downPaymentInvoice()->document($entityId); // get document ID
+$response = $api->downPaymentInvoice()->document($entityId, true); // get file content
+```
 
 ### Order Confirmation Endpoint
 ```php
@@ -129,6 +136,7 @@ $client->types = [
     'purchaseinvoice',
     'purchasecreditnote',
     'invoice',
+    'downpaymentinvoice',
     'creditnote',
     'orderconfirmation',
     'quotation'
@@ -164,5 +172,5 @@ $response = $api->file()->get($entityId);
 ### get JSON from Response
 
 ```php
-$json = $api->voucher()->getAsJson($response);
+$json = $api->*()->getAsJson($response);
 ```

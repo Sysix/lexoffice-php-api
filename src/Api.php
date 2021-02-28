@@ -4,6 +4,7 @@ namespace Clicksports\LexOffice;
 
 use Clicksports\LexOffice\Contact\Client as ContactClient;
 use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
+use Clicksports\LexOffice\DownPaymentInvoice\Client as DownPaymentInvoiceClient;
 use Clicksports\LexOffice\Event\Client as EventClient;
 use Clicksports\LexOffice\File\Client as FileClient;
 use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
@@ -175,6 +176,14 @@ class Api
     public function invoice()
     {
         return new InvoiceClient($this);
+    }
+
+    /**
+     * @return DownPaymentInvoiceClient
+     */
+    public function downPaymentInvoice()
+    {
+        return new DownPaymentInvoiceClient($this);
     }
 
     /**
