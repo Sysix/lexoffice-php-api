@@ -1,7 +1,21 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Clicksports\LexOffice\Tests;
 
+use Clicksports\LexOffice\Clients\Contact;
+use Clicksports\LexOffice\Clients\Country;
+use Clicksports\LexOffice\Clients\CreditNote;
+use Clicksports\LexOffice\Clients\DownPaymentInvoice;
+use Clicksports\LexOffice\Clients\Event;
+use Clicksports\LexOffice\Clients\File;
+use Clicksports\LexOffice\Clients\Invoice;
+use Clicksports\LexOffice\Clients\OrderConfirmation;
+use Clicksports\LexOffice\Clients\Payment;
+use Clicksports\LexOffice\Clients\PaymentCondition;
+use Clicksports\LexOffice\Clients\Profile;
+use Clicksports\LexOffice\Clients\Quotation;
+use Clicksports\LexOffice\Clients\Voucher;
+use Clicksports\LexOffice\Clients\VoucherList;
 use GuzzleHttp\Psr7\Response;
 
 class ApiTest extends TestClient
@@ -34,20 +48,20 @@ class ApiTest extends TestClient
             'file'
         ]);
 
-        $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Contact\Client::class, $stub->contact());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Event\Client::class, $stub->event());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Invoice\Client::class, $stub->invoice());
-        $this->assertInstanceOf(\Clicksports\LexOffice\DownPaymentInvoice\Client::class, $stub->downPaymentInvoice());
-        $this->assertInstanceOf(\Clicksports\LexOffice\OrderConfirmation\Client::class, $stub->orderConfirmation());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Quotation\Client::class, $stub->quotation());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Voucher\Client::class, $stub->voucher());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Voucherlist\Client::class, $stub->voucherlist());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Profile\Client::class, $stub->profile());
-        $this->assertInstanceOf(\Clicksports\LexOffice\CreditNote\Client::class, $stub->creditNote());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
-        $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
-        $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
+        $this->assertInstanceOf(Country::class, $stub->country());
+        $this->assertInstanceOf(Contact::class, $stub->contact());
+        $this->assertInstanceOf(Event::class, $stub->event());
+        $this->assertInstanceOf(Invoice::class, $stub->invoice());
+        $this->assertInstanceOf(DownPaymentInvoice::class, $stub->downPaymentInvoice());
+        $this->assertInstanceOf(OrderConfirmation::class, $stub->orderConfirmation());
+        $this->assertInstanceOf(Quotation::class, $stub->quotation());
+        $this->assertInstanceOf(Voucher::class, $stub->voucher());
+        $this->assertInstanceOf(VoucherList::class, $stub->voucherlist());
+        $this->assertInstanceOf(Profile::class, $stub->profile());
+        $this->assertInstanceOf(CreditNote::class, $stub->creditNote());
+        $this->assertInstanceOf(Payment::class, $stub->payment());
+        $this->assertInstanceOf(PaymentCondition::class, $stub->paymentCondition());
+        $this->assertInstanceOf(File::class, $stub->file());
     }
 
     public function testGetResponse()

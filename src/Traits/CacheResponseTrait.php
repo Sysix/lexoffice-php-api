@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Clicksports\LexOffice\Traits;
 
@@ -48,11 +48,15 @@ trait CacheResponseTrait
     {
         $cacheName = $this->getCacheName($request);
 
+        if (!$this->cacheInterface) {
+            throw new CacheException('response could not be cached, cacheInterface is not defined');
+        }
+
         try {
             if ($request->getMethod() == 'GET') {
                 $cache = $this->cacheInterface->getItem($cacheName);
 
-                if ($cache && $cache->isHit()) {
+                if ($cache->isHit()) {
                     $cache = Utils::jsonDecode($cache->get());
 
                     return new Response(

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Clicksports\LexOffice;
@@ -21,48 +21,10 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param array $data
-     * @return ResponseInterface
-     * @throws Exceptions\CacheException
-     * @throws Exceptions\LexOfficeApiException
-     */
-    public function create(array $data)
-    {
-        $api = $this->api->newRequest('POST', $this->resource);
-
-        $api->request = $api->request->withBody($this->createStream($data));
-
-        return $api->getResponse();
-    }
-
-    /**
-     * @param string $id
-     * @param array $data
-     * @return void
-     * @throws Exception
-     */
-    public function update(string $id, array $data)
-    {
-        throw new Exceptions\BadMethodCallException('method update is defined for ' . $this->resource);
-    }
-
-    /**
-     * @param string $id
-     * @return ResponseInterface
-     * @throws Exceptions\CacheException
-     * @throws Exceptions\LexOfficeApiException
-     */
-    public function get(string $id)
-    {
-        return $this->api->newRequest('GET', $this->resource . '/' . $id)
-            ->getResponse();
-    }
-
-    /**
      * @param ResponseInterface $response
      * @return object
      */
-    public function getAsJson(ResponseInterface $response)
+    public function getAsJson(ResponseInterface $response): object
     {
         $body = $response->getBody()->__toString();
 
@@ -81,7 +43,7 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param array $content
+     * @param string[]|bool[]|resource[] $content
      * @param string|null $boundary
      * @return MultipartStream
      */

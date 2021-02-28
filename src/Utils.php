@@ -5,30 +5,32 @@ namespace Clicksports\LexOffice;
 
 
 use GuzzleHttp\Psr7\Stream;
+use InvalidArgumentException;
 
 class Utils
 {
     /**
      * @param string $resource
-     * @param array $options
+     * @param array{size?: int, metadata?: array, mode?: bool, seekable?: bool} $options
      * @return Stream
      */
     public static function streamFor($resource = '', array $options = []): Stream
     {
         if (is_scalar($resource)) {
             $stream = fopen('php://temp', 'r+');
-            if ($resource !== '') {
+            if ($resource !== '' && $stream) {
                 fwrite($stream, $resource);
                 fseek($stream, 0);
+
+                return new Stream($stream, $options);
             }
-            return new Stream($stream, $options);
         }
 
         throw new InvalidArgumentException('Invalid resource type: ' . gettype($resource));
     }
 
     /**
-     * @param $value
+     * @param mixed $value
      * @param int $options
      * @param int $depth
      * @return string
