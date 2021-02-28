@@ -1,46 +1,31 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\DownPaymentInvoices;
+namespace Clicksports\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\DownPaymentInvoice\Client;
+use Clicksports\LexOffice\Clients\DownPaymentInvoice;
 use Clicksports\LexOffice\Exceptions\BadMethodCallException;
-use GuzzleHttp\Psr7\Response;
 use Clicksports\LexOffice\Tests\TestClient;
+use GuzzleHttp\Psr7\Response;
 
-class ClientTest extends TestClient
+class DownPaymentInvoiceTest extends TestClient
 {
-    public function testCreate()
+    public function testGet()
     {
-        $this->expectException(BadMethodCallException::class);
-
         $stub = $this->createClientMockObject(
-            Client::class,
+            DownPaymentInvoice::class,
             new Response(200, [], 'body'),
-            ['create']
+            ['get']
         );
 
-        $stub->create([
-            'version' => 0
-        ]);
-    }
+        $response = $stub->get('resource-id');
 
-    public function testUpdate()
-    {
-        $this->expectException(BadMethodCallException::class);
-
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['update']
-        );
-
-        $stub->update('resource-id', []);
+        $this->assertEquals('body', $response->getBody()->__toString());
     }
 
     public function testGetAll()
     {
         $stub = $this->createClientMockObject(
-            Client::class,
+            DownPaymentInvoice::class,
             new Response(200, [], '{"content": [], "totalPages": 1}'),
             ['getAll']
         );
@@ -53,7 +38,7 @@ class ClientTest extends TestClient
     public function testDocument()
     {
         $stub  = $this->createClientMockObject(
-            Client::class,
+            DownPaymentInvoice::class,
             new Response(200, [], '{"documentFileId": "fake-id"}'),
             ['document']
         );
@@ -66,7 +51,7 @@ class ClientTest extends TestClient
         );
 
         $stub  = $this->createClientMultiMockObject(
-            Client::class,
+            DownPaymentInvoice::class,
             [
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
                 new Response(200, [], '{}')

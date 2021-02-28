@@ -3,15 +3,15 @@
 namespace Clicksports\LexOffice;
 
 use Clicksports\LexOffice\Clients\Contact;
-use Clicksports\LexOffice\Country\Client as CountryClient;
+use Clicksports\LexOffice\Clients\Country;
 use Clicksports\LexOffice\Clients\CreditNote;
-use Clicksports\LexOffice\DownPaymentInvoice\Client as DownPaymentInvoiceClient;
+use Clicksports\LexOffice\Clients\DownPaymentInvoice;
 use Clicksports\LexOffice\Clients\Event;
 use Clicksports\LexOffice\Clients\File;
 use Clicksports\LexOffice\Clients\Invoice;
 use Clicksports\LexOffice\Clients\OrderConfirmation;
-use Clicksports\LexOffice\Payment\Client as PaymentClient;
-use Clicksports\LexOffice\PaymentCondition\Client as PaymentConditionClient;
+use Clicksports\LexOffice\Clients\Payment;
+use Clicksports\LexOffice\Clients\PaymentCondition;
 use Clicksports\LexOffice\Clients\Profile;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
@@ -174,11 +174,11 @@ class Api
     }
 
     /**
-     * @return CountryClient
+     * @return Country
      */
     public function country()
     {
-        return new CountryClient($this);
+        return new Country($this);
     }
 
     /**
@@ -198,11 +198,11 @@ class Api
     }
 
     /**
-     * @return DownPaymentInvoiceClient
+     * @return DownPaymentInvoice
      */
     public function downPaymentInvoice()
     {
-        return new DownPaymentInvoiceClient($this);
+        return new DownPaymentInvoice($this);
     }
 
     /**
@@ -214,19 +214,19 @@ class Api
     }
 
     /**
-     * @return PaymentClient
+     * @return Payment
      */
     public function payment()
     {
-        return new PaymentClient($this);
+        return new Payment($this);
     }
 
     /**
-     * @return PaymentConditionClient
+     * @return PaymentCondition
      */
     public function paymentCondition()
     {
-        return new PaymentConditionClient($this);
+        return new PaymentCondition($this);
     }
 
     /**

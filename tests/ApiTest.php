@@ -3,11 +3,15 @@
 namespace Clicksports\LexOffice\Tests;
 
 use Clicksports\LexOffice\Clients\Contact;
+use Clicksports\LexOffice\Clients\Country;
 use Clicksports\LexOffice\Clients\CreditNote;
+use Clicksports\LexOffice\Clients\DownPaymentInvoice;
 use Clicksports\LexOffice\Clients\Event;
 use Clicksports\LexOffice\Clients\File;
 use Clicksports\LexOffice\Clients\Invoice;
 use Clicksports\LexOffice\Clients\OrderConfirmation;
+use Clicksports\LexOffice\Clients\Payment;
+use Clicksports\LexOffice\Clients\PaymentCondition;
 use Clicksports\LexOffice\Clients\Profile;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
@@ -44,19 +48,19 @@ class ApiTest extends TestClient
             'file'
         ]);
 
-        $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
+        $this->assertInstanceOf(Country::class, $stub->country());
         $this->assertInstanceOf(Contact::class, $stub->contact());
         $this->assertInstanceOf(Event::class, $stub->event());
         $this->assertInstanceOf(Invoice::class, $stub->invoice());
-        $this->assertInstanceOf(\Clicksports\LexOffice\DownPaymentInvoice\Client::class, $stub->downPaymentInvoice());
+        $this->assertInstanceOf(DownPaymentInvoice::class, $stub->downPaymentInvoice());
         $this->assertInstanceOf(OrderConfirmation::class, $stub->orderConfirmation());
         $this->assertInstanceOf(Quotation::class, $stub->quotation());
         $this->assertInstanceOf(Voucher::class, $stub->voucher());
         $this->assertInstanceOf(VoucherList::class, $stub->voucherlist());
         $this->assertInstanceOf(Profile::class, $stub->profile());
         $this->assertInstanceOf(CreditNote::class, $stub->creditNote());
-        $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
-        $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
+        $this->assertInstanceOf(Payment::class, $stub->payment());
+        $this->assertInstanceOf(PaymentCondition::class, $stub->paymentCondition());
         $this->assertInstanceOf(File::class, $stub->file());
     }
 
