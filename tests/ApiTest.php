@@ -17,26 +17,42 @@ class ApiTest extends TestClient
 
     public function testClients()
     {
-        $stub = $this->createApiMockObject(
-            new Response(),
-            ['contact', 'event', 'invoice', 'orderConfirmation', 'quotation', 'voucher', 'voucherlist', 'profile', 'creditNote', 'file']
-        );
+        $stub = $this->createApiMockObject(new Response(), [
+            'contact',
+            'country',
+            'event',
+            'invoice',
+            'downPaymentInvoice',
+            'orderConfirmation',
+            'quotation',
+            'voucher',
+            'voucherlist',
+            'profile',
+            'creditNote',
+            'payment',
+            'paymentCondition',
+            'file'
+        ]);
 
+        $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
         $this->assertInstanceOf(\Clicksports\LexOffice\Contact\Client::class, $stub->contact());
         $this->assertInstanceOf(\Clicksports\LexOffice\Event\Client::class, $stub->event());
         $this->assertInstanceOf(\Clicksports\LexOffice\Invoice\Client::class, $stub->invoice());
+        $this->assertInstanceOf(\Clicksports\LexOffice\DownPaymentInvoice\Client::class, $stub->downPaymentInvoice());
         $this->assertInstanceOf(\Clicksports\LexOffice\OrderConfirmation\Client::class, $stub->orderConfirmation());
         $this->assertInstanceOf(\Clicksports\LexOffice\Quotation\Client::class, $stub->quotation());
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucher\Client::class, $stub->voucher());
         $this->assertInstanceOf(\Clicksports\LexOffice\Voucherlist\Client::class, $stub->voucherlist());
         $this->assertInstanceOf(\Clicksports\LexOffice\Profile\Client::class, $stub->profile());
         $this->assertInstanceOf(\Clicksports\LexOffice\CreditNote\Client::class, $stub->creditNote());
+        $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
+        $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
         $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
     }
 
     public function testGetResponse()
     {
-        $responseMock =  new Response(200, [], 'response-body');
+        $responseMock = new Response(200, [], 'response-body');
         $stub = $this->createApiMockObject($responseMock);
 
         $response = $stub->getResponse();
