@@ -127,4 +127,18 @@ class TestClient extends TestCase
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
     }
+
+    public function createCacheDir(): void
+    {
+        $dir = $this->getCacheDir();
+
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        }
+    }
+
+    public function getCacheDir(): string
+    {
+        return __DIR__ . '/cache';
+    }
 }
