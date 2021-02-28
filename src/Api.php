@@ -3,6 +3,7 @@
 namespace Clicksports\LexOffice;
 
 use Clicksports\LexOffice\Contact\Client as ContactClient;
+use Clicksports\LexOffice\Country\Client as CountryClient;
 use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
 use Clicksports\LexOffice\DownPaymentInvoice\Client as DownPaymentInvoiceClient;
 use Clicksports\LexOffice\Event\Client as EventClient;
@@ -160,6 +161,14 @@ class Api
     public function contact()
     {
         return new ContactClient($this);
+    }
+
+    /**
+     * @return CountryClient
+     */
+    public function country()
+    {
+        return new CountryClient($this);
     }
 
     /**

@@ -19,6 +19,7 @@ class ApiTest extends TestClient
     {
         $stub = $this->createApiMockObject(new Response(), [
             'contact',
+            'country',
             'event',
             'invoice',
             'downPaymentInvoice',
@@ -31,6 +32,7 @@ class ApiTest extends TestClient
             'file'
         ]);
 
+        $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
         $this->assertInstanceOf(\Clicksports\LexOffice\Contact\Client::class, $stub->contact());
         $this->assertInstanceOf(\Clicksports\LexOffice\Event\Client::class, $stub->event());
         $this->assertInstanceOf(\Clicksports\LexOffice\Invoice\Client::class, $stub->invoice());

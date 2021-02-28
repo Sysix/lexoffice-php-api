@@ -62,6 +62,10 @@ $response = $client->create($data);
 $response = $client->update($entityId, $data);
 ```
 
+### Country Endpoint
+```php
+$response = $api->country()->getAll();
+```
 ### Invoices Endpoint
 ```php
 $response = $api->invoice()->getAll();
