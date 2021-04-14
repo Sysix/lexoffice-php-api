@@ -35,7 +35,7 @@ trait CacheResponseTrait
      */
     protected function getCacheName(RequestInterface $request): string
     {
-        return 'lex-office-' . str_replace('/', '-', $request->getUri()->getPath());
+        return 'lex-office-' . str_replace('/', '-', $request->getUri()->getPath()) . $request->getUri()->getQuery();
     }
 
 
