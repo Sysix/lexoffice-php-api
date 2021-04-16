@@ -34,7 +34,7 @@ class Api
     /**
      * the library version
      */
-    public const VERSION = "0.13.0";
+    public const VERSION = "0.14.0";
 
     /**
      * the lex-office api url
