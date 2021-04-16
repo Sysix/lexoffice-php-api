@@ -15,6 +15,7 @@ class ApiTest extends TestClient
         return $stub;
     }
 
+    /** @noinspection PhpFullyQualifiedNameUsageInspection */
     public function testClients()
     {
         $stub = $this->createApiMockObject(new Response(), [
@@ -32,6 +33,7 @@ class ApiTest extends TestClient
             'payment',
             'paymentCondition',
             'file',
+            'recurringTemplate',
             'postingCategory'
         ]);
 
@@ -49,6 +51,7 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
         $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
         $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
+        $this->assertInstanceOf(\Clicksports\LexOffice\RecurringTemplate\Client::class, $stub->recurringTemplate());
         $this->assertInstanceOf(\Clicksports\LexOffice\PostingCategory\Client::class, $stub->postingCategory());
     }
 

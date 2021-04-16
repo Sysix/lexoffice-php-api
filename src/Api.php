@@ -16,6 +16,7 @@ use Clicksports\LexOffice\Profile\Client as ProfileClient;
 use Clicksports\LexOffice\PostingCategory\Client as PostingCategoryClient;
 use Clicksports\LexOffice\Quotation\Client as QuotationClient;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
+use Clicksports\LexOffice\RecurringTemplate\Client as RecurringTemplateClient;
 use Clicksports\LexOffice\Voucher\Client as VoucherClient;
 use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
@@ -244,6 +245,14 @@ class Api
     public function voucher()
     {
         return new VoucherClient($this);
+    }
+
+    /**
+     * @return RecurringTemplateClient
+     */
+    public function recurringTemplate()
+    {
+        return new RecurringTemplateClient($this);
     }
 
     /**
