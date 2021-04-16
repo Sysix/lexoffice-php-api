@@ -13,6 +13,7 @@ use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
 use Clicksports\LexOffice\Payment\Client as PaymentClient;
 use Clicksports\LexOffice\PaymentCondition\Client as PaymentConditionClient;
 use Clicksports\LexOffice\Profile\Client as ProfileClient;
+use Clicksports\LexOffice\PostingCategory\Client as PostingCategoryClient;
 use Clicksports\LexOffice\Quotation\Client as QuotationClient;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
 use Clicksports\LexOffice\Voucher\Client as VoucherClient;
@@ -259,6 +260,14 @@ class Api
     public function profile()
     {
         return new ProfileClient($this);
+    }
+
+    /**
+     * @return PostingCategoryClient
+     */
+    public function postingCategory()
+    {
+        return new PostingCategoryClient($this);
     }
 
     /**

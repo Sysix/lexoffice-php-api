@@ -31,7 +31,8 @@ class ApiTest extends TestClient
             'creditNote',
             'payment',
             'paymentCondition',
-            'file'
+            'file',
+            'postingCategory'
         ]);
 
         $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
@@ -48,6 +49,7 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(\Clicksports\LexOffice\Payment\Client::class, $stub->payment());
         $this->assertInstanceOf(\Clicksports\LexOffice\PaymentCondition\Client::class, $stub->paymentCondition());
         $this->assertInstanceOf(\Clicksports\LexOffice\File\Client::class, $stub->file());
+        $this->assertInstanceOf(\Clicksports\LexOffice\PostingCategory\Client::class, $stub->postingCategory());
     }
 
     public function testGetResponse()
