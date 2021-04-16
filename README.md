@@ -133,10 +133,34 @@ $response = $api->payment()->get($entityId);
 $response = $api->paymentCondition()->getAll();
 ```
 
+### Posting Categories Endpoint
+```php
+$response = $api->postingCategory()->getAll();
+```
+
 ### Profile Endpoint
 ```php
 $response = $api->profile()->get();
 ```
+
+### Recurring Templates Endpoint
+```php
+
+// get single entitiy
+$response = $api->recurringTemplate()->get($entityId);
+
+// use pagination
+$client = $api->recurringTemplate();
+$client->size = 100;
+
+
+// get a page
+$response = $client->getPage(0);
+
+//get all
+$response = $client->getAll();
+```
+
 
 ### Voucherlist Endpoint
 ```php
