@@ -286,4 +286,14 @@ class Api
     {
         return new FileClient($this);
     }
+
+    /**
+     * @param $apiUrl
+     * @return $this
+     */
+    public function setApiUrl($apiUrl): self
+    {
+        $this->apiUrl = $apiUrl;
+        return $this;
+    }
 }
