@@ -41,7 +41,7 @@ class Api
      *
      * @var string $apiUrl
      */
-    protected string $apiUrl = 'https://api.lexoffice.io';
+    public string $apiUrl = 'https://api.lexoffice.io';
 
     /**
      * the lex-office api version
