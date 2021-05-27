@@ -55,6 +55,20 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(\Clicksports\LexOffice\PostingCategory\Client::class, $stub->postingCategory());
     }
 
+    public function testApiUrl()
+    {
+        $stub = $this->createApiMockObject(
+            new Response(200, [], 'post-content')
+        );
+
+        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
+
+        $stub->apiUrl = 'https://test.de';
+        $stub->newRequest('POST', 'post-content');
+
+        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
+    }
+
     public function testGetResponse()
     {
         $responseMock = new Response(200, [], 'response-body');
