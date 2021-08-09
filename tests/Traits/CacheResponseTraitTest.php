@@ -125,6 +125,32 @@ class CacheResponseTraitTest extends TestClient
         // test on delete
         $stub->setCacheResponse(new Request('DELETE', '/'), $fakeResponse);
         $this->assertNull($cacheInterface->getItem($cacheKey)->get());
+
+        $cacheInterface->deleteItem($cacheKey);
+    }
+
+    /**
+     * @depends testSetCacheInterface
+     */
+    public function testDifferentParamsCache($stub)
+    {
+        $stub->newRequest('GET', '/?a');
+        $fakeResponse = new Response(200, [], 'fake');
+        $stub->setCacheResponse($stub->request, $fakeResponse);
+
+        $this->assertEquals(
+            $this->transformToString($stub->getCacheResponse($stub->request)),
+            $this->transformToString($fakeResponse)
+        );
+
+        $stub->newRequest('GET', '/?b');
+        $fakeResponse = new Response(200, [], 'fake2');
+        $stub->setCacheResponse($stub->request, $fakeResponse);
+
+        $this->assertEquals(
+            $this->transformToString($stub->getCacheResponse($stub->request)),
+            $this->transformToString($fakeResponse)
+        );
     }
 
     protected function transformToString(ResponseInterface $response)

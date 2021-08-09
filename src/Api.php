@@ -13,10 +13,14 @@ use Clicksports\LexOffice\Clients\OrderConfirmation;
 use Clicksports\LexOffice\Clients\Payment;
 use Clicksports\LexOffice\Clients\PaymentCondition;
 use Clicksports\LexOffice\Clients\Profile;
+use Clicksports\LexOffice\PostingCategory\Client as PostingCategoryClient;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
 use Clicksports\LexOffice\Clients\VoucherList;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
+use Clicksports\LexOffice\RecurringTemplate\Client as RecurringTemplateClient;
+use Clicksports\LexOffice\Voucher\Client as VoucherClient;
+use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Client;
@@ -33,14 +37,14 @@ class Api
     /**
      * the library version
      */
-    public const VERSION = "0.13.0";
+    public const VERSION = "0.14.1";
 
     /**
      * the lex-office api url
      *
      * @var string $apiUrl
      */
-    protected string $apiUrl = 'https://api.lexoffice.io';
+    public string $apiUrl = 'https://api.lexoffice.io';
 
     /**
      * the lex-office api version
@@ -254,6 +258,14 @@ class Api
     }
 
     /**
+     * @return RecurringTemplateClient
+     */
+    public function recurringTemplate()
+    {
+        return new RecurringTemplateClient($this);
+    }
+
+    /**
      * @return VoucherList
      */
     public function voucherlist()
@@ -267,6 +279,14 @@ class Api
     public function profile()
     {
         return new Profile($this);
+    }
+
+    /**
+     * @return PostingCategoryClient
+     */
+    public function postingCategory()
+    {
+        return new PostingCategoryClient($this);
     }
 
     /**

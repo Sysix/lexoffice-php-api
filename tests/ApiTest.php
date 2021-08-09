@@ -29,6 +29,7 @@ class ApiTest extends TestClient
         return $stub;
     }
 
+    /** @noinspection PhpFullyQualifiedNameUsageInspection */
     public function testClients()
     {
         $stub = $this->createApiMockObject(new Response(), [
@@ -45,7 +46,9 @@ class ApiTest extends TestClient
             'creditNote',
             'payment',
             'paymentCondition',
-            'file'
+            'file',
+            'recurringTemplate',
+            'postingCategory'
         ]);
 
         $this->assertInstanceOf(Country::class, $stub->country());
@@ -62,6 +65,22 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(Payment::class, $stub->payment());
         $this->assertInstanceOf(PaymentCondition::class, $stub->paymentCondition());
         $this->assertInstanceOf(File::class, $stub->file());
+        $this->assertInstanceOf(\Clicksports\LexOffice\RecurringTemplate\Client::class, $stub->recurringTemplate());
+        $this->assertInstanceOf(\Clicksports\LexOffice\PostingCategory\Client::class, $stub->postingCategory());
+    }
+
+    public function testApiUrl()
+    {
+        $stub = $this->createApiMockObject(
+            new Response(200, [], 'post-content')
+        );
+
+        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
+
+        $stub->apiUrl = 'https://test.de';
+        $stub->newRequest('POST', 'post-content');
+
+        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
     }
 
     public function testGetResponse()
