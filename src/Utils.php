@@ -14,7 +14,7 @@ class Utils
      * @param array{size?: int, metadata?: array, mode?: bool, seekable?: bool} $options
      * @return Stream
      */
-    public static function streamFor($resource = '', array $options = []): Stream
+    public static function streamFor(string $resource = '', array $options = []): Stream
     {
         if (is_scalar($resource)) {
             $stream = fopen('php://temp', 'r+');

@@ -40,7 +40,7 @@ abstract class PaginationClient extends BaseClient
     public function getAll(): ResponseInterface
     {
         $response = $this->getPage(0);
-        /** @var stdClass{totalPages:int, content:\stdClass[]} $result */
+        /** @var stdClass{totalPages:int, content:stdClass[]} $result */
         $result = $this->getAsJson($response);
 
         if ($result->totalPages == 1) {
@@ -50,7 +50,7 @@ abstract class PaginationClient extends BaseClient
         // update content to get all contacts
         for ($i = 1; $i < $result->totalPages; $i++) {
             $responsePage = $this->getPage($i);
-            /** @var stdClass{totalPages:int, content:\stdClass[]} $resultPage */
+            /** @var stdClass{totalPages:int, content:stdClass[]} $resultPage */
             $resultPage = $this->getAsJson($responsePage);
 
             foreach ($resultPage->content as $entity) {

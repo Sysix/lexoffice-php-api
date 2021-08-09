@@ -10,6 +10,11 @@ For settings a Cache Interface check out [guzzle-cache-middleware](https://githu
 And implement it with:
 `$api = new \Clicksports\LexOffice\Api($apiKey, $guzzleClient);`
 
+## Exceptions Removed
+
+- `\Clicksports\Lexoffice\Exception\CacheException`
+- `\Clicksports\Lexoffice\Exception\BadMethodException`
+
 ## Clients Method which will throw a BadMethodException
 
 We implemented in the `0.x` Version some methods for the future of lexoffice API.  
@@ -19,4 +24,3 @@ At the moment, it doesn't look like the endpoint will be added soon. So we will 
 
 In Version `0.x` all Clients had a separate folder/namespace. Now they will all use the namespace
 `\Clicksports\Lexoffice\Clients`
-
