@@ -6,7 +6,6 @@ use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Clients\Traits\CreateFinalizeTrait;
 use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -20,7 +19,6 @@ class Invoice extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws CacheException
      * @throws LexOfficeApiException
      */
     public function getAll(): ResponseInterface

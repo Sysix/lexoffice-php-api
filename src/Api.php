@@ -98,7 +98,7 @@ class Api
      * @param RequestInterface $request
      * @return $this
      */
-    public function setRequest(RequestInterface $request): Api
+    public function setRequest(RequestInterface $request): self
     {
         $request = $request
             ->withHeader('Authorization', 'Bearer ' . $this->apiKey)

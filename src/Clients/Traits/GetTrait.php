@@ -2,7 +2,6 @@
 
 namespace Clicksports\LexOffice\Clients\Traits;
 
-use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -11,7 +10,6 @@ trait GetTrait
     /**
      * @param string $id
      * @return ResponseInterface
-     * @throws CacheException
      * @throws LexOfficeApiException
      */
     public function get(string $id): ResponseInterface

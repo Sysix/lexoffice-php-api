@@ -2,6 +2,7 @@
 
 namespace Clicksports\LexOffice\Clients\Traits;
 
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait DeleteTrait
@@ -9,6 +10,7 @@ trait DeleteTrait
     /**
      * @param string $id
      * @return ResponseInterface
+     * @throws LexOfficeApiException
      */
     public function delete(string $id): ResponseInterface
     {

@@ -4,7 +4,6 @@ namespace Clicksports\LexOffice\Clients;
 
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -24,7 +23,6 @@ class File extends BaseClient
      * @param string $type
      * @return ResponseInterface
      * @throws LexOfficeApiException
-     * @throws CacheException
      */
     public function upload(string $filepath, string $type): ResponseInterface
     {

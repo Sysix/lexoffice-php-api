@@ -21,7 +21,6 @@ abstract class PaginationClient extends BaseClient
     /**
      * @param int $page
      * @return ResponseInterface
-     * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
     public function getPage(int $page): ResponseInterface
@@ -36,7 +35,6 @@ abstract class PaginationClient extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws Exceptions\CacheException
      * @throws Exceptions\LexOfficeApiException
      */
     public function getAll(): ResponseInterface

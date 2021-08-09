@@ -2,6 +2,7 @@
 
 namespace Clicksports\LexOffice\Clients\Traits;
 
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait CreateTrait
@@ -9,6 +10,7 @@ trait CreateTrait
     /**
      * @param array[] $data
      * @return ResponseInterface
+     * @throws LexOfficeApiException
      */
     public function create(array $data): ResponseInterface
     {

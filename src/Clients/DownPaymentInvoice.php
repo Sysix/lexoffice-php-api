@@ -5,8 +5,6 @@ namespace Clicksports\LexOffice\Clients;
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
-use Clicksports\LexOffice\Exceptions\CacheException;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -19,7 +17,6 @@ class DownPaymentInvoice extends BaseClient
 
     /**
      * @return ResponseInterface
-     * @throws CacheException
      * @throws LexOfficeApiException
      */
     public function getAll(): ResponseInterface

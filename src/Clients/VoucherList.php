@@ -20,7 +20,7 @@ class VoucherList extends PaginationClient
     /**
      * @return $this
      */
-    public function setToEverything()
+    public function setToEverything(): self
     {
         $this->types = [
             'salesinvoice',

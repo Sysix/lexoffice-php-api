@@ -2,6 +2,7 @@
 
 namespace Clicksports\LexOffice\Clients\Traits;
 
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait UpdateTrait
@@ -10,6 +11,7 @@ trait UpdateTrait
      * @param string $id
      * @param array[] $data
      * @return ResponseInterface
+     * @throws LexOfficeApiException
      */
     public function update(string $id, array $data): ResponseInterface
     {
