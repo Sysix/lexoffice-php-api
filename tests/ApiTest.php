@@ -13,9 +13,11 @@ use Clicksports\LexOffice\Clients\OrderConfirmation;
 use Clicksports\LexOffice\Clients\Payment;
 use Clicksports\LexOffice\Clients\PaymentCondition;
 use Clicksports\LexOffice\Clients\Profile;
+use Clicksports\LexOffice\Clients\PostingCategory;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
 use Clicksports\LexOffice\Clients\VoucherList;
+use Clicksports\LexOffice\Clients\RecurringTemplate;
 use GuzzleHttp\Psr7\Response;
 
 class ApiTest extends TestClient
@@ -29,7 +31,6 @@ class ApiTest extends TestClient
         return $stub;
     }
 
-    /** @noinspection PhpFullyQualifiedNameUsageInspection */
     public function testClients()
     {
         $stub = $this->createApiMockObject(new Response(), [
@@ -65,8 +66,8 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(Payment::class, $stub->payment());
         $this->assertInstanceOf(PaymentCondition::class, $stub->paymentCondition());
         $this->assertInstanceOf(File::class, $stub->file());
-        $this->assertInstanceOf(\Clicksports\LexOffice\RecurringTemplate\Client::class, $stub->recurringTemplate());
-        $this->assertInstanceOf(\Clicksports\LexOffice\PostingCategory\Client::class, $stub->postingCategory());
+        $this->assertInstanceOf(RecurringTemplate::class, $stub->recurringTemplate());
+        $this->assertInstanceOf(PostingCategory::class, $stub->postingCategory());
     }
 
     public function testApiUrl()
@@ -75,12 +76,12 @@ class ApiTest extends TestClient
             new Response(200, [], 'post-content')
         );
 
-        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
+        $this->assertStringStartsWith('api.lexoffice.io', $stub->request->getUri()->getHost());
 
         $stub->apiUrl = 'https://test.de';
         $stub->newRequest('POST', 'post-content');
 
-        $this->assertStringStartsWith($stub->apiUrl, $stub->request->getUri());
+        $this->assertStringStartsWith('test.de', $stub->request->getUri()->getHost());
     }
 
     public function testGetResponse()

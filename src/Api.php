@@ -13,14 +13,12 @@ use Clicksports\LexOffice\Clients\OrderConfirmation;
 use Clicksports\LexOffice\Clients\Payment;
 use Clicksports\LexOffice\Clients\PaymentCondition;
 use Clicksports\LexOffice\Clients\Profile;
-use Clicksports\LexOffice\PostingCategory\Client as PostingCategoryClient;
+use Clicksports\LexOffice\Clients\PostingCategory;
 use Clicksports\LexOffice\Clients\Quotation;
 use Clicksports\LexOffice\Clients\Voucher;
 use Clicksports\LexOffice\Clients\VoucherList;
 use Clicksports\LexOffice\Traits\CacheResponseTrait;
-use Clicksports\LexOffice\RecurringTemplate\Client as RecurringTemplateClient;
-use Clicksports\LexOffice\Voucher\Client as VoucherClient;
-use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
+use Clicksports\LexOffice\Clients\RecurringTemplate;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
 use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Client;
@@ -172,7 +170,7 @@ class Api
     /**
      * @return Contact
      */
-    public function contact()
+    public function contact(): Contact
     {
         return new Contact($this);
     }
@@ -180,7 +178,7 @@ class Api
     /**
      * @return Country
      */
-    public function country()
+    public function country(): Country
     {
         return new Country($this);
     }
@@ -188,7 +186,7 @@ class Api
     /**
      * @return Event
      */
-    public function event()
+    public function event(): Event
     {
         return new Event($this);
     }
@@ -196,7 +194,7 @@ class Api
     /**
      * @return Invoice
      */
-    public function invoice()
+    public function invoice(): Invoice
     {
         return new Invoice($this);
     }
@@ -204,7 +202,7 @@ class Api
     /**
      * @return DownPaymentInvoice
      */
-    public function downPaymentInvoice()
+    public function downPaymentInvoice(): DownPaymentInvoice
     {
         return new DownPaymentInvoice($this);
     }
@@ -212,7 +210,7 @@ class Api
     /**
      * @return OrderConfirmation
      */
-    public function orderConfirmation()
+    public function orderConfirmation(): OrderConfirmation
     {
         return new OrderConfirmation($this);
     }
@@ -220,7 +218,7 @@ class Api
     /**
      * @return Payment
      */
-    public function payment()
+    public function payment(): Payment
     {
         return new Payment($this);
     }
@@ -228,7 +226,7 @@ class Api
     /**
      * @return PaymentCondition
      */
-    public function paymentCondition()
+    public function paymentCondition(): PaymentCondition
     {
         return new PaymentCondition($this);
     }
@@ -236,7 +234,7 @@ class Api
     /**
      * @return CreditNote
      */
-    public function creditNote()
+    public function creditNote(): CreditNote
     {
         return new CreditNote($this);
     }
@@ -244,7 +242,7 @@ class Api
     /**
      * @return Quotation
      */
-    public function quotation()
+    public function quotation(): Quotation
     {
         return new Quotation($this);
     }
@@ -252,23 +250,23 @@ class Api
     /**
      * @return Voucher
      */
-    public function voucher()
+    public function voucher(): Voucher
     {
         return new Voucher($this);
     }
 
     /**
-     * @return RecurringTemplateClient
+     * @return RecurringTemplate
      */
-    public function recurringTemplate()
+    public function recurringTemplate(): RecurringTemplate
     {
-        return new RecurringTemplateClient($this);
+        return new RecurringTemplate($this);
     }
 
     /**
      * @return VoucherList
      */
-    public function voucherlist()
+    public function voucherlist(): VoucherList
     {
         return new VoucherList($this);
     }
@@ -276,23 +274,23 @@ class Api
     /**
      * @return Profile
      */
-    public function profile()
+    public function profile(): Profile
     {
         return new Profile($this);
     }
 
     /**
-     * @return PostingCategoryClient
+     * @return PostingCategory
      */
-    public function postingCategory()
+    public function postingCategory(): PostingCategory
     {
-        return new PostingCategoryClient($this);
+        return new PostingCategory($this);
     }
 
     /**
      * @return File
      */
-    public function file()
+    public function file(): File
     {
         return new File($this);
     }
