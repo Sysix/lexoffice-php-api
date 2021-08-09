@@ -12,15 +12,13 @@ use Clicksports\LexOffice\Clients\Invoice;
 use Clicksports\LexOffice\Clients\OrderConfirmation;
 use Clicksports\LexOffice\Clients\Payment;
 use Clicksports\LexOffice\Clients\PaymentCondition;
-use Clicksports\LexOffice\Clients\Profile;
 use Clicksports\LexOffice\Clients\PostingCategory;
+use Clicksports\LexOffice\Clients\Profile;
 use Clicksports\LexOffice\Clients\Quotation;
+use Clicksports\LexOffice\Clients\RecurringTemplate;
 use Clicksports\LexOffice\Clients\Voucher;
 use Clicksports\LexOffice\Clients\VoucherList;
-use Clicksports\LexOffice\Traits\CacheResponseTrait;
-use Clicksports\LexOffice\Clients\RecurringTemplate;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\Exceptions\CacheException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
@@ -30,8 +28,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class Api
 {
-    use CacheResponseTrait;
-
     /**
      * the library version
      */
@@ -89,7 +85,7 @@ class Api
      * @param string[] $headers
      * @return $this
      */
-    public function newRequest(string $method, string $resource, $headers = []): self
+    public function newRequest(string $method, string $resource, array $headers = []): self
     {
         $this->setRequest(
             new Request($method, $this->createApiUrl($resource), $headers)
@@ -102,7 +98,7 @@ class Api
      * @param RequestInterface $request
      * @return $this
      */
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): Api
     {
         $request = $request
             ->withHeader('Authorization', 'Bearer ' . $this->apiKey)
@@ -129,42 +125,26 @@ class Api
 
     /**
      * @return ResponseInterface
-     * @throws CacheException
      * @throws LexOfficeApiException
      */
-    public function getResponse()
+    public function getResponse(): ResponseInterface
     {
-        $cache = null;
-        if ($this->cacheInterface) {
-            $response = $cache = $this->getCacheResponse($this->request);
+        try {
+            return $this->client->send($this->request);
+        } catch (RequestException $exception) {
+            $response = $exception->getResponse();
+            throw new LexOfficeApiException(
+                $exception->getMessage(),
+                $response ? $response->getStatusCode() : $exception->getCode(),
+                $exception
+            );
+        } catch (GuzzleException $exception) {
+            throw new LexOfficeApiException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
-
-        // when no cacheInterface is set or the cache is invalid
-        if (!isset($response)) {
-            try {
-                $response = $this->client->send($this->request);
-            } catch (RequestException $exception) {
-                $response = $exception->getResponse();
-                throw new LexOfficeApiException(
-                    $exception->getMessage(),
-                    $response ? $response->getStatusCode() : $exception->getCode(),
-                    $exception
-                );
-            } catch (GuzzleException $exception) {
-                throw new LexOfficeApiException(
-                    $exception->getMessage(),
-                    $exception->getCode(),
-                    $exception
-                );
-            }
-        }
-
-        // set cache response when cache is invalid
-        if ($this->cacheInterface && !$cache) {
-            $this->setCacheResponse($this->request, $response);
-        }
-
-        return $response;
     }
 
     /**
