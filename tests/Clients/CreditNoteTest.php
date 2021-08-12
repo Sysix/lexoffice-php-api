@@ -25,15 +25,22 @@ class CreditNoteTest extends TestClient
 
     public function testGetAll()
     {
-        $stub = $this->createClientMockObject(
+        $stub = $this->createClientMultiMockObject(
             CreditNote::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
+            [
+                new Response(200, [], '{"content": ["a"], "totalPages": 1}'),
+                new Response(200, [], '{"content": ["b"], "totalPages": 1}')
+            ],
             ['getAll']
         );
 
         $response = $stub->getAll();
 
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
+        $this->assertEquals('{"content": ["a"], "totalPages": 1}', $response->getBody()->__toString());
+
+        $response = $stub->getAll(['open']);
+
+        $this->assertEquals('{"content": ["b"], "totalPages": 1}', $response->getBody()->__toString());
     }
 
     public function testDocument()

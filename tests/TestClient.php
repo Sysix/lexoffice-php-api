@@ -53,10 +53,11 @@ class TestClient extends TestCase
     }
 
     /**
-     * @param string $className
+     * @template T
+     * @param class-string<T> $className
      * @param Response $response
      * @param string[] $methodExcept
-     * @return MockObject|ClientInterface
+     * @return MockObject|T
      */
     public function createClientMockObject(string $className, Response $response, array $methodExcept = [])
     {
@@ -64,10 +65,11 @@ class TestClient extends TestCase
     }
 
     /**
-     * @param string<object> $className
+     * @template T
+     * @param class-string<T> $className
      * @param Response[] $responses
      * @param string[] $methodExcept
-     * @return MockObject|ClientInterface
+     * @return MockObject|T
      */
     public function createClientMultiMockObject(string $className, array $responses, array $methodExcept = [])
     {
