@@ -70,7 +70,8 @@ $response = $api->invoice()->document($entityId, true); // get file content
 $response = $api->downPaymentInvoice()->getAll();
 $response = $api->downPaymentInvoice()->getAll(array $states);
 $response = $api->downPaymentInvoice()->getPage(0);
-$response = $api->downPaymentInvoice()->getPage(0, array $states);$response = $api->downPaymentInvoice()->get($entityId);
+$response = $api->downPaymentInvoice()->getPage(0, array $states);
+$response = $api->downPaymentInvoice()->get($entityId);
 $response = $api->downPaymentInvoice()->create($data);
 $response = $api->downPaymentInvoice()->document($entityId); // get document ID
 $response = $api->downPaymentInvoice()->document($entityId, true); // get file content
