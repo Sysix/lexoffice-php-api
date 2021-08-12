@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests\Traits;
+namespace Clicksports\LexOffice\Tests;
 
-use Clicksports\LexOffice\Tests\TestClient;
 use GuzzleHttp\Psr7\Response;
 
 class PaginationClientTest extends TestClient
