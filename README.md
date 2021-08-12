@@ -25,20 +25,6 @@ $apiKey = getenv('LEX_OFFICE_API_KEY'); // store keys in .env file
 $api = new \Clicksports\LexOffice\Api($apiKey);
 ```
 
-### set cache
-
-```php
-// can be any PSR-6 compatibly cache handler
-// in this example we are using symfony/cache
-$cacheInterface = new \Symfony\Component\Cache\Adapter\FilesystemAdapter(
-  'lexoffice',
-  3600,
- __DIR__ . '/cache'
-);
-
-$api->setCacheInterface($cacheInterface);
-```
-
 ### Contact Endpoint
 ```php
 
