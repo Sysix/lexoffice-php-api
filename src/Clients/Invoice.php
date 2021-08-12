@@ -5,8 +5,8 @@ namespace Clicksports\LexOffice\Clients;
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Clients\Traits\CreateFinalizeTrait;
 use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
-use Clicksports\LexOffice\Clients\Traits\VoucherListTrait;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
+use Clicksports\LexOffice\Clients\Traits\VoucherListTrait;
 
 class Invoice extends BaseClient
 {
@@ -16,5 +16,7 @@ class Invoice extends BaseClient
     use CreateFinalizeTrait;
 
     protected string $resource = 'invoices';
+
+    /** @var string[] */
     protected array $voucherListTypes = ['invoice'];
 }

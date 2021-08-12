@@ -5,8 +5,8 @@ namespace Clicksports\LexOffice\Clients;
 use Clicksports\LexOffice\BaseClient;
 use Clicksports\LexOffice\Clients\Traits\CreateFinalizeTrait;
 use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
-use Clicksports\LexOffice\Clients\Traits\VoucherListTrait;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
+use Clicksports\LexOffice\Clients\Traits\VoucherListTrait;
 
 class CreditNote extends BaseClient
 {
@@ -17,5 +17,6 @@ class CreditNote extends BaseClient
 
     protected string $resource = 'credit-notes';
 
+    /** @var string[] */
     protected array $voucherListTypes = ['creditnote'];
 }
