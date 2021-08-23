@@ -17,6 +17,12 @@ class Contact extends PaginationClient
 
     public string $sortProperty = 'name';
 
+    public ?int $number = null;
+
+    public ?bool $customer = null;
+
+    public ?bool $vendor = null;
+
     /**
      * @param int $page
      * @return string
@@ -25,6 +31,9 @@ class Contact extends PaginationClient
     {
         return parent::generateUrl($page) .
             '&direction=' . $this->sortDirection .
-            '&property=' .$this->sortProperty;
+            '&property=' . $this->sortProperty .
+            ($this->number !== null ? '&number=' . $this->number : '' ) .
+            ($this->customer !== null ? '&customer=' . $this->customer : '' ) .
+            ($this->vendor !== null ? '&vendor=' . $this->vendor : '' );
     }
 }
