@@ -43,7 +43,7 @@ abstract class BaseClient implements ClientInterface
      */
     public function update(string $id, array $data)
     {
-        throw new Exceptions\BadMethodCallException('method update is defined for ' . $this->resource);
+        throw new Exceptions\BadMethodCallException('method update is not defined for ' . $this->resource);
     }
 
     /**

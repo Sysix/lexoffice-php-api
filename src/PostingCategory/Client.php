@@ -19,7 +19,7 @@ class Client extends BaseClient
      */
     public function get(string $id = null)
     {
-        throw new BadMethodCallException('method get is defined for ' . $this->resource);
+        throw new BadMethodCallException('method get is not defined for ' . $this->resource);
     }
 
     /**
@@ -28,7 +28,7 @@ class Client extends BaseClient
      */
     public function create(array $data)
     {
-        throw new BadMethodCallException('method create is defined for ' . $this->resource);
+        throw new BadMethodCallException('method create is not defined for ' . $this->resource);
     }
 
     /**
@@ -38,7 +38,7 @@ class Client extends BaseClient
      */
     public function update(string $id, array $data)
     {
-        throw new BadMethodCallException('method update is defined for ' . $this->resource);
+        throw new BadMethodCallException('method update is not defined for ' . $this->resource);
     }
 
     /**
