@@ -17,7 +17,7 @@ composer:
 ## Usage
 
 Search for the official API Documentation [here](https://developers.lexoffice.io/docs/).  
-You need an [API Key](https://app.lexoffice.de/settings/#/public-api) for that.
+You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 
 ### Basic
 ```php
