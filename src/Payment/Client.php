@@ -12,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class Client extends BaseClient
 {
-    protected string $resource = 'payment';
+    protected string $resource = 'payments';
 
     /***
      * @param array $data
