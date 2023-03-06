@@ -12,14 +12,21 @@ class Client extends PaginationClient
 
     public string $sortProperty = 'name';
 
+    public array $filters = [];
+
     /**
      * @param int $page
      * @return string
      */
     public function generateUrl(int $page): string
     {
-        return parent::generateUrl($page) .
-            '&direction=' . $this->sortDirection .
-            '&property=' .$this->sortProperty;
+        $params = array_merge(
+            [
+                'direction' => $this->sortDirection,
+                'property' => $this->sortProperty
+            ],
+            $this->filters
+        );
+        return parent::generateUrl($page) . http_build_query($params);
     }
 }
