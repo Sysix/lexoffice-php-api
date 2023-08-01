@@ -23,7 +23,7 @@ class Client extends BaseClient
      * @throws LexOfficeApiException
      * @throws CacheException
      */
-    public function upload(string $filepath, string $type)
+    public function upload(string $filepath, string $type, ?string $voucherId = null)
     {
         $regex = '/.(' . implode('|', $this->supportedExtension) . ')/';
         $matchResult = preg_match($regex, $filepath, $matches);
@@ -45,7 +45,7 @@ class Client extends BaseClient
             'type' => $type
         ]);
 
-        $api = $this->api->newRequest('POST', $this->resource, [
+        $api = $this->api->newRequest('POST', $voucherId ? "vouchers/{$voucherId}/{$this->resource}" : $this->resource, [
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
