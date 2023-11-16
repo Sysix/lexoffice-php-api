@@ -212,3 +212,13 @@ $response = $api->file()->get($entityId);
 ```php
 $json = $api->*()->getAsJson($response);
 ```
+
+### get JSON from Error Response
+
+```php
+try {
+   $api->*->*();
+} catch(\Clicksports\LexOffice\Exceptions\LexOfficeApiException $exception) {
+   $json = $api->*()->getAsJson($exception->getPrevious()->getResponse());
+}
+```
