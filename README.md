@@ -59,6 +59,8 @@ $response = $client->getAll();
 // other methods
 $response = $client->get($entityId);
 $response = $client->create($data);
+$response = $client->update($entityId, $data);
+
 ```
 
 ### Country Endpoint
