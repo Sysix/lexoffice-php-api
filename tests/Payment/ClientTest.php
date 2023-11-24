@@ -16,8 +16,7 @@ class ClientTest extends TestClient
 
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $stub->create([]);
@@ -27,8 +26,7 @@ class ClientTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');
@@ -42,8 +40,7 @@ class ClientTest extends TestClient
 
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['getAll']
+            new Response(200, [], 'body')
         );
 
         $stub->getAll();
@@ -55,8 +52,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['update']
+            new Response(200, [], '{}')
         );
 
         $stub->update('resource-id', []);

@@ -3,6 +3,9 @@
 namespace Clicksports\LexOffice\Contact;
 
 use Clicksports\LexOffice\PaginationClient;
+use Clicksports\LexOffice\Exceptions\CacheException;
+use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Psr\Http\Message\ResponseInterface;
 
 class Client extends PaginationClient
 {

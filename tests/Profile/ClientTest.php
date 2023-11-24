@@ -16,8 +16,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['getAll']
+            new Response(200, [], '{}')
         );
 
         $stub->getAll();
@@ -27,8 +26,7 @@ class ClientTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['get']
+            new Response(200, [], '{}')
         );
 
         $this->assertEquals(
@@ -43,8 +41,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['create']
+            new Response(200, [], '{}')
         );
 
         $stub->create([]);
@@ -56,8 +53,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['update']
+            new Response(200, [], '{}')
         );
 
         $stub->update('id', []);

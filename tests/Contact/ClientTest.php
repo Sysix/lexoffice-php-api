@@ -10,11 +10,7 @@ class ClientTest extends TestClient
 {
     public function testGenerateUrl()
     {
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['generateUrl']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $this->assertEquals(
             'contacts?page=0&size=100&direction=ASC&property=name',
@@ -24,11 +20,7 @@ class ClientTest extends TestClient
 
     public function testCreate()
     {
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['create']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $response = $stub->create([
             'version' => 0
@@ -39,11 +31,7 @@ class ClientTest extends TestClient
 
     public function testGet()
     {
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['get']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $response = $stub->get('resource-id');
 
@@ -52,11 +40,7 @@ class ClientTest extends TestClient
 
     public function testUpdate()
     {
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['update']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $response = $stub->update('resource-id', []);
 

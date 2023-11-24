@@ -6,10 +6,9 @@ use GuzzleHttp\Psr7\Response;
 
 class ApiTest extends TestClient
 {
-    public function createApiMockObject(Response $response, $methodExcept = [])
+    public function createApiMockObject(Response $response)
     {
-        $stub = parent::createApiMockObject($response, $methodExcept);
-
+        $stub = parent::createApiMockObject($response);
         $stub->newRequest('GET', '/');
 
         return $stub;
@@ -18,24 +17,7 @@ class ApiTest extends TestClient
     /** @noinspection PhpFullyQualifiedNameUsageInspection */
     public function testClients()
     {
-        $stub = $this->createApiMockObject(new Response(), [
-            'contact',
-            'country',
-            'event',
-            'invoice',
-            'downPaymentInvoice',
-            'orderConfirmation',
-            'quotation',
-            'voucher',
-            'voucherlist',
-            'profile',
-            'creditNote',
-            'payment',
-            'paymentCondition',
-            'file',
-            'recurringTemplate',
-            'postingCategory'
-        ]);
+        $stub = $this->createApiMockObject(new Response());
 
         $this->assertInstanceOf(\Clicksports\LexOffice\Country\Client::class, $stub->country());
         $this->assertInstanceOf(\Clicksports\LexOffice\Contact\Client::class, $stub->contact());

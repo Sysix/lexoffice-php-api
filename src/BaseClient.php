@@ -39,7 +39,7 @@ abstract class BaseClient implements ClientInterface
      * @param string $id
      * @param array $data
      * @return void
-     * @throws Exception
+     * @throws Exceptions\BadMethodCallException
      */
     public function update(string $id, array $data)
     {

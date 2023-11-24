@@ -9,16 +9,11 @@ use Clicksports\LexOffice\Tests\TestClient;
 
 class ClientTest extends TestClient
 {
-
     public function testCreate()
     {
         $this->expectException(BadMethodCallException::class);
 
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['create']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $stub->create([]);
     }
@@ -27,22 +22,14 @@ class ClientTest extends TestClient
     {
         $this->expectException(BadMethodCallException::class);
 
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], 'body'),
-            ['get']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], 'body'));
 
         $stub->get('resource-id');
     }
 
     public function testGetAll()
     {
-        $stub = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ['getAll']
-        );
+        $stub = $this->createClientMockObject(Client::class, new Response(200, [], '{"content": [], "totalPages": 1}'));
 
         $response = $stub->getAll();
 
@@ -53,11 +40,7 @@ class ClientTest extends TestClient
     {
         $this->expectException(BadMethodCallException::class);
 
-        $stub  = $this->createClientMockObject(
-            Client::class,
-            new Response(200, [], '{}'),
-            ['update']
-        );
+        $stub  = $this->createClientMockObject(Client::class, new Response(200, [], '{}'));
 
         $stub->update('resource-id', []);
     }

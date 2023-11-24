@@ -12,8 +12,7 @@ class ClientTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->create([
@@ -27,8 +26,7 @@ class ClientTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ['getAll']
+            new Response(200, [], '{"content": [], "totalPages": 1}')
         );
 
         $response = $stub->getAll();
@@ -40,8 +38,7 @@ class ClientTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{"documentFileId": "fake-id"}'),
-            ['document']
+            new Response(200, [], '{"documentFileId": "fake-id"}')
         );
 
         $response = $stub->document('resource-id');
@@ -57,7 +54,6 @@ class ClientTest extends TestClient
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
                 new Response(200, [], '{}')
             ],
-            ['document']
         );
 
         $response = $stub->document('resource-id', true);

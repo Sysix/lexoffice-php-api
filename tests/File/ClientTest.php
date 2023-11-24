@@ -17,8 +17,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $stub->upload('not_allowed.gif', 'voucher');
@@ -30,8 +29,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $stub->upload('not_existing.jpg', 'voucher');
@@ -43,8 +41,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $file = __DIR__ . '/somefile.jpg';
@@ -62,8 +59,7 @@ class ClientTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $file = __DIR__ . '/somefile2.jpg';
@@ -85,8 +81,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['create']
+            new Response(200, [], '{}')
         );
 
         $stub->create([]);
@@ -98,8 +93,7 @@ class ClientTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['getAll']
+            new Response(200, [], '{}')
         );
 
         $stub->getAll();

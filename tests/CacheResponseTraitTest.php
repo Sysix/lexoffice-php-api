@@ -31,10 +31,7 @@ class CacheResponseTraitTest extends TestClient
     {
         $this->expectException(CacheException::class);
 
-        $stub = $this->createApiMockObject(
-            new Response(),
-            ['setCacheResponse']
-        );
+        $stub = $this->createApiMockObject(new Response());
 
         $stub->newRequest('GET', '/');
         $stub->setCacheResponse($stub->request, new Response());
@@ -45,10 +42,7 @@ class CacheResponseTraitTest extends TestClient
      */
     public function testSetCacheInterface()
     {
-        $stub = $this->createApiMockObject(
-            new Response(200, [], '{"cache": true}'),
-            ['setCacheInterface', 'setCacheResponse', 'getCacheResponse']
-        );
+        $stub = $this->createApiMockObject(new Response(200, [], '{"cache": true}'));
 
         $stub->setCacheInterface($this->getCacheInterface());
 

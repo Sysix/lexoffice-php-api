@@ -14,8 +14,7 @@ class ClientTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['generateUrl']
+            new Response(200, [], 'body')
         );
 
         $stub->types = ['invoice'];
@@ -33,8 +32,7 @@ class ClientTest extends TestClient
 
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $stub->create([]);
@@ -46,8 +44,7 @@ class ClientTest extends TestClient
 
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $stub->get('resource-id');
@@ -59,8 +56,7 @@ class ClientTest extends TestClient
 
         $stub = $this->createClientMockObject(
             Client::class,
-            new Response(200, [], '{}'),
-            ['update']
+            new Response(200, [], '{}')
         );
 
         $stub->update('resource-id', []);

@@ -18,90 +18,75 @@ class TestClient extends TestCase
 {
     /**
      * @param Response $response
-     * @param array $methodExcept
      * @return Api|MockObject
      */
-    public function createApiMockObject(Response $response, $methodExcept = [])
+    public function createApiMockObject(Response $response)
     {
-        return $this->createApiMultiMockObject([$response], $methodExcept);
+        return $this->createApiMultiMockObject([$response]);
     }
 
     /**
      * @param array $responses
-     * @param array $methodExcept
      * @return MockObject|Api
      */
-    public function createApiMultiMockObject(array $responses, $methodExcept = [])
+    public function createApiMultiMockObject(array $responses)
     {
         $responseMock = new MockHandler($responses);
 
         return $this
             ->getMockBuilder(Api::class)
+            ->addMethods([])
             ->setConstructorArgs([
                 '',
                 new Client([
                     'handler' => HandlerStack::create($responseMock)
                 ])
             ])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'setRequest',
-                'newRequest',
-                'getResponse'
-            ])
             ->getMock();
     }
 
     /**
-     * @param string $className
+     * @template T
+     * @param class-string<T> $className
      * @param Response $response
-     * @param array $methodExcept
-     * @return MockObject|ClientInterface
+     * @return MockObject|T
      */
-    public function createClientMockObject(string $className, Response $response, array $methodExcept = [])
+    public function createClientMockObject(string $className, Response $response)
     {
-        return $this->createClientMultiMockObject($className, [$response], $methodExcept);
+        return $this->createClientMultiMockObject($className, [$response]);
     }
 
     /**
-     * @param string $className
+     * @template T
+     * @param class-string<T> $className
      * @param Response[] $responses
-     * @param array $methodExcept
-     * @return MockObject
+     * @return MockObject|T
      */
-    public function createClientMultiMockObject(string $className, array $responses, array $methodExcept = [])
+    public function createClientMultiMockObject(string $className, array $responses)
     {
         $api = $this->createApiMultiMockObject($responses);
 
         return $this
             ->getMockBuilder($className)
+            ->addMethods([])
             ->setConstructorArgs([$api])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'getAsJson',
-                'createStream'
-            ])
             ->getMock();
     }
 
     /**
      * @param array $responses
-     * @param array $methodExcept
      * @return MockObject|PaginationClient
      * @throws ReflectionException
      */
-    public function createPaginationClientMockObject(array $responses, array $methodExcept = [])
+    public function createPaginationClientMockObject(array $responses)
     {
         $api = $this->createApiMultiMockObject($responses);
 
         $stub = $this
             ->getMockBuilder(PaginationClient::class)
+            ->addMethods([])
             ->setConstructorArgs([$api])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'getAsJson'
-            ])
-            ->getMock();
+            ->getMockForAbstractClass();
 
         $this->setProtectedProperty($stub, 'resource', 'resource');
 

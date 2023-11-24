@@ -13,7 +13,7 @@ class Client extends BaseClient
 {
     protected string $resource = 'countries';
 
-    /***
+    /**
      * @param array $data
      * @throws BadMethodCallException
      */
