@@ -10,14 +10,13 @@
   ],
   "license": "MIT",
   "require": {
-    "php": "^7.4 | ^8",
+    "php": "^8",
     "ext-json": "*",
     "ext-curl": "*",
     "guzzlehttp/guzzle": "^6.2 | ^7.0",
     "psr/cache": "^1.0 | ^2.0 | ^3.0"
   },
   "require-dev": {
-    "fzaninotto/faker": "^1.9.1",
     "phpunit/phpunit": "^9.0",
     "symfony/cache": "^5.1"
   },
