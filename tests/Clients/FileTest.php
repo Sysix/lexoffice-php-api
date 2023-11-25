@@ -43,7 +43,8 @@ class FileTest extends TestClient
             new Response(200, [], '{}')
         );
 
-        $file = __DIR__ . '/../cache/somefile.jpg';
+        $this->createCacheDir();
+        $file = $this->getCacheDir() . '/somefile.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, File::MAX_FILE_SIZE + 1,SEEK_CUR);
         fwrite($fp,'a');
@@ -61,7 +62,8 @@ class FileTest extends TestClient
             new Response(200, [], '{}')
         );
 
-        $file = __DIR__ . '/../cache/somefile2.jpg';
+        $this->createCacheDir();
+        $file = $this->getCacheDir() .  '/somefile2.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, 5,SEEK_CUR);
         fwrite($fp,'a');
