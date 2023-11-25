@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 trait CreateTrait
 {
     /**
-     * @param array[] $data
+     * @param mixed[] $data
      * @return ResponseInterface
      * @throws LexOfficeApiException
      */

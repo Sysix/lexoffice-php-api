@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 trait CreateFinalizeTrait
 {
     /**
-     * @param array[] $data
+     * @param mixed[] $data
      * @param bool $finalized
      * @return ResponseInterface
      * @throws LexOfficeApiException

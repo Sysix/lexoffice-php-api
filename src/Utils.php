@@ -11,7 +11,7 @@ class Utils
 {
     /**
      * @param string $resource
-     * @param array{size?: int, metadata?: array, mode?: bool, seekable?: bool} $options
+     * @param array{size?: int, metadata?: mixed[], mode?: bool, seekable?: bool} $options
      * @return Stream
      */
     public static function streamFor(string $resource = '', array $options = []): Stream
@@ -32,7 +32,7 @@ class Utils
     /**
      * @param mixed $value
      * @param int $options
-     * @param int $depth
+     * @param int<1, max> $depth
      * @return string
      */
     public static function jsonEncode($value, int $options = 0, int $depth = 512): string
@@ -49,7 +49,7 @@ class Utils
     /**
      * @param string $json
      * @param bool $assoc
-     * @param int $depth
+     * @param int<1, max> $depth
      * @param int $options
      * @return mixed
      */
