@@ -22,4 +22,44 @@ class ContactTest extends TestClient
         );
     }
 
+    public function testCreate()
+    {
+        $stub = $this->createClientMockObject(
+            Contact::class,
+            new Response(200, [], 'body'),
+            ['create']
+        );
+
+        $response = $stub->create([
+            'version' => 0
+        ]);
+
+        $this->assertEquals('body', $response->getBody()->__toString());
+    }
+
+    public function testGet()
+    {
+        $stub = $this->createClientMockObject(
+            Contact::class,
+            new Response(200, [], 'body'),
+            ['get']
+        );
+
+        $response = $stub->get('resource-id');
+
+        $this->assertEquals('body', $response->getBody()->__toString());
+    }
+
+    public function testUpdate()
+    {
+        $stub = $this->createClientMockObject(
+            Contact::class,
+            new Response(200, [], 'body'),
+            ['update']
+        );
+
+        $response = $stub->update('resource-id', []);
+
+        $this->assertEquals('body', $response->getBody()->__toString());
+    }
 }

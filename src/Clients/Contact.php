@@ -4,12 +4,14 @@ namespace Clicksports\LexOffice\Clients;
 
 use Clicksports\LexOffice\Clients\Traits\CreateTrait;
 use Clicksports\LexOffice\Clients\Traits\GetTrait;
+use Clicksports\LexOffice\Clients\Traits\UpdateTrait;
 use Clicksports\LexOffice\PaginationClient;
 
 class Contact extends PaginationClient
 {
     use CreateTrait;
     use GetTrait;
+    use UpdateTrait;
 
     protected string $resource = 'contacts';
 

@@ -17,7 +17,7 @@ composer:
 ## Usage
 
 Search for the official API Documentation [here](https://developers.lexoffice.io/docs/).  
-You need an [API Key](https://app.lexoffice.de/settings/#/public-api) for that.
+You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 
 ### Basic
 ```php
@@ -46,6 +46,7 @@ $response = $client->getAll();
 $response = $client->get($entityId);
 $response = $client->create($data);
 $response = $client->update($entityId, $data);
+
 ```
 
 ### Country Endpoint
@@ -213,4 +214,14 @@ $response = $api->file()->get($entityId);
 
 ```php
 $json = $api->*()->getAsJson($response);
+```
+
+### get JSON from Error Response
+
+```php
+try {
+   $api->*->*();
+} catch(\Clicksports\LexOffice\Exceptions\LexOfficeApiException $exception) {
+   $json = $api->*()->getAsJson($exception->getPrevious()->getResponse());
+}
 ```
