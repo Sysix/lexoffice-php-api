@@ -12,8 +12,7 @@ class ProfileTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Profile::class,
-            new Response(200, [], '{}'),
-            ['get']
+            new Response(200, [], '{}')
         );
 
         $this->assertEquals(

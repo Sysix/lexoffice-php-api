@@ -13,8 +13,7 @@ class VoucherListTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             VoucherList::class,
-            new Response(200, [], 'body'),
-            ['generateUrl']
+            new Response(200, [], 'body')
         );
 
         $stub->types = ['invoice'];

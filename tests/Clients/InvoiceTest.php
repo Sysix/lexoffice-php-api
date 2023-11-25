@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
@@ -13,8 +13,7 @@ class InvoiceTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Invoice::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->create([
@@ -28,8 +27,7 @@ class InvoiceTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Invoice::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');
@@ -39,35 +37,12 @@ class InvoiceTest extends TestClient
 
     public function testGetAll()
     {
-        $stub = $this->createClientMultiMockObject(
+        $stub = $this->createClientMockObject(
             Invoice::class,
-            [
-                new Response(200, [], '{"content": ["a"], "totalPages": 1}'),
-                new Response(200, [], '{"content": ["b"], "totalPages": 1}')
-            ],
-            ['getAll']
+            new Response(200, [], '{"content": [], "totalPages": 1}')
         );
 
         $response = $stub->getAll();
-
-        $this->assertEquals('{"content": ["a"], "totalPages": 1}', $response->getBody()->__toString());
-
-        $response = $stub->getAll(['open']);
-
-        $this->assertEquals('{"content": ["b"], "totalPages": 1}', $response->getBody()->__toString());
-    }
-
-    public function testGetPage()
-    {
-        $stub = $this->createClientMultiMockObject(
-            Invoice::class,
-            [
-                new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ],
-            ['getPage']
-        );
-
-        $response = $stub->getPage(0);
 
         $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
     }
@@ -76,8 +51,7 @@ class InvoiceTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Invoice::class,
-            new Response(200, [], '{"documentFileId": "fake-id"}'),
-            ['document']
+            new Response(200, [], '{"documentFileId": "fake-id"}')
         );
 
         $response = $stub->document('resource-id');
@@ -92,8 +66,7 @@ class InvoiceTest extends TestClient
             [
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
                 new Response(200, [], '{}')
-            ],
-            ['document']
+            ]
         );
 
         $response = $stub->document('resource-id', true);

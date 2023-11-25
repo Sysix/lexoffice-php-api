@@ -2,7 +2,6 @@
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Clients\PostingCategory;
 use Clicksports\LexOffice\Tests\TestClient;
 use GuzzleHttp\Psr7\Response;
@@ -13,8 +12,7 @@ class PostingCategoryTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             PostingCategory::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ['getAll']
+            new Response(200, [], '{"content": [], "totalPages": 1}')
         );
 
         $response = $stub->getAll();

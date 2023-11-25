@@ -12,8 +12,7 @@ class RecurringTemplateTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             RecurringTemplate::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');
@@ -25,8 +24,7 @@ class RecurringTemplateTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             RecurringTemplate::class,
-            new Response(200, [], 'body'),
-            ['generateUrl']
+            new Response(200, [], 'body')
         );
 
         $this->assertEquals(

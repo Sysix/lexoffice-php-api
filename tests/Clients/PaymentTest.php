@@ -2,7 +2,6 @@
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
 use Clicksports\LexOffice\Clients\Payment;
 use GuzzleHttp\Psr7\Response;
 use Clicksports\LexOffice\Tests\TestClient;
@@ -13,8 +12,7 @@ class PaymentTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Payment::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');

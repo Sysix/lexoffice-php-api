@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
@@ -13,8 +13,7 @@ class EventTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Event::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->create([
@@ -28,8 +27,7 @@ class EventTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Event::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ['getAll']
+            new Response(200, [], '{"content": [], "totalPages": 1}')
         );
 
         $response = $stub->getAll();
@@ -41,8 +39,7 @@ class EventTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Event::class,
-            new Response(200, [], 'body'),
-            ['delete']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->delete('resource-id');

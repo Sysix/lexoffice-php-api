@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
@@ -12,8 +12,7 @@ class ContactTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Contact::class,
-            new Response(200, [], 'body'),
-            ['generateUrl']
+            new Response(200, [], 'body')
         );
 
         $this->assertEquals(
@@ -26,8 +25,7 @@ class ContactTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Contact::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->create([
@@ -41,8 +39,7 @@ class ContactTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Contact::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');
@@ -54,8 +51,7 @@ class ContactTest extends TestClient
     {
         $stub = $this->createClientMockObject(
             Contact::class,
-            new Response(200, [], 'body'),
-            ['update']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->update('resource-id', []);

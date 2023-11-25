@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 namespace Clicksports\LexOffice\Tests\Clients;
 
@@ -13,8 +13,7 @@ class VoucherTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Voucher::class,
-            new Response(200, [], 'body'),
-            ['create']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->create([
@@ -28,8 +27,7 @@ class VoucherTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Voucher::class,
-            new Response(200, [], 'body'),
-            ['get']
+            new Response(200, [], 'body')
         );
 
         $response = $stub->get('resource-id');
@@ -41,8 +39,7 @@ class VoucherTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Voucher::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}'),
-            ['getAll']
+            new Response(200, [], '{"content": [], "totalPages": 1}')
         );
 
         $response = $stub->getAll();
@@ -54,8 +51,7 @@ class VoucherTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             Voucher::class,
-            new Response(200, [], '{}'),
-            ['update']
+            new Response(200, [], '{}')
         );
 
         $response = $stub->update('resource-id', []);

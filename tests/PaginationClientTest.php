@@ -10,8 +10,7 @@ class PaginationClientTest extends TestClient
     public function testGenerateUrl()
     {
         $stub = $this->createPaginationClientMockObject(
-            [new Response()],
-            ['generateUrl']
+            [new Response()]
         );
 
         $this->assertEquals(
@@ -23,8 +22,7 @@ class PaginationClientTest extends TestClient
     public function testGetAll()
     {
         $stub = $this->createPaginationClientMockObject(
-            [new Response(200, [], '{"content": [], "totalPages": 1}')],
-            ['getAll', 'getPage']
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
         $this->assertEquals(
@@ -37,8 +35,7 @@ class PaginationClientTest extends TestClient
             [
                 new Response(200, [], '{"content": [{"name": "a"}], "totalPages": 2}'),
                 new Response(200, [], '{"content": [{"name": "b"}], "totalPages": 2}')
-            ],
-            ['getAll', 'getPage']
+            ]
         );
 
         $this->assertEquals(
@@ -50,8 +47,7 @@ class PaginationClientTest extends TestClient
     public function testGetPage()
     {
         $stub = $this->createPaginationClientMockObject(
-            [new Response(200, [], '{"content": [], "totalPages": 1}')],
-            ['getPage']
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
         $this->assertEquals(

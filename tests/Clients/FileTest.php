@@ -1,9 +1,9 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace CliockSports\LexOffice\Tests\Clients;
+namespace Clicksports\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\File;
 use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Clicksports\LexOffice\Clients\File;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Clicksports\LexOffice\Tests\TestClient;
@@ -16,8 +16,7 @@ class FileTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             File::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $stub->upload('not_allowed.gif', 'voucher');
@@ -29,8 +28,7 @@ class FileTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             File::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
         $stub->upload('not_existing.jpg', 'voucher');
@@ -42,12 +40,10 @@ class FileTest extends TestClient
 
         $stub  = $this->createClientMockObject(
             File::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
-        $this->createCacheDir();
-        $file = $this->getCacheDir() . '/somefile.jpg';
+        $file = __DIR__ . '/somefile.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, File::MAX_FILE_SIZE + 1,SEEK_CUR);
         fwrite($fp,'a');
@@ -62,12 +58,10 @@ class FileTest extends TestClient
     {
         $stub  = $this->createClientMockObject(
             File::class,
-            new Response(200, [], '{}'),
-            ['upload']
+            new Response(200, [], '{}')
         );
 
-        $this->createCacheDir();
-        $file = $this->getCacheDir() . '/somefile2.jpg';
+        $file = __DIR__ . '/somefile2.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, 5,SEEK_CUR);
         fwrite($fp,'a');
