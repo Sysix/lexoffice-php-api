@@ -71,7 +71,7 @@ class VoucherList extends PaginationClient
      */
     public function generateUrl(int $page): string
     {
-        $dateFormat = DateTimeInterface::ISO8601;
+        $dateFormat = DateTimeInterface::ATOM;
 
         return parent::generateUrl($page) .
             '&sort=' . $this->sortColumn . ',' . $this->sortDirection .
