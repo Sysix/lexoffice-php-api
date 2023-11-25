@@ -29,11 +29,6 @@ use Psr\Http\Message\ResponseInterface;
 class Api
 {
     /**
-     * the library version
-     */
-    public const VERSION = "0.14.1";
-
-    /**
      * the lex-office api url
      *
      * @var string $apiUrl

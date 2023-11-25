@@ -43,7 +43,7 @@ class FileTest extends TestClient
             new Response(200, [], '{}')
         );
 
-        $file = __DIR__ . '/somefile.jpg';
+        $file = __DIR__ . '/../cache/somefile.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, File::MAX_FILE_SIZE + 1,SEEK_CUR);
         fwrite($fp,'a');
@@ -61,7 +61,7 @@ class FileTest extends TestClient
             new Response(200, [], '{}')
         );
 
-        $file = __DIR__ . '/somefile2.jpg';
+        $file = __DIR__ . '/../cache/somefile2.jpg';
         $fp = fopen($file, 'w+'); //
         fseek($fp, 5,SEEK_CUR);
         fwrite($fp,'a');
