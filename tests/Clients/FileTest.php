@@ -1,12 +1,12 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\Clients\File;
+use Sysix\LexOffice\Exceptions\LexOfficeApiException;
+use Sysix\LexOffice\Clients\File;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class FileTest extends TestClient
 {

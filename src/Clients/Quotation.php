@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients;
+namespace Sysix\LexOffice\Clients;
 
-use Clicksports\LexOffice\BaseClient;
-use Clicksports\LexOffice\Clients\Traits\CreateFinalizeTrait;
-use Clicksports\LexOffice\Clients\Traits\DocumentClientTrait;
-use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Clients\Traits\VoucherListTrait;
+use Sysix\LexOffice\BaseClient;
+use Sysix\LexOffice\Clients\Traits\CreateFinalizeTrait;
+use Sysix\LexOffice\Clients\Traits\DocumentClientTrait;
+use Sysix\LexOffice\Clients\Traits\GetTrait;
+use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class Quotation extends BaseClient
 {

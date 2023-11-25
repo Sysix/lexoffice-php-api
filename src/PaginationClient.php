@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice;
+namespace Sysix\LexOffice;
 
 use Psr\Http\Message\ResponseInterface;
 use stdClass;

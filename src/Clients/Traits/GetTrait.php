@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients\Traits;
+namespace Sysix\LexOffice\Clients\Traits;
 
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait GetTrait

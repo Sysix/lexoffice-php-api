@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Clicksports\LexOffice;
+namespace Sysix\LexOffice;
 
 
 use GuzzleHttp\Psr7\Stream;

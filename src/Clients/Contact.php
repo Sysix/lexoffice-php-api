@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients;
+namespace Sysix\LexOffice\Clients;
 
-use Clicksports\LexOffice\Clients\Traits\CreateTrait;
-use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Clients\Traits\UpdateTrait;
-use Clicksports\LexOffice\PaginationClient;
+use Sysix\LexOffice\Clients\Traits\CreateTrait;
+use Sysix\LexOffice\Clients\Traits\GetTrait;
+use Sysix\LexOffice\Clients\Traits\UpdateTrait;
+use Sysix\LexOffice\PaginationClient;
 
 class Contact extends PaginationClient
 {

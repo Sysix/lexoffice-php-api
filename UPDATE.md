@@ -1,26 +1,32 @@
 # Update from Version 0.x to 1.0
 
-## Functions Removed
+## Namespace Changed
 
-- `$api->setCacheInterface()`
-- `$api->getCacheResponse()`
-- `$api->setCacheResponse()`
+All Classses with started with `\Clicksports\Lexoffice` are now under `\Sysix\Lexoffice`.
+
+## Clients Namespace changed
+
+In Version `0.x` all Clients had a separate folder/namespace. Now they will all use the namespace
+`\Sysix\Lexoffice\Clients`
+
+## Cache removed
 
 For settings a Cache Interface check out [guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware).  
 And implement it with:
-`$api = new \Clicksports\LexOffice\Api($apiKey, $guzzleClient);`
-
-## Exceptions Removed
-
-- `\Clicksports\Lexoffice\Exception\CacheException`
-- `\Clicksports\Lexoffice\Exception\BadMethodException`
+`$api = new \Sysix\LexOffice\Api($apiKey, $guzzleClient);`
 
 ## Clients Method which will throw a BadMethodException
 
 We implemented in the `0.x` Version some methods for the future of lexoffice API.  
 At the moment, it doesn't look like the endpoint will be added soon. So we will remove them.
 
-## Clients Namespace changed
+## Functions Removed
 
-In Version `0.x` all Clients had a separate folder/namespace. Now they will all use the namespace
-`\Clicksports\Lexoffice\Clients`
+- `$api->setCacheInterface()`
+- `$api->getCacheResponse()`
+- `$api->setCacheResponse()`
+
+## Exceptions Removed
+
+- `\Sysix\Lexoffice\Exception\CacheException`
+- `\Sysix\Lexoffice\Exception\BadMethodException`

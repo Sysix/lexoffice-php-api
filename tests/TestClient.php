@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests;
+namespace Sysix\LexOffice\Tests;
 
-use Clicksports\LexOffice\Api;
-use Clicksports\LexOffice\PaginationClient;
+use Sysix\LexOffice\Api;
+use Sysix\LexOffice\PaginationClient;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;

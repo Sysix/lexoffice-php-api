@@ -1,10 +1,10 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\Quotation;
+use Sysix\LexOffice\Clients\Quotation;
 use GuzzleHttp\Psr7\Response;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class QuotationTest extends TestClient
 {

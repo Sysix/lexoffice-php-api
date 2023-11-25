@@ -1,10 +1,10 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\Event;
+use Sysix\LexOffice\Clients\Event;
 use GuzzleHttp\Psr7\Response;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class EventTest extends TestClient
 {

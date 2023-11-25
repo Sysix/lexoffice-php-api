@@ -1,9 +1,9 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\RecurringTemplate;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Clients\RecurringTemplate;
+use Sysix\LexOffice\Tests\TestClient;
 use GuzzleHttp\Psr7\Response;
 
 class RecurringTemplateTest extends TestClient

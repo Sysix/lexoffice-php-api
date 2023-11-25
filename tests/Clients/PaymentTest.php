@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\Payment;
+use Sysix\LexOffice\Clients\Payment;
 use GuzzleHttp\Psr7\Response;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class PaymentTest extends TestClient
 {

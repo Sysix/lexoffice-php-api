@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients;
+namespace Sysix\LexOffice\Clients;
 
-use Clicksports\LexOffice\Clients\Traits\GetTrait;
-use Clicksports\LexOffice\Exceptions\BadMethodCallException;
-use Clicksports\LexOffice\PaginationClient;
+use Sysix\LexOffice\Clients\Traits\GetTrait;
+use Sysix\LexOffice\Exceptions\BadMethodCallException;
+use Sysix\LexOffice\PaginationClient;
 
 class RecurringTemplate extends PaginationClient
 {

@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
 
-namespace Clicksports\LexOffice\Clients;
+namespace Sysix\LexOffice\Clients;
 
-use Clicksports\LexOffice\BaseClient;
-use Clicksports\LexOffice\Clients\Traits\CreateTrait;
-use Clicksports\LexOffice\Clients\Traits\DeleteTrait;
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Sysix\LexOffice\BaseClient;
+use Sysix\LexOffice\Clients\Traits\CreateTrait;
+use Sysix\LexOffice\Clients\Traits\DeleteTrait;
+use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 class Event extends BaseClient

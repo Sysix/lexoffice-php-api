@@ -1,9 +1,9 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\PostingCategory;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Clients\PostingCategory;
+use Sysix\LexOffice\Tests\TestClient;
 use GuzzleHttp\Psr7\Response;
 
 class PostingCategoryTest extends TestClient

@@ -1,23 +1,23 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests;
+namespace Sysix\LexOffice\Tests;
 
-use Clicksports\LexOffice\Clients\Contact;
-use Clicksports\LexOffice\Clients\Country;
-use Clicksports\LexOffice\Clients\CreditNote;
-use Clicksports\LexOffice\Clients\DownPaymentInvoice;
-use Clicksports\LexOffice\Clients\Event;
-use Clicksports\LexOffice\Clients\File;
-use Clicksports\LexOffice\Clients\Invoice;
-use Clicksports\LexOffice\Clients\OrderConfirmation;
-use Clicksports\LexOffice\Clients\Payment;
-use Clicksports\LexOffice\Clients\PaymentCondition;
-use Clicksports\LexOffice\Clients\Profile;
-use Clicksports\LexOffice\Clients\PostingCategory;
-use Clicksports\LexOffice\Clients\Quotation;
-use Clicksports\LexOffice\Clients\Voucher;
-use Clicksports\LexOffice\Clients\VoucherList;
-use Clicksports\LexOffice\Clients\RecurringTemplate;
+use Sysix\LexOffice\Clients\Contact;
+use Sysix\LexOffice\Clients\Country;
+use Sysix\LexOffice\Clients\CreditNote;
+use Sysix\LexOffice\Clients\DownPaymentInvoice;
+use Sysix\LexOffice\Clients\Event;
+use Sysix\LexOffice\Clients\File;
+use Sysix\LexOffice\Clients\Invoice;
+use Sysix\LexOffice\Clients\OrderConfirmation;
+use Sysix\LexOffice\Clients\Payment;
+use Sysix\LexOffice\Clients\PaymentCondition;
+use Sysix\LexOffice\Clients\Profile;
+use Sysix\LexOffice\Clients\PostingCategory;
+use Sysix\LexOffice\Clients\Quotation;
+use Sysix\LexOffice\Clients\Voucher;
+use Sysix\LexOffice\Clients\VoucherList;
+use Sysix\LexOffice\Clients\RecurringTemplate;
 use GuzzleHttp\Psr7\Response;
 
 class ApiTest extends TestClient

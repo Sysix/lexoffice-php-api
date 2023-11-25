@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients\Traits;
+namespace Sysix\LexOffice\Clients\Traits;
 
-use Clicksports\LexOffice\Clients\VoucherList;
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
+use Sysix\LexOffice\Clients\VoucherList;
+use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait VoucherListTrait

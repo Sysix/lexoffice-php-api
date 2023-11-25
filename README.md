@@ -1,8 +1,8 @@
 # Lexoffice PHP API
 
-![tests](https://github.com/clicksports/lexoffice-php-api/workflows/tests/badge.svg)
-[![Latest Stable Version](https://poser.pugx.org/clicksports/lex-office-api/v)](//packagist.org/packages/clicksports/lex-office-api)
-[![License](https://poser.pugx.org/clicksports/lex-office-api/license)](//packagist.org/packages/clicksports/lex-office-api)
+![tests](https://github.com/sysix/lexoffice-php-api/workflows/tests/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/sysix/lex-office-api/v)](//packagist.org/packages/sysix/lex-office-api)
+[![License](https://poser.pugx.org/sysix/lex-office-api/license)](//packagist.org/packages/sysix/lex-office-api)
 
 ## Requirements
 
@@ -12,7 +12,7 @@ Extensions: [Composer](https://getcomposer.org/), [PHP-JSON](https://www.php.net
 ## Install
 
 composer:  
-`composer require clicksports/lex-office-api`
+`composer require sysix/lex-office-api`
 
 ## Usage
 
@@ -22,14 +22,14 @@ You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 ### Basic
 ```php
 $apiKey = getenv('LEX_OFFICE_API_KEY'); // store keys in .env file
-$api = new \Clicksports\LexOffice\Api($apiKey);
+$api = new \Sysix\LexOffice\Api($apiKey);
 ```
 
 ### Contact Endpoint
 ```php
 
 // get a page
-/** @var \Clicksports\LexOffice\Api $api */
+/** @var \Sysix\LexOffice\Api $api */
 $client = $api->contact();
 
 $client->size = 100;
@@ -221,7 +221,7 @@ $json = $api->*()->getAsJson($response);
 ```php
 try {
    $api->*->*();
-} catch(\Clicksports\LexOffice\Exceptions\LexOfficeApiException $exception) {
+} catch(\Sysix\LexOffice\Exceptions\LexOfficeApiException $exception) {
    $json = $api->*()->getAsJson($exception->getPrevious()->getResponse());
 }
 ```

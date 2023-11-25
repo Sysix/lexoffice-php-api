@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Clients;
+namespace Sysix\LexOffice\Clients;
 
-use Clicksports\LexOffice\PaginationClient;
+use Sysix\LexOffice\PaginationClient;
 use DateTimeInterface;
 
 class VoucherList extends PaginationClient

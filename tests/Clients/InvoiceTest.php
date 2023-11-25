@@ -1,10 +1,10 @@
 <?php
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\Invoice;
+use Sysix\LexOffice\Clients\Invoice;
 use GuzzleHttp\Psr7\Response;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class InvoiceTest extends TestClient
 {

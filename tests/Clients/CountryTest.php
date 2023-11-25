@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests\Clients;
+namespace Sysix\LexOffice\Tests\Clients;
 
-use Clicksports\LexOffice\Clients\Country;
+use Sysix\LexOffice\Clients\Country;
 use GuzzleHttp\Psr7\Response;
-use Clicksports\LexOffice\Tests\TestClient;
+use Sysix\LexOffice\Tests\TestClient;
 
 class CountryTest extends TestClient
 {

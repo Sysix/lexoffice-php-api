@@ -1,5 +1,5 @@
 {
-  "name": "clicksports/lex-office-api",
+  "name": "sysix/lex-office-api",
   "type": "library",
   "description": "Simple API Integration for Lex-Office",
   "scripts": {
@@ -28,12 +28,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Clicksports\\LexOffice\\": "src/"
+      "Sysix\\LexOffice\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Clicksports\\LexOffice\\Tests\\": "tests/"
+      "Sysix\\LexOffice\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",
