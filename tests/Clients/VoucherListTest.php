@@ -9,7 +9,7 @@ use Sysix\LexOffice\Tests\TestClient;
 class VoucherListTest extends TestClient
 {
 
-    public function testGenerateUrl()
+    public function testGenerateUrl(): void
     {
         $stub = $this->createClientMockObject(
             VoucherList::class,

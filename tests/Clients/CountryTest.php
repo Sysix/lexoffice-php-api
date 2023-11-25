@@ -8,7 +8,7 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class CountryTest extends TestClient
 {
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createClientMockObject(
             Country::class,

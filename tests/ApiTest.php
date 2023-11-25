@@ -2,6 +2,7 @@
 
 namespace Sysix\LexOffice\Tests;
 
+use Sysix\LexOffice\Api;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
@@ -19,9 +20,14 @@ use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Clients\RecurringTemplate;
 use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ApiTest extends TestClient
 {
+    /**
+     * @param Response $response
+     * @return Api&MockObject
+     */
     public function createApiMockObject(Response $response)
     {
         $stub = parent::createApiMockObject($response);
@@ -30,7 +36,7 @@ class ApiTest extends TestClient
         return $stub;
     }
 
-    public function testClients()
+    public function testClients(): void
     {
         $stub = $this->createApiMockObject(new Response());
 
@@ -52,7 +58,7 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(PostingCategory::class, $stub->postingCategory());
     }
 
-    public function testApiUrl()
+    public function testApiUrl(): void
     {
         $stub = $this->createApiMockObject(
             new Response(200, [], 'post-content')
@@ -66,7 +72,7 @@ class ApiTest extends TestClient
         $this->assertStringStartsWith('test.de', $stub->request->getUri()->getHost());
     }
 
-    public function testGetResponse()
+    public function testGetResponse(): void
     {
         $responseMock = new Response(200, [], 'response-body');
         $stub = $this->createApiMockObject($responseMock);
@@ -80,7 +86,7 @@ class ApiTest extends TestClient
         $this->assertEquals($responseMock->getReasonPhrase(), $response->getReasonPhrase());
     }
 
-    public function testRequestHeaders()
+    public function testRequestHeaders(): void
     {
         $stub = $this->createApiMockObject(
             new Response(200, [], 'post-content')

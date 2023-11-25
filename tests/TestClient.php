@@ -4,6 +4,7 @@ namespace Sysix\LexOffice\Tests;
 
 use Sysix\LexOffice\Api;
 use Sysix\LexOffice\PaginationClient;
+use Sysix\LexOffice\ClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -17,7 +18,7 @@ class TestClient extends TestCase
 {
     /**
      * @param Response $response
-     * @return Api|MockObject
+     * @return Api&MockObject
      */
     public function createApiMockObject(Response $response)
     {
@@ -26,7 +27,7 @@ class TestClient extends TestCase
 
     /**
      * @param Response[] $responses
-     * @return MockObject|Api
+     * @return Api&MockObject
      */
     public function createApiMultiMockObject(array $responses)
     {
@@ -34,7 +35,7 @@ class TestClient extends TestCase
 
         return $this
             ->getMockBuilder(Api::class)
-            ->addMethods([])
+            ->onlyMethods([])
             ->setConstructorArgs([
                 '',
                 new Client([
@@ -45,10 +46,10 @@ class TestClient extends TestCase
     }
 
     /**
-     * @template T
+     * @template T of ClientInterface
      * @param class-string<T> $className
      * @param Response $response
-     * @return MockObject|T
+     * @return T&MockObject
      */
     public function createClientMockObject(string $className, Response $response)
     {
@@ -56,10 +57,10 @@ class TestClient extends TestCase
     }
 
     /**
-     * @template T
+     * @template T of ClientInterface
      * @param class-string<T> $className
      * @param Response[] $responses
-     * @return MockObject|T
+     * @return T&MockObject
      */
     public function createClientMultiMockObject(string $className, array $responses)
     {
@@ -67,14 +68,14 @@ class TestClient extends TestCase
 
         return $this
             ->getMockBuilder($className)
-            ->addMethods([])
+            ->onlyMethods([])
             ->setConstructorArgs([$api])
             ->getMock();
     }
 
     /**
      * @param Response[] $responses
-     * @return MockObject|PaginationClient
+     * @return PaginationClient&MockObject
      * @throws ReflectionException
      */
     public function createPaginationClientMockObject(array $responses)
@@ -83,9 +84,9 @@ class TestClient extends TestCase
 
         $stub = $this
             ->getMockBuilder(PaginationClient::class)
-            ->addMethods([])
+            ->onlyMethods([])
             ->setConstructorArgs([$api])
-            ->getMockForAbstractClass();
+            ->getMock();
 
         $this->setProtectedProperty($stub, 'resource', 'resource');
 

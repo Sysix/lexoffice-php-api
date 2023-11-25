@@ -8,7 +8,7 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class DownPaymentInvoiceTest extends TestClient
 {
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createClientMockObject(
             DownPaymentInvoice::class,
@@ -20,7 +20,7 @@ class DownPaymentInvoiceTest extends TestClient
         $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
     }
 
-    public function testDocument()
+    public function testDocument(): void
     {
         $stub  = $this->createClientMockObject(
             DownPaymentInvoice::class,

@@ -9,7 +9,7 @@ use Sysix\LexOffice\Tests\TestClient;
 class QuotationTest extends TestClient
 {
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $stub = $this->createClientMockObject(
             Quotation::class,
@@ -23,7 +23,7 @@ class QuotationTest extends TestClient
         $this->assertEquals('body', $response->getBody()->__toString());
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $stub = $this->createClientMockObject(
             Quotation::class,
@@ -35,7 +35,7 @@ class QuotationTest extends TestClient
         $this->assertEquals('body', $response->getBody()->__toString());
     }
 
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createClientMockObject(
             Quotation::class,
@@ -47,7 +47,7 @@ class QuotationTest extends TestClient
         $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
     }
 
-    public function testDocument()
+    public function testDocument(): void
     {
         $stub = $this->createClientMockObject(
             Quotation::class,

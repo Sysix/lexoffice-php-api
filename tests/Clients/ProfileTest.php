@@ -8,7 +8,7 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class ProfileTest extends TestClient
 {
-    public function testGet()
+    public function testGet(): void
     {
         $stub = $this->createClientMockObject(
             Profile::class,

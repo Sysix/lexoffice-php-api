@@ -8,7 +8,7 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class ContactTest extends TestClient
 {
-    public function testGenerateUrl()
+    public function testGenerateUrl(): void
     {
         $stub = $this->createClientMockObject(
             Contact::class,
@@ -21,7 +21,7 @@ class ContactTest extends TestClient
         );
     }
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $stub = $this->createClientMockObject(
             Contact::class,
@@ -35,7 +35,7 @@ class ContactTest extends TestClient
         $this->assertEquals('body', $response->getBody()->__toString());
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $stub = $this->createClientMockObject(
             Contact::class,
@@ -47,7 +47,7 @@ class ContactTest extends TestClient
         $this->assertEquals('body', $response->getBody()->__toString());
     }
 
-    public function testUpdate()
+    public function testUpdate(): void
     {
         $stub = $this->createClientMockObject(
             Contact::class,

@@ -9,7 +9,7 @@ use Sysix\LexOffice\Tests\TestClient;
 class EventTest extends TestClient
 {
 
-    public function testCreate()
+    public function testCreate(): void
     {
         $stub = $this->createClientMockObject(
             Event::class,
@@ -23,7 +23,7 @@ class EventTest extends TestClient
         $this->assertEquals('body', $response->getBody()->__toString());
     }
 
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createClientMockObject(
             Event::class,
@@ -35,7 +35,7 @@ class EventTest extends TestClient
         $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
     }
 
-    public function testDelete()
+    public function testDelete(): void
     {
         $stub = $this->createClientMockObject(
             Event::class,

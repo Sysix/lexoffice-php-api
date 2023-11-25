@@ -8,7 +8,7 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class PaymentConditionTest extends TestClient
 {
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createClientMockObject(
             PaymentCondition::class,

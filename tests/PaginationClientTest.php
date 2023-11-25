@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Response;
 class PaginationClientTest extends TestClient
 {
 
-    public function testGenerateUrl()
+    public function testGenerateUrl(): void
     {
         $stub = $this->createPaginationClientMockObject(
             [new Response()]
@@ -19,7 +19,7 @@ class PaginationClientTest extends TestClient
         );
     }
 
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $stub = $this->createPaginationClientMockObject(
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
@@ -44,7 +44,7 @@ class PaginationClientTest extends TestClient
         );
     }
 
-    public function testGetPage()
+    public function testGetPage(): void
     {
         $stub = $this->createPaginationClientMockObject(
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
