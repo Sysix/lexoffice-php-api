@@ -9,6 +9,12 @@ All Classses with started with `\Clicksports\Lexoffice` are now under `\Sysix\Le
 In Version `0.x` all Clients had a separate folder/namespace. Now they will all use the namespace
 `\Sysix\Lexoffice\Clients`
 
+| Old Class | New Class |
+| --- | --- |
+| `new \Clicksports\Lexoffice\Country\Client()` | `new \Sysix\Lexoffice\Clients\Country()` |
+| `new \Clicksports\Lexoffice\Voucher\Client()` | `new \Sysix\Lexoffice\Clients\Voucher()` |
+| ... | ... |
+
 ## Cache removed
 
 For settings a Cache Interface check out [guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware).  
@@ -30,3 +36,7 @@ At the moment, it doesn't look like the endpoint will be added soon. So we will 
 
 - `\Sysix\Lexoffice\Exception\CacheException`
 - `\Sysix\Lexoffice\Exception\BadMethodException`
+
+## Strict Typed
+
+Every Method is has now strict Parameters and strict Return Types. If you extend some classes, you probably need to update them too.

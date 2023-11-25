@@ -24,7 +24,8 @@
     "phpunit/phpunit": "^10.4"
   },
   "suggest": {
-    "kevinrob/guzzle-cache-middleware": "*"
+    "kevinrob/guzzle-cache-middleware": "*",
+    "spatie/guzzle-rate-limiter-middleware": "*"
   },
   "autoload": {
     "psr-4": {

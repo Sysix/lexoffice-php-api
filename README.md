@@ -6,7 +6,7 @@
 
 ## Requirements
 
-PHP: >= 7.4  
+PHP: >= 8.1  
 Extensions: [Composer](https://getcomposer.org/), [PHP-JSON](https://www.php.net/manual/en/book.json.php)
 
 ## Install
