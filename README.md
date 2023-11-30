@@ -7,7 +7,10 @@
 ## Requirements
 
 PHP: >= 8.1  
-Extensions: [Composer](https://getcomposer.org/), [PHP-JSON](https://www.php.net/manual/en/book.json.php)
+Extensions: 
+- [Composer](https://getcomposer.org/)
+- [PHP-JSON](https://www.php.net/manual/en/book.json.php)
+- [PSR-18 HTTP-Client](https://packagist.org/providers/psr/http-client-implementation)
 
 ## Install
 
@@ -16,12 +19,16 @@ composer:
 
 ## Usage
 
-Search for the official API Documentation [here](https://developers.lexoffice.io/docs/).  
+Search for the [official API Documentation](https://developers.lexoffice.io/docs/).  
 You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 
 ### Basic
 ```php
-$apiKey = getenv('LEX_OFFICE_API_KEY'); // store keys in .env file
+// store keys in .env file
+$apiKey = getenv('LEX_OFFICE_API_KEY'); 
+
+// in this example we are using guzzlehttp/guzzle package, it can be any PSR-18 HTTP Client 
+// see: https://packagist.org/providers/psr/http-client-implementation
 $httpClient = \GuzzleHttp\Client();
 $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 ```

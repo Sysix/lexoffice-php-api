@@ -3,7 +3,6 @@
 namespace Sysix\LexOffice\Clients;
 
 use Sysix\LexOffice\Clients\Traits\GetTrait;
-use Sysix\LexOffice\Exceptions\BadMethodCallException;
 use Sysix\LexOffice\PaginationClient;
 
 class RecurringTemplate extends PaginationClient

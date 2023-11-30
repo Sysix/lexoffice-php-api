@@ -24,10 +24,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class ApiTest extends TestClient
 {
-    /**
-     * @param Response $response
-     * @return Api&MockObject
-     */
     public function createApiMockObject(Response $response)
     {
         $stub = parent::createApiMockObject($response);

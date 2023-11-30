@@ -16,12 +16,13 @@
   "require": {
     "php": "^8.1",
     "ext-json": "*",
-    "ext-curl": "*",
-    "guzzlehttp/guzzle": "^6.2 | ^7.0"
+    "psr/http-client": "^1.0",
+    "guzzlehttp/psr7": "^2.0"
   },
   "require-dev": {
     "phpstan/phpstan": "^1.10",
-    "phpunit/phpunit": "^10.4"
+    "phpunit/phpunit": "^10.4",
+    "guzzlehttp/guzzle": "^7.8"
   },
   "suggest": {
     "kevinrob/guzzle-cache-middleware": "*",
