@@ -22,6 +22,7 @@ You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 ### Basic
 ```php
 $apiKey = getenv('LEX_OFFICE_API_KEY'); // store keys in .env file
+$httpClient = \GuzzleHttp\Client();
 $api = new \Sysix\LexOffice\Api($apiKey);
 ```
 

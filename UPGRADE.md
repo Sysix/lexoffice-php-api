@@ -1,4 +1,4 @@
-# Update from Version 0.x to 1.0
+# Upgrade from Version 0.x to 1.0
 
 ## Namespace Changed
 
@@ -11,17 +11,59 @@ In Version `0.x` all Clients had a separate folder/namespace. Now they will all 
 
 | Old Class | New Class |
 | --- | --- |
+| `new \Clicksports\Lexoffice\*\Client()` | `new \Sysix\Lexoffice\Clients\*()` |
+| Examples  |
 | `new \Clicksports\Lexoffice\Country\Client()` | `new \Sysix\Lexoffice\Clients\Country()` |
 | `new \Clicksports\Lexoffice\Voucher\Client()` | `new \Sysix\Lexoffice\Clients\Voucher()` |
-| ... | ... |
+
+## Requires PHP 8.1
+
+PHP 8.0 is now [End of Security Support](https://www.php.net/supported-versions.php) and our dev Packages already require PHP 8.1.  
+So we are dumping our software to PHP 8.1. 
+
+
+## ClientInterface is required
+
+In Version `0.x` the `\Sysix\LexOffice\Api` requires only one constructor parameter (The API Key). Now a second parameter is also required.  
+In the past a `GuzzleHttp\Client` was the second optional parameter. no any PSR-18 compatible HTTP-Client is allowed. 
+ `GuzzleHttp\Client` was already one of it.
+
+ If you want still use `guzzlehttp/guzzle` just update your code as following:
+
+ ```php
+ $api = new \Sysix\LexOffice\Api($apiKey, new \GuzzleHttp\Client());
+ ```
+
+## Error Responses dont throws Exceptions
+
+To be [PSR-18 compatible](https://www.php-fig.org/psr/psr-18/) any responses with status code > 400 will not throw an Exception.
+Make sure you check the status code before accessing the entities:
+
+```php
+/** @var \Sysix\LexOffice\Api $api */
+$client = $api->*();
+$response = $client->*();
+
+// https://developers.lexoffice.io/docs/#http-status-codes
+if ($response->getStatusCode() === 200 /* 201 | 202 | 204 */ ) {
+  $json = $client()->getAsJson($response);
+}
+```
+
+## Errors dont get wrapped into `\Sysix\Lexoffice\Exceptions\LexOfficeApiException`
+
+Because we are allowing [PSR-18 Clients](https://www.php-fig.org/psr/psr-18/) we don't wrap the `GuzzleException` into an `LexOfficeApiException`.
+The Only times `LexOfficeApiException` is now thrown, is when you are uploading a file. 
+This can maybe change in the future!
 
 ## Cache removed
 
-For settings a Cache Interface check out [guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware).  
+The HTTP-Client is now in charge of caching. When you are still using `guzzlehttp/guzzle`,  
+you can use the following middleware: [guzzle-cache-middleware](https://github.com/Kevinrob/guzzle-cache-middleware).  
 And implement it with:
 `$api = new \Sysix\LexOffice\Api($apiKey, $guzzleClient);`
 
-## Clients Method which will throw a BadMethodException
+## Clients Methods which would throw an BadMethodException
 
 We implemented in the `0.x` Version some methods for the future of lexoffice API.  
 At the moment, it doesn't look like the endpoint will be added soon. So we will remove them.
@@ -39,4 +81,4 @@ At the moment, it doesn't look like the endpoint will be added soon. So we will 
 
 ## Strict Typed
 
-Every Method is has now strict Parameters and strict Return Types. If you extend some classes, you probably need to update them too.
+Every Method has now strict Parameters and strict Return Types. If you extended some classes, you probably need to update them too.
