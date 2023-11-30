@@ -22,6 +22,7 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use SensitiveParameter;
 
 class Api
 {
@@ -33,7 +34,7 @@ class Api
 
 
     public function __construct(
-        protected string $apiKey, 
+        #[SensitiveParameter] protected string $apiKey, 
         protected ClientInterface $client
     )
     {
