@@ -3,16 +3,12 @@
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Sysix\LexOffice\Clients\VoucherList;
-use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait VoucherListTrait
 {
     /**
-     * @param int $page
      * @param string[] $states
-     * @return ResponseInterface
-     * @throws LexOfficeApiException
      */
     public function getPage(int $page, array $states = []): ResponseInterface
     {
@@ -30,8 +26,6 @@ trait VoucherListTrait
 
     /**
      * @param string[] $states
-     * @return ResponseInterface
-     * @throws LexOfficeApiException
      */
     public function getAll(array $states = []): ResponseInterface
     {

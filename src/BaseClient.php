@@ -10,20 +10,13 @@ use Psr\Http\Message\StreamInterface;
 abstract class BaseClient implements ClientInterface
 {
     protected string $resource;
-    /**
-     * @var Api $api
-     */
-    protected Api $api;
 
-    public function __construct(Api $lexOffice)
+    public function __construct(
+        protected Api $api
+        )
     {
-        $this->api = $lexOffice;
     }
 
-    /**
-     * @param ResponseInterface $response
-     * @return object
-     */
     public function getAsJson(ResponseInterface $response): object
     {
         $body = $response->getBody()->__toString();
@@ -31,11 +24,7 @@ abstract class BaseClient implements ClientInterface
         return Utils::jsonDecode($body);
     }
 
-    /**
-     * @param mixed $content
-     * @return StreamInterface
-     */
-    protected function createStream($content): StreamInterface
+    protected function createStream(mixed $content): StreamInterface
     {
         return Utils::streamFor(
             Utils::jsonEncode($content)
@@ -44,8 +33,6 @@ abstract class BaseClient implements ClientInterface
 
     /**
      * @param string[]|bool[]|resource[] $content
-     * @param string|null $boundary
-     * @return MultipartStream
      */
     protected function createMultipartStream(array $content, string $boundary = null): MultipartStream
     {

@@ -19,9 +19,6 @@ class File extends BaseClient
     protected array $supportedExtension = ['png', 'jpg', 'pdf'];
 
     /**
-     * @param string $filepath
-     * @param string $type
-     * @return ResponseInterface
      * @throws LexOfficeApiException
      */
     public function upload(string $filepath, string $type): ResponseInterface

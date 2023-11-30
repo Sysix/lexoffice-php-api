@@ -210,18 +210,8 @@ $response = $api->file()->get($entityId);
 ```
 
 
-### get JSON from Response
+### get JSON from Success and Error Response
 
 ```php
 $json = $api->*()->getAsJson($response);
-```
-
-### get JSON from Error Response
-
-```php
-try {
-   $api->*->*();
-} catch(\Sysix\LexOffice\Exceptions\LexOfficeApiException $exception) {
-   $json = $api->*()->getAsJson($exception->getPrevious()->getResponse());
-}
 ```

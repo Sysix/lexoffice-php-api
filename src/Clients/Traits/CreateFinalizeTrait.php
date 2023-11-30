@@ -2,16 +2,12 @@
 
 namespace Sysix\LexOffice\Clients\Traits;
 
-use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait CreateFinalizeTrait
 {
     /**
      * @param mixed[] $data
-     * @param bool $finalized
-     * @return ResponseInterface
-     * @throws LexOfficeApiException
      */
     public function create(array $data, bool $finalized = false): ResponseInterface
     {

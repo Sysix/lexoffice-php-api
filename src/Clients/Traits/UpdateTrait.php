@@ -2,16 +2,12 @@
 
 namespace Sysix\LexOffice\Clients\Traits;
 
-use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 trait UpdateTrait
 {
     /**
-     * @param string $id
      * @param mixed[] $data
-     * @return ResponseInterface
-     * @throws LexOfficeApiException
      */
     public function update(string $id, array $data): ResponseInterface
     {

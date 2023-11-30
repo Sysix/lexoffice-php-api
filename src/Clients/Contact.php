@@ -25,10 +25,6 @@ class Contact extends PaginationClient
 
     public ?bool $vendor = null;
 
-    /**
-     * @param int $page
-     * @return string
-     */
     public function generateUrl(int $page): string
     {
         return parent::generateUrl($page) .

@@ -17,7 +17,6 @@ use ReflectionException;
 class TestClient extends TestCase
 {
     /**
-     * @param Response $response
      * @return Api&MockObject
      */
     public function createApiMockObject(Response $response)
@@ -48,7 +47,6 @@ class TestClient extends TestCase
     /**
      * @template T of ClientInterface
      * @param class-string<T> $className
-     * @param Response $response
      * @return T&MockObject
      */
     public function createClientMockObject(string $className, Response $response)

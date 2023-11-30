@@ -6,7 +6,6 @@ use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Clients\Traits\UpdateTrait;
-use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 
 class Voucher extends BaseClient
@@ -17,10 +16,6 @@ class Voucher extends BaseClient
 
     protected string $resource = 'vouchers';
 
-    /**
-     * @return ResponseInterface
-     * @throws LexOfficeApiException
-     */
     public function getAll(): ResponseInterface
     {
         $client = new VoucherList($this->api);

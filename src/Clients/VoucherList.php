@@ -34,9 +34,6 @@ class VoucherList extends PaginationClient
 
     public ?DateTimeInterface $updatedDateTo = null;
 
-    /**
-     * @return $this
-     */
     public function setToEverything(): self
     {
         $this->types = [
@@ -65,10 +62,6 @@ class VoucherList extends PaginationClient
         return $this;
     }
 
-    /**
-     * @param int $page
-     * @return string
-     */
     public function generateUrl(int $page): string
     {
         $dateFormat = DateTimeInterface::ATOM;
