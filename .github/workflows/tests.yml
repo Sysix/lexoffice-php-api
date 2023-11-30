@@ -16,7 +16,6 @@ jobs:
       matrix:
         php: [8.3, 8.2, 8.1]
         dependency-version: [prefer-lowest, prefer-stable]
-        guzzle: [7.*, 6.2]
 
     name: PHP${{ matrix.php }} - G${{ matrix.guzzle }} - ${{ matrix.dependency-version }}
 
@@ -28,7 +27,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.composer/cache/files
-          key: dependencies-guzzle-${{ matrix.guzzle }}-php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
+          key: php-${{ matrix.php }}-composer-${{ hashFiles('composer.json') }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -36,9 +35,8 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
 
-      - name: Install dependencies
+      - name: Install prefered version dependencies
         run: |
-          composer require "guzzlehttp/guzzle:${{ matrix.guzzle }}" --no-interaction --no-update
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
       - name: Execute tests
