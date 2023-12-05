@@ -24,8 +24,13 @@ abstract class PaginationClient extends BaseClient
         return $api->getResponse();
     }
 
+    /**
+     * @deprecated 1.0 Not recommend anymore because of Rate Limiting, WILL be removed in 2.0
+     */
     public function getAll(): ResponseInterface
     {
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+
         $response = $this->getPage(0);
         /** @var stdClass{totalPages:int, content:stdClass[]} $result */
         $result = $this->getAsJson($response);

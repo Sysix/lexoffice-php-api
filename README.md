@@ -64,10 +64,7 @@ $response = $api->country()->getAll();
 
 ### Invoices Endpoint
 ```php
-$response = $api->invoice()->getAll();
-$response = $api->invoice()->getAll(array $states);
-$response = $api->invoice()->getPage(0);
-$response = $api->invoice()->getPage(0, array $states);
+$voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
 $response = $api->invoice()->document($entityId); // get document ID
@@ -76,10 +73,7 @@ $response = $api->invoice()->document($entityId, true); // get file content
 
 ### Down Payment Invoices Endpoint
 ```php
-$response = $api->downPaymentInvoice()->getAll();
-$response = $api->downPaymentInvoice()->getAll(array $states);
-$response = $api->downPaymentInvoice()->getPage(0);
-$response = $api->downPaymentInvoice()->getPage(0, array $states);
+$voucherList = $api->downPaymentInvoice()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->downPaymentInvoice()->get($entityId);
 $response = $api->downPaymentInvoice()->create($data);
 $response = $api->downPaymentInvoice()->document($entityId); // get document ID
@@ -88,10 +82,7 @@ $response = $api->downPaymentInvoice()->document($entityId, true); // get file c
 
 ### Order Confirmation Endpoint
 ```php
-$response = $api->orderConfirmation()->getAll();
-$response = $api->orderConfirmation()->getAll(array $states);
-$response = $api->orderConfirmation()->getPage(0);
-$response = $api->orderConfirmation()->getPage(0, array $states);
+$voucherList = $api->orderConfirmation()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->orderConfirmation()->get($entityId);
 $response = $api->orderConfirmation()->create($data);
 $response = $api->orderConfirmation()->document($entityId); // get document ID
@@ -100,10 +91,7 @@ $response = $api->orderConfirmation()->document($entityId, true); // get file co
 
 ### Quotation Endpoint
 ```php
-$response = $api->quotation()->getAll();
-$response = $api->quotation()->getAll(array $states);
-$response = $api->quotation()->getPage(0);
-$response = $api->quotation()->getPage(0, array $states);
+$voucherList = $api->quotation()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->quotation()->get($entityId);
 $response = $api->quotation()->create($data);
 $response = $api->quotation()->document($entityId); // get document ID
@@ -112,7 +100,6 @@ $response = $api->quotation()->document($entityId, true); // get file content
 
 ### Voucher Endpoint
 ```php
-$response = $api->voucher()->getAll();
 $response = $api->voucher()->get($entityId);
 $response = $api->voucher()->create($data);
 $response = $api->voucher()->update($entityId, $data);
@@ -123,10 +110,7 @@ $response = $api->voucher()->document($entityId, true); // get file content
 
 ### Credit Notes Endpoint
 ```php
-$response = $api->creditNote()->getAll();
-$response = $api->creditNote()->getAll(array $states);
-$response = $api->creditNote()->getPage(0);
-$response = $api->creditNote()->getPage(0, array $states);
+$voucherList = $api->creditNote()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->creditNote()->get($entityId);
 $response = $api->creditNote()->create($data);
 $response = $api->creditNote()->document($entityId); // get document ID

@@ -20,7 +20,7 @@ use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Clients\RecurringTemplate;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\ResponseInterface;
 
 class ApiTest extends TestClient
 {
@@ -68,18 +68,43 @@ class ApiTest extends TestClient
         $this->assertStringStartsWith('test.de', $stub->request->getUri()->getHost());
     }
 
-    public function testGetResponse(): void
+    public function testGetSuccessResponse(): void
     {
-        $responseMock = new Response(200, [], 'response-body');
-        $stub = $this->createApiMockObject($responseMock);
-
+        $stub = $this->createApiMockObject(new Response(200, [], 'response-body'));
         $response = $stub->getResponse();
 
-        $this->assertEquals($responseMock->getHeaders(), $response->getHeaders());
-        $this->assertEquals($responseMock->getBody(), $response->getBody());
-        $this->assertEquals($responseMock->getStatusCode(), $response->getStatusCode());
-        $this->assertEquals($responseMock->getProtocolVersion(), $response->getProtocolVersion());
-        $this->assertEquals($responseMock->getReasonPhrase(), $response->getReasonPhrase());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+    /**
+     * @link https://developers.lexoffice.io/docs/#error-codes
+     */
+    public function testGetFailedResponse(): void
+    {
+        $stub = $this->createApiMockObject(new Response(401, [], '{"message":"Unauthorized"}'));
+        $response = $stub->getResponse();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $stub = $this->createApiMockObject(new Response(403, [], '{"message":"\'{accessToken}\' not a valid key=value pair (missing equal-sign) in Authorization header: \'Bearer {accessToken}\'."}'));
+        $response = $stub->getResponse();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $stub = $this->createApiMockObject(new Response(500, [], '{"message":null}'));
+        $response = $stub->getResponse();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $stub = $this->createApiMockObject(new Response(503, [], null));
+        $response = $stub->getResponse();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $stub = $this->createApiMockObject(new Response(504, [], '{"message":"Endpoint request timed out}'));
+        $response = $stub->getResponse();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
     }
 
     public function testRequestHeaders(): void

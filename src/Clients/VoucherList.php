@@ -4,6 +4,7 @@ namespace Sysix\LexOffice\Clients;
 
 use Sysix\LexOffice\PaginationClient;
 use DateTimeInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class VoucherList extends PaginationClient
 {
@@ -34,8 +35,13 @@ class VoucherList extends PaginationClient
 
     public ?DateTimeInterface $updatedDateTo = null;
 
+    /**
+     * @deprecated 1.0 Not recommend anymore because of Rate Limiting, WILL be removed in 2.0
+     */
     public function setToEverything(): self
     {
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+
         $this->types = [
             'salesinvoice',
             'salescreditnote',

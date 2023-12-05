@@ -25,7 +25,7 @@ So we are dumping our software to PHP 8.1.
 ## ClientInterface is required
 
 In Version `0.x` the `\Sysix\LexOffice\Api` requires only one constructor parameter (The API Key). Now a second parameter is also required.  
-In the past a `GuzzleHttp\Client` was the second optional parameter. no any PSR-18 compatible HTTP-Client is allowed. 
+In the past a `GuzzleHttp\Client` was the second optional parameter. no any PSR-18 compatible HTTP-Client is allowed.  
  `GuzzleHttp\Client` was already one of it.
 
  If you want still use `guzzlehttp/guzzle` just update your code as following:
@@ -78,6 +78,32 @@ At the moment, it doesn't look like the endpoint will be added soon. So we will 
 
 - `\Sysix\Lexoffice\Exception\CacheException`
 - `\Sysix\Lexoffice\Exception\BadMethodException`
+
+
+## Functions Deprecated
+
+This functions will be removed in the next major (2.0) Update
+
+- `\Sysix\Lexoffice\Clients\CreditNote::getAll`
+- `\Sysix\Lexoffice\Clients\DownPaymentInvoice::getAll`
+- `\Sysix\Lexoffice\Clients\Invoice::getAll`
+- `\Sysix\Lexoffice\Clients\OrderConfirmation::getAll`
+- `\Sysix\Lexoffice\Clients\Quotation::getAll`
+- `\Sysix\Lexoffice\Clients\Voucher::getAll`
+- `\Sysix\Lexoffice\Clients\VoucherList::setToEverything`
+- 
+- `\Sysix\Lexoffice\Clients\CreditNote::getPage`
+- `\Sysix\Lexoffice\Clients\DownPaymentInvoice::getPage`
+- `\Sysix\Lexoffice\Clients\Invoice::getPage`
+- `\Sysix\Lexoffice\Clients\OrderConfirmation::getPage`
+- `\Sysix\Lexoffice\Clients\Quotation::getPage`
+- `\Sysix\Lexoffice\Clients\Voucher::getPage`
+
+For almost all clients there is a new method called `getVoucherListClient` which returns a `\Sysix\LexOffice\Api\Clients\VoucherList`.  
+With this client there are more filters for the vouchers.
+
+! You need to set a non-empty `statuses` property to the `\Sysix\LexOffice\Api\Clients\VoucherList`
+
 
 ## Strict Typed
 

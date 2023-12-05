@@ -16,8 +16,13 @@ class Voucher extends BaseClient
 
     protected string $resource = 'vouchers';
 
+    /**
+     * @deprecated 1.0 Not recommend anymore because of Rate Limiting, WILL be removed in 2.0
+     */
     public function getAll(): ResponseInterface
     {
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+
         $client = new VoucherList($this->api);
 
         /**

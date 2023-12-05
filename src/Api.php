@@ -2,6 +2,7 @@
 
 namespace Sysix\LexOffice;
 
+use GuzzleHttp\Psr7\Uri;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
@@ -22,6 +23,7 @@ use GuzzleHttp\Psr7\Request;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
 use SensitiveParameter;
 
 class Api
@@ -46,7 +48,7 @@ class Api
     public function newRequest(string $method, string $resource, array $headers = []): self
     {
         $this->setRequest(
-            new Request($method, $this->createApiUrl($resource), $headers)
+            new Request($method, $this->createApiUri($resource), $headers)
         );
 
         return $this;
@@ -68,9 +70,9 @@ class Api
         return $this;
     }
 
-    protected function createApiUrl(string $resource): string
+    protected function createApiUri(string $resource): UriInterface
     {
-        return $this->apiUrl . '/' . $this->apiVersion . '/' . $resource;
+        return new Uri($this->apiUrl . '/' . $this->apiVersion . '/' . $resource);
     }
 
     public function getResponse(): ResponseInterface

@@ -37,6 +37,8 @@ class QuotationTest extends TestClient
 
     public function testGetAll(): void
     {
+        $this->expectDeprecationV1Warning('getAll');
+        
         $stub = $this->createClientMockObject(
             Quotation::class,
             new Response(200, [], '{"content": [], "totalPages": 1}')

@@ -1,7 +1,7 @@
 {
   "name": "sysix/lex-office-api",
   "type": "library",
-  "description": "Simple API Integration for Lex-Office",
+  "description": "Simple API Integration for Lexoffice",
   "scripts": {
     "test": "phpunit",
     "lint": "phpstan analyse --ansi --error-format raw"

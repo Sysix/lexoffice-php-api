@@ -11,11 +11,15 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use ReflectionException;
 
 class TestClient extends TestCase
 {
+
+    public function tearDown(): void
+    {
+        // see self::expectDeprecationV1Warning()
+        restore_error_handler();
+    }
     /**
      * @return Api&MockObject
      */
@@ -71,46 +75,6 @@ class TestClient extends TestCase
             ->getMock();
     }
 
-    /**
-     * @param Response[] $responses
-     * @return PaginationClient&MockObject
-     * @throws ReflectionException
-     */
-    public function createPaginationClientMockObject(array $responses)
-    {
-        $api = $this->createApiMultiMockObject($responses);
-
-        $stub = $this
-            ->getMockBuilder(PaginationClient::class)
-            ->onlyMethods([])
-            ->setConstructorArgs([$api])
-            ->getMock();
-
-        $this->setProtectedProperty($stub, 'resource', 'resource');
-
-        return $stub;
-    }
-
-    /**
-     * Sets a protected property on a given object via reflection
-     *
-     * @param object $object - instance in which protected value is being modified
-     * @param string $property - property on instance being modified
-     * @param mixed $value - new value of the property being modified
-     *
-     * @return void
-     *
-     * @throws ReflectionException
-     * @link https://stackoverflow.com/a/37667018/7387397
-     */
-    public function setProtectedProperty(object $object, string $property, $value)
-    {
-        $reflection = new ReflectionClass($object);
-        $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($object, $value);
-    }
-
     public function createCacheDir(): void
     {
         $dir = $this->getCacheDir();
@@ -123,5 +87,17 @@ class TestClient extends TestCase
     public function getCacheDir(): string
     {
         return __DIR__ . '/cache';
+    }
+
+    public function expectDeprecationV1Warning(string $method): void
+    {
+        set_error_handler(static function (int $errno, string $errstr): void {
+            throw new DeprecationException($errstr, $errno);
+        }, E_USER_WARNING);
+
+        $this->expectException(DeprecationException::class);
+
+        // we can not check for full class names, because we are mocking objects
+        $this->expectExceptionMessage('::' . $method . ' should not be called anymore, in future versions this method WILL not exist');
     }
 }

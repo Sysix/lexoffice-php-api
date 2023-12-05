@@ -37,6 +37,8 @@ class InvoiceTest extends TestClient
 
     public function testGetAll(): void
     {
+        $this->expectDeprecationV1Warning('getAll');
+
         $stub = $this->createClientMockObject(
             Invoice::class,
             new Response(200, [], '{"content": [], "totalPages": 1}')
