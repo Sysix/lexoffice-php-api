@@ -11,7 +11,19 @@ abstract class PaginationClient extends BaseClient
 
     public function generateUrl(int $page): string
     {
-        return $this->resource . '?page=' . $page . '&size=' . $this->size;
+        return $this->resource . '?' . $this->buildQueryParams([
+            'page'=> $page
+        ]);
+    }
+
+    /**
+     * @param array<string, bool|int|string|null> $params
+     */
+    protected function buildQueryParams(array $params): string
+    {
+        $params['size'] = $this->size;
+
+        return http_build_query(array_filter($params, static fn ($value) => $value !== null));
     }
 
     public function getPage(int $page): ResponseInterface

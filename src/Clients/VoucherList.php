@@ -68,21 +68,21 @@ class VoucherList extends PaginationClient
         return $this;
     }
 
-    public function generateUrl(int $page): string
+    protected function buildQueryParams(array $params): string
     {
         $dateFormat = DateTimeInterface::ATOM;
 
-        return parent::generateUrl($page) .
-            '&sort=' . $this->sortColumn . ',' . $this->sortDirection .
-            '&voucherType=' . implode(',', $this->types) .
-            '&voucherStatus=' . implode(',', $this->statuses) .
-            ($this->archived !== null ? '&archived=' . $this->archived : '') .
-            ($this->contactId !== null ? '&contactId=' . $this->contactId : '') .
-            ($this->voucherDateFrom !== null ? '&voucherDateFrom=' . $this->voucherDateFrom->format($dateFormat) : '') .
-            ($this->voucherDateTo !== null ? '&voucherDateTo=' . $this->voucherDateTo->format($dateFormat) : '') .
-            ($this->createdDateFrom !== null ? '&createdDateFrom=' . $this->createdDateFrom->format($dateFormat) : '') .
-            ($this->createdDateTo !== null ? '&createdDateTo=' . $this->createdDateTo->format($dateFormat) : '') .
-            ($this->updatedDateFrom !== null ? '&updatedDateFrom=' . $this->updatedDateFrom->format($dateFormat) : '') .
-            ($this->updatedDateTo !== null ? '&updatedDateTo=' . $this->updatedDateTo->format($dateFormat) : '');
+        $params['sort'] = $this->sortColumn . ',' . $this->sortDirection;
+        $params['voucherType'] = implode(',', $this->types);
+        $params['voucherStatus'] = implode(',', $this->statuses);
+        $params['archived'] = $this->archived;
+        $params['voucherDateFrom'] = $this->voucherDateFrom?->format($dateFormat);
+        $params['voucherDateTo'] = $this->voucherDateTo?->format($dateFormat);
+        $params['createdDateFrom'] = $this->createdDateFrom?->format($dateFormat);
+        $params['createdDateTo'] = $this->createdDateTo?->format($dateFormat);
+        $params['updatedDateFrom'] = $this->updatedDateFrom?->format($dateFormat);
+        $params['updatedDateTo'] = $this->updatedDateTo?->format($dateFormat);
+
+        return parent::buildQueryParams($params);
     }
 }

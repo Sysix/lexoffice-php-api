@@ -25,13 +25,14 @@ class Contact extends PaginationClient
 
     public ?bool $vendor = null;
 
-    public function generateUrl(int $page): string
+    protected function buildQueryParams(array $params): string
     {
-        return parent::generateUrl($page) .
-            '&direction=' . $this->sortDirection .
-            '&property=' . $this->sortProperty .
-            ($this->number !== null ? '&number=' . $this->number : '' ) .
-            ($this->customer !== null ? '&customer=' . $this->customer : '' ) .
-            ($this->vendor !== null ? '&vendor=' . $this->vendor : '' );
+        $params['direction'] = $this->sortDirection;
+        $params['property'] = $this->sortProperty;
+        $params['number'] = $this->number;
+        $params['customer'] = $this->customer;
+        $params['vendor'] = $this->vendor;
+
+        return parent::buildQueryParams($params);
     }
 }

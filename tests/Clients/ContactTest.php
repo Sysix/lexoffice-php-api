@@ -16,7 +16,7 @@ class ContactTest extends TestClient
         );
 
         $this->assertEquals(
-            'contacts?page=0&size=100&direction=ASC&property=name',
+            'contacts?page=0&direction=ASC&property=name&size=100',
             $stub->generateUrl(0)
         );
     }

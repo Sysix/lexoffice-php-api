@@ -18,10 +18,13 @@ class VoucherListTest extends TestClient
 
         $stub->types = ['invoice'];
         $stub->statuses = ['open'];
+        $stub->archived = true;
 
         $this->assertEquals(
-            'voucherlist?page=0&size=100&sort=voucherNumber,DESC&voucherType=invoice&voucherStatus=open',
+            'voucherlist?page=0&sort=voucherNumber,DESC&voucherType=invoice&voucherStatus=open&archived=1&size=100',
             $stub->generateUrl(0)
         );
+
+        
     }
 }
