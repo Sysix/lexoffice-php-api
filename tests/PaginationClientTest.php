@@ -86,7 +86,7 @@ class PaginationClientTest extends TestClient
         $stub->getPage(0);
 
         $this->assertEquals(
-            'https://api.lexoffice.io/v1/resource?page=0&size=100',
+            $api->apiUrl . '/v1/resource?page=0&size=100',
             $api->request->getUri()->__toString()
         );
     }

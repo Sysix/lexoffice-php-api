@@ -3,12 +3,28 @@
 namespace Sysix\LexOffice\Tests\Clients;
 
 use Psr\Http\Message\ResponseInterface;
-use Sysix\LexOffice\Clients\DownPaymentInvoice;
 use GuzzleHttp\Psr7\Response;
+use Sysix\LexOffice\Clients\DownPaymentInvoice;
+use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
 class DownPaymentInvoiceTest extends TestClient
 {
+    public function testGet(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(DownPaymentInvoice::class);
+
+        $response = $stub->get('resource-id');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/down-payment-invoices/resource-id',
+            $api->request->getUri()->__toString()
+        );
+    }
+    
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
@@ -27,6 +43,15 @@ class DownPaymentInvoiceTest extends TestClient
             $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=downpaymentinvoice&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
             $api->request->getUri()->__toString()
         );
+    }
+
+    public function testGetVoucherListClient(): void
+    {
+        [, $stub] = $this->createClientMockObject(DownPaymentInvoice::class);
+
+        $client = $stub->getVoucherListClient();
+
+        $this->assertInstanceOf(VoucherList::class, $client);
     }
 
     public function testDocument(): void

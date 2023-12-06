@@ -9,6 +9,21 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class FileTest extends TestClient
 {
+    public function testGet(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(File::class);
+
+        $response = $stub->get('resource-id');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/files/resource-id',
+            $api->request->getUri()->__toString()
+        );
+    }
+    
     public function testUploadNotSupportedExtension(): void
     {
         $this->expectException(LexOfficeApiException::class);
@@ -81,21 +96,6 @@ class FileTest extends TestClient
         $this->assertStringContainsString(
             'multipart/form-data',
             $api->request->getHeaderLine('Content-Type')
-        );
-    }
-
-    public function testGet(): void
-    {
-        [$api, $stub] = $this->createClientMockObject(File::class);
-
-        $response = $stub->get('resource-id');
-
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-
-        $this->assertEquals('GET', $api->request->getMethod());
-        $this->assertEquals(
-            $api->apiUrl . '/v1/files/resource-id',
-            $api->request->getUri()->__toString()
         );
     }
 }

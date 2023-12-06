@@ -27,6 +27,23 @@ class InvoiceTest extends TestClient
         );
     }
 
+    public function testCreateFinalized(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $response = $stub->create([
+            'version' => 0
+        ], true);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices?finalize=true',
+            $api->request->getUri()->__toString()
+        );
+    }
+
     public function testGet(): void
     {
         [$api, $stub] = $this->createClientMockObject(Invoice::class);
@@ -38,6 +55,23 @@ class InvoiceTest extends TestClient
         $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/invoices/resource-id',
+            $api->request->getUri()->__toString()
+        );
+    }
+
+    public function testPage(): void
+    {
+        $this->expectDeprecationV1Warning('getPage');
+
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $response = $stub->getPage(0);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=invoice&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
             $api->request->getUri()->__toString()
         );
     }

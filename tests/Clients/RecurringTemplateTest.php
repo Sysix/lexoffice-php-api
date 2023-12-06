@@ -29,8 +29,9 @@ class RecurringTemplateTest extends TestClient
 
         $stub->getPage(0);
 
+        $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            'https://api.lexoffice.io/v1/recurring-templates?page=0&size=100',
+            $api->apiUrl . '/v1/recurring-templates?page=0&size=100',
             $api->request->getUri()->__toString()
         );
     }

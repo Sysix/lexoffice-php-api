@@ -10,8 +10,8 @@ use Psr\Http\Message\ResponseInterface;
 
 class Event extends BaseClient
 {
-    use DeleteTrait;
     use CreateTrait;
+    use DeleteTrait;
 
     protected string $resource = 'event-subscriptions';
 

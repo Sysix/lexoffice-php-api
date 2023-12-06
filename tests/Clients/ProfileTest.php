@@ -2,7 +2,6 @@
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Profile;
 use Sysix\LexOffice\Tests\TestClient;

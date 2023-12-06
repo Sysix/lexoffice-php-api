@@ -26,21 +26,6 @@ class EventTest extends TestClient
         );
     }
 
-    public function testGetAll(): void
-    {
-        [$api, $stub] = $this->createClientMockObject(Event::class);
-
-        $response = $stub->getAll();
-
-        $this->assertInstanceOf(ResponseInterface::class, $response);
-
-        $this->assertEquals('GET', $api->request->getMethod());
-        $this->assertEquals(
-            $api->apiUrl . '/v1/event-subscriptions',
-            $api->request->getUri()->__toString()
-        );
-    }
-
     public function testDelete(): void
     {
         [$api, $stub] = $this->createClientMockObject(Event::class);
@@ -54,6 +39,21 @@ class EventTest extends TestClient
             $api->apiUrl . '/v1/event-subscriptions/resource-id',
             $api->request->getUri()->__toString()
         );    
+    }
+
+    public function testGetAll(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Event::class);
+
+        $response = $stub->getAll();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/event-subscriptions',
+            $api->request->getUri()->__toString()
+        );
     }
 
 }

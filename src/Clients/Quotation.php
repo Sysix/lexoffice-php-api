@@ -10,10 +10,10 @@ use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class Quotation extends BaseClient
 {
+    use CreateFinalizeTrait;
     use GetTrait;
     use VoucherListTrait;
     use DocumentClientTrait;
-    use CreateFinalizeTrait;
 
     protected string $resource = 'quotations';
 

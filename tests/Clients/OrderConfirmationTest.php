@@ -42,6 +42,23 @@ class OrderConfirmationTest extends TestClient
         );
     }
 
+    public function testGetPage(): void
+    {
+        $this->expectDeprecationV1Warning('getPage');
+        
+        [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);
+
+        $response = $stub->getPage(0);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=orderconfirmation&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
+            $api->request->getUri()->__toString()
+        );
+    }
+
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');

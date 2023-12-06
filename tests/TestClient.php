@@ -53,7 +53,7 @@ class TestClient extends TestCase
      * @param class-string<T> $className
      * @return array{0: Api&MockObject, 1: T&MockObject}
      */
-    public function createClientMockObject(string $className)
+    public function createClientMockObject(string $className): array
     {
         return $this->createClientMultiMockObject($className, [new Response()]);
     }

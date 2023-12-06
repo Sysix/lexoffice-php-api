@@ -10,9 +10,9 @@ use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class OrderConfirmation extends BaseClient
 {
+    use CreateTrait;
     use GetTrait;
     use VoucherListTrait;
-    use CreateTrait;
     use DocumentClientTrait;
 
     protected string $resource = 'order-confirmations';

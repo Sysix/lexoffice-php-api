@@ -23,6 +23,22 @@ class ContactTest extends TestClient
         );
     }
 
+    public function testGetPageWithFilters(): void
+    {
+        [$api, $client] = $this->createClientMockObject(Contact::class);
+
+        $client->number = 12345;
+        $client->customer = true;
+        $client->vendor = false;
+
+        $client->getPage(0);
+
+        $this->assertEquals(
+            $api->apiUrl . '/v1/contacts?page=0&direction=ASC&property=name&number=12345&customer=1&vendor=0&size=100',
+            $api->request->getUri()->__toString()
+        );
+    }
+
     public function testCreate(): void
     {
         [$api, $client] = $this->createClientMockObject(Contact::class);

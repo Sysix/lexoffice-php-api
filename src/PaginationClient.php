@@ -23,7 +23,7 @@ abstract class PaginationClient extends BaseClient
     {
         $params['size'] = $this->size;
 
-        return http_build_query(array_filter($params, static fn ($value) => $value !== null));
+        return http_build_query($params);
     }
 
     public function getPage(int $page): ResponseInterface

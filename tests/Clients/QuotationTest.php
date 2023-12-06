@@ -27,6 +27,23 @@ class QuotationTest extends TestClient
         );
     }
 
+    public function testCreateFinalized(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Quotation::class);
+
+        $response = $stub->create([
+            'version' => 0
+        ], true);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/quotations?finalize=true',
+            $api->request->getUri()->__toString()
+        );
+    }
+
     public function testGet(): void
     {
         [$api, $stub] = $this->createClientMockObject(Quotation::class);
