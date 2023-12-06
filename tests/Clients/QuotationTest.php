@@ -5,6 +5,7 @@ namespace Sysix\LexOffice\Tests\Clients;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Quotation;
+use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
 class QuotationTest extends TestClient
@@ -77,6 +78,15 @@ class QuotationTest extends TestClient
             $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=quotation&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
             $api->request->getUri()->__toString()
         );
+    }
+
+    public function testGetVoucherListClient(): void
+    {
+        [, $stub] = $this->createClientMockObject(Quotation::class);
+
+        $client = $stub->getVoucherListClient();
+
+        $this->assertInstanceOf(VoucherList::class, $client);
     }
 
     public function testDocument(): void

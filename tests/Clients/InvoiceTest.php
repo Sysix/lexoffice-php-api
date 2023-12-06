@@ -5,6 +5,7 @@ namespace Sysix\LexOffice\Tests\Clients;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Invoice;
+use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
 class InvoiceTest extends TestClient
@@ -95,6 +96,16 @@ class InvoiceTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
+
+    public function testGetVoucherListClient(): void
+    {
+        [, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $client = $stub->getVoucherListClient();
+
+        $this->assertInstanceOf(VoucherList::class, $client);
+    }
+    
 
     public function testDocument(): void
     {

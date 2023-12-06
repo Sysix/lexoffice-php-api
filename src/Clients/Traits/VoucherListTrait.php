@@ -15,8 +15,8 @@ trait VoucherListTrait
         trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
 
         $client = new VoucherList($this->api);
-        $client->types = $this->voucherListTypes;
         $client->setToEverything();
+        $client->types = $this->voucherListTypes;
 
         return $client->getPage($page);
     }

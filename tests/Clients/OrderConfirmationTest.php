@@ -3,8 +3,9 @@
 namespace Sysix\LexOffice\Tests\Clients;
 
 use Psr\Http\Message\ResponseInterface;
-use Sysix\LexOffice\Clients\OrderConfirmation;
 use GuzzleHttp\Psr7\Response;
+use Sysix\LexOffice\Clients\OrderConfirmation;
+use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
 class OrderConfirmationTest extends TestClient
@@ -78,6 +79,16 @@ class OrderConfirmationTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
+
+    public function testGetVoucherListClient(): void
+    {
+        [, $stub] = $this->createClientMockObject(OrderConfirmation::class);
+
+        $client = $stub->getVoucherListClient();
+
+        $this->assertInstanceOf(VoucherList::class, $client);
+    }
+    
 
     public function testDocument(): void
     {

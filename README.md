@@ -33,6 +33,10 @@ $httpClient = \GuzzleHttp\Client();
 $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 ```
 
+#### Optimize your HTTP Client
+
+This library does nothing 
+
 ### Contact Endpoint
 ```php
 
