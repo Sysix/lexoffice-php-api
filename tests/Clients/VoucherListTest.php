@@ -2,29 +2,29 @@
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\VoucherList;
-use GuzzleHttp\Psr7\Response;
 use Sysix\LexOffice\Tests\TestClient;
 
 class VoucherListTest extends TestClient
 {
 
-    public function testGenerateUrl(): void
+    public function testGetPage(): void
     {
-        $stub = $this->createClientMockObject(
-            VoucherList::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(VoucherList::class);
 
         $stub->types = ['invoice'];
         $stub->statuses = ['open'];
         $stub->archived = true;
 
-        $this->assertEquals(
-            'voucherlist?page=0&sort=voucherNumber,DESC&voucherType=invoice&voucherStatus=open&archived=1&size=100',
-            $stub->generateUrl(0)
-        );
+        $response = $stub->getPage(0);
 
-        
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            'https://api.lexoffice.io/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=invoice&voucherStatus=open&archived=1&size=100',
+            $api->request->getUri()->__toString()
+        );
     }
 }

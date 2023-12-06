@@ -9,7 +9,7 @@ abstract class PaginationClient extends BaseClient
 {
     public int $size = 100;
 
-    public function generateUrl(int $page): string
+    protected function generatePageUrl(int $page): string
     {
         return $this->resource . '?' . $this->buildQueryParams([
             'page'=> $page
@@ -28,12 +28,9 @@ abstract class PaginationClient extends BaseClient
 
     public function getPage(int $page): ResponseInterface
     {
-        $api = $this->api->newRequest(
-            'GET',
-            $this->generateUrl($page)
-        );
-
-        return $api->getResponse();
+        return $this->api
+            ->newRequest('GET', $this->generatePageUrl($page))
+            ->getResponse();
     }
 
     /**

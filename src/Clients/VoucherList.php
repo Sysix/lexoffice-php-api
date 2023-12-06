@@ -4,7 +4,6 @@ namespace Sysix\LexOffice\Clients;
 
 use Sysix\LexOffice\PaginationClient;
 use DateTimeInterface;
-use Psr\Http\Message\ResponseInterface;
 
 class VoucherList extends PaginationClient
 {
@@ -13,10 +12,10 @@ class VoucherList extends PaginationClient
     public string $sortColumn = 'voucherNumber';
     public string $sortDirection = 'DESC';
 
-    /** @var string[] */
+    /** @var string[] $types */
     public array $types = [];
 
-    /** @var string[] */
+    /** @var string[] $statuses */
     public array $statuses = [];
 
     public ?bool $archived = null;

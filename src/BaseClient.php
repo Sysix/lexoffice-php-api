@@ -32,7 +32,7 @@ abstract class BaseClient implements ClientInterface
     }
 
     /**
-     * @param string[]|bool[]|resource[] $content
+     * @param array<string, string|bool|resource> $content
      */
     protected function createMultipartStream(array $content, string $boundary = null): MultipartStream
     {

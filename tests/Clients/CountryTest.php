@@ -2,21 +2,24 @@
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Country;
-use GuzzleHttp\Psr7\Response;
 use Sysix\LexOffice\Tests\TestClient;
 
 class CountryTest extends TestClient
 {
     public function testGetAll(): void
     {
-        $stub = $this->createClientMockObject(
-            Country::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}')
+        [$api, $client] = $this->createClientMockObject(Country::class);
+
+        $response = $client->getAll();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/countries',
+            $api->request->getUri()->__toString()
         );
-
-        $response = $stub->getAll();
-
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
     }
 }

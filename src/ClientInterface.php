@@ -4,9 +4,5 @@ namespace Sysix\LexOffice;
 
 interface ClientInterface
 {
-    /**
-     * ClientInterface constructor.
-     * @param Api $lexOffice
-     */
     public function __construct(Api $lexOffice);
 }

@@ -1,22 +1,25 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\PostingCategory;
 use Sysix\LexOffice\Tests\TestClient;
-use GuzzleHttp\Psr7\Response;
 
 class PostingCategoryTest extends TestClient
 {
     public function testGetAll(): void
     {
-        $stub = $this->createClientMockObject(
-            PostingCategory::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}')
-        );
+        [$api, $stub] = $this->createClientMockObject(PostingCategory::class);
 
         $response = $stub->getAll();
 
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/posting-categories',
+            $api->request->getUri()->__toString()
+        );
     }
 }

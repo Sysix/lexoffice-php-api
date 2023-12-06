@@ -2,22 +2,25 @@
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use Sysix\LexOffice\Clients\Profile;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\Profile;
 use Sysix\LexOffice\Tests\TestClient;
 
 class ProfileTest extends TestClient
 {
     public function testGet(): void
     {
-        $stub = $this->createClientMockObject(
-            Profile::class,
-            new Response(200, [], '{}')
-        );
+        [$api, $stub] = $this->createClientMockObject(Profile::class);
 
+        $response = $stub->get();
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            '{}',
-            $stub->get()->getBody()->__toString()
+            $api->apiUrl . '/v1/profile',
+            $api->request->getUri()->__toString()
         );
     }
 }

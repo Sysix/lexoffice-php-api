@@ -1,11 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Sysix\LexOffice\Clients\File;
-use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Tests\TestClient;
 
 class FileTest extends TestClient
@@ -14,10 +13,7 @@ class FileTest extends TestClient
     {
         $this->expectException(LexOfficeApiException::class);
 
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}')
-        );
+        [, $stub] = $this->createClientMockObject(File::class);
 
         $stub->upload('not_allowed.gif', 'voucher');
     }
@@ -26,10 +22,7 @@ class FileTest extends TestClient
     {
         $this->expectException(LexOfficeApiException::class);
 
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}')
-        );
+        [, $stub] = $this->createClientMockObject(File::class,);
 
         $stub->upload('not_existing.jpg', 'voucher');
     }
@@ -38,10 +31,7 @@ class FileTest extends TestClient
     {
         $this->expectException(LexOfficeApiException::class);
 
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}')
-        );
+        [, $stub] = $this->createClientMockObject(File::class);
 
         $this->createCacheDir();
         $file = $this->getCacheDir() . '/somefile.jpg';
@@ -60,12 +50,9 @@ class FileTest extends TestClient
         unlink($file);
     }
 
-    public function testUpload(): void
+    public function testUploadSuccess(): void
     {
-        $stub  = $this->createClientMockObject(
-            File::class,
-            new Response(200, [], '{}')
-        );
+        [$api, $stub] = $this->createClientMockObject(File::class);
 
         $this->createCacheDir();
         $file = $this->getCacheDir() .  '/somefile2.jpg';
@@ -84,5 +71,31 @@ class FileTest extends TestClient
         unlink($file);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/files',
+            $api->request->getUri()->__toString()
+        );
+
+        $this->assertStringContainsString(
+            'multipart/form-data',
+            $api->request->getHeaderLine('Content-Type')
+        );
+    }
+
+    public function testGet(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(File::class);
+
+        $response = $stub->get('resource-id');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/files/resource-id',
+            $api->request->getUri()->__toString()
+        );
     }
 }

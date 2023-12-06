@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use Sysix\LexOffice\Clients\Invoice;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\Invoice;
 use Sysix\LexOffice\Tests\TestClient;
 
 class InvoiceTest extends TestClient
@@ -11,59 +12,74 @@ class InvoiceTest extends TestClient
 
     public function testCreate(): void
     {
-        $stub = $this->createClientMockObject(
-            Invoice::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
         $response = $stub->create([
             'version' => 0
         ]);
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testGet(): void
     {
-        $stub = $this->createClientMockObject(
-            Invoice::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
         $response = $stub->get('resource-id');
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices/resource-id',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
 
-        $stub = $this->createClientMockObject(
+        [$api, $stub] = $this->createClientMultiMockObject(
             Invoice::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}')
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
         $response = $stub->getAll();
 
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=invoice&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testDocument(): void
     {
-        $stub  = $this->createClientMockObject(
-            Invoice::class,
-            new Response(200, [], '{"documentFileId": "fake-id"}')
-        );
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
         $response = $stub->document('resource-id');
 
-        $this->assertEquals(
-            '{"documentFileId": "fake-id"}',
-            $response->getBody()->__toString()
-        );
+        $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $stub  = $this->createClientMultiMockObject(
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices/resource-id/document',
+            $api->request->getUri()->__toString()
+        );       
+    }
+
+    public function testDocumentContent(): void
+    {
+        [$api, $stub] = $this->createClientMultiMockObject(
             Invoice::class,
             [
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
@@ -73,9 +89,12 @@ class InvoiceTest extends TestClient
 
         $response = $stub->document('resource-id', true);
 
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            '{}',
-            $response->getBody()->__toString()
+            $api->apiUrl . '/v1/files/fake-id',
+            $api->request->getUri()->__toString()
         );
     }
 }

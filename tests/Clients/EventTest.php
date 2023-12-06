@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Event;
-use GuzzleHttp\Psr7\Response;
 use Sysix\LexOffice\Tests\TestClient;
 
 class EventTest extends TestClient
@@ -11,40 +11,49 @@ class EventTest extends TestClient
 
     public function testCreate(): void
     {
-        $stub = $this->createClientMockObject(
-            Event::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(Event::class);
 
         $response = $stub->create([
             'version' => 0
         ]);
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/event-subscriptions',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testGetAll(): void
     {
-        $stub = $this->createClientMockObject(
-            Event::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}')
-        );
+        [$api, $stub] = $this->createClientMockObject(Event::class);
 
         $response = $stub->getAll();
 
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/event-subscriptions',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testDelete(): void
     {
-        $stub = $this->createClientMockObject(
-            Event::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(Event::class);
 
         $response = $stub->delete('resource-id');
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('DELETE', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/event-subscriptions/resource-id',
+            $api->request->getUri()->__toString()
+        );    
     }
 
 }

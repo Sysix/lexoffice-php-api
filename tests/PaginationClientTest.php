@@ -3,6 +3,7 @@
 namespace Sysix\LexOffice\Tests;
 
 use GuzzleHttp\Psr7\Response;
+use Sysix\LexOffice\Api;
 use Sysix\LexOffice\PaginationClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
@@ -12,7 +13,7 @@ class PaginationClientTest extends TestClient
 {
     /**
      * @param Response[] $responses
-     * @return PaginationClient&MockObject
+     * @return array{0: Api&MockObject, 1: PaginationClient&MockObject}
      * @throws ReflectionException
      */
     public function createPaginationClientMockObject(array $responses)
@@ -27,7 +28,7 @@ class PaginationClientTest extends TestClient
 
         $this->setProtectedProperty($stub, 'resource', 'resource');
 
-        return $stub;
+        return [$api, $stub];
     }
 
     /**
@@ -50,23 +51,11 @@ class PaginationClientTest extends TestClient
         $reflection_property->setValue($object, $value);
     }
 
-    public function testGenerateUrl(): void
-    {
-        $stub = $this->createPaginationClientMockObject(
-            [new Response()]
-        );
-
-        $this->assertEquals(
-            'resource?page=0&size=100',
-            $stub->generateUrl(0)
-        );
-    }
-
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
 
-        $stub = $this->createPaginationClientMockObject(
+        [, $stub] = $this->createPaginationClientMockObject(
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
@@ -75,7 +64,7 @@ class PaginationClientTest extends TestClient
             $stub->getAll()->getBody()->__toString()
         );
 
-        $stub = $this->createPaginationClientMockObject(
+        [, $stub] = $this->createPaginationClientMockObject(
             [
                 new Response(200, [], '{"content": [{"name": "a"}], "totalPages": 2}'),
                 new Response(200, [], '{"content": [{"name": "b"}], "totalPages": 2}')
@@ -90,13 +79,15 @@ class PaginationClientTest extends TestClient
 
     public function testGetPage(): void
     {
-        $stub = $this->createPaginationClientMockObject(
+        [$api, $stub] = $this->createPaginationClientMockObject(
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
+        $stub->getPage(0);
+
         $this->assertEquals(
-            '{"content": [], "totalPages": 1}',
-            $stub->getPage(0)->getBody()->__toString()
+            'https://api.lexoffice.io/v1/resource?page=0&size=100',
+            $api->request->getUri()->__toString()
         );
     }
 }

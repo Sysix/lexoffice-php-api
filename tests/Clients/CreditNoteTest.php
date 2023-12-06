@@ -1,56 +1,69 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use Sysix\LexOffice\Clients\CreditNote;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\CreditNote;
 use Sysix\LexOffice\Tests\TestClient;
 
 class CreditNoteTest extends TestClient
 {
     public function testCreate(): void
     {
-        $stub = $this->createClientMockObject(
-            CreditNote::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $stub] = $this->createClientMockObject(CreditNote::class);
 
         $response = $stub->create([
             'version' => 0
         ]);
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/credit-notes',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
         
-        $stub = $this->createClientMockObject(
+        [$api, $stub] = $this->createClientMultiMockObject(
             CreditNote::class,
-            new Response(200, [], '{"content": [], "totalPages": 1}')
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
         $response = $stub->getAll();
 
-        $this->assertEquals('{"content": [], "totalPages": 1}', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=creditnote&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testDocument(): void
     {
-        $stub  = $this->createClientMockObject(
-            CreditNote::class,
-            new Response(200, [], '{"documentFileId": "fake-id"}')
-        );
+        [$api, $stub] = $this->createClientMockObject(CreditNote::class);
 
         $response = $stub->document('resource-id');
 
-        $this->assertEquals(
-            '{"documentFileId": "fake-id"}',
-            $response->getBody()->__toString()
-        );
+        $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $stub  = $this->createClientMultiMockObject(
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/credit-notes/resource-id/document',
+            $api->request->getUri()->__toString()
+        );       
+    }
+
+    public function testDocumentContent(): void
+    {
+        [$api, $stub] = $this->createClientMultiMockObject(
             CreditNote::class,
             [
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
@@ -60,9 +73,12 @@ class CreditNoteTest extends TestClient
 
         $response = $stub->document('resource-id', true);
 
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            '{}',
-            $response->getBody()->__toString()
+            $api->apiUrl . '/v1/files/fake-id',
+            $api->request->getUri()->__toString()
         );
     }
 }

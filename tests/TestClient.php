@@ -51,28 +51,30 @@ class TestClient extends TestCase
     /**
      * @template T of ClientInterface
      * @param class-string<T> $className
-     * @return T&MockObject
+     * @return array{0: Api&MockObject, 1: T&MockObject}
      */
-    public function createClientMockObject(string $className, Response $response)
+    public function createClientMockObject(string $className)
     {
-        return $this->createClientMultiMockObject($className, [$response]);
+        return $this->createClientMultiMockObject($className, [new Response()]);
     }
 
     /**
      * @template T of ClientInterface
      * @param class-string<T> $className
      * @param Response[] $responses
-     * @return T&MockObject
+     * @return array{0: Api&MockObject, 1: T&MockObject}
      */
-    public function createClientMultiMockObject(string $className, array $responses)
+    public function createClientMultiMockObject(string $className, array $responses): array
     {
         $api = $this->createApiMultiMockObject($responses);
 
-        return $this
+        $client = $this
             ->getMockBuilder($className)
             ->onlyMethods([])
             ->setConstructorArgs([$api])
             ->getMock();
+
+        return [$api, $client];
     }
 
     public function createCacheDir(): void
@@ -92,7 +94,7 @@ class TestClient extends TestCase
     public function expectDeprecationV1Warning(string $method): void
     {
         set_error_handler(static function (int $errno, string $errstr): void {
-            throw new DeprecationException($errstr, $errno);
+            throw new  DeprecationException($errstr, $errno);
         }, E_USER_WARNING);
 
         $this->expectException(DeprecationException::class);

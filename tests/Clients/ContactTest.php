@@ -1,61 +1,72 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Contact;
-use GuzzleHttp\Psr7\Response;
 use Sysix\LexOffice\Tests\TestClient;
 
 class ContactTest extends TestClient
 {
-    public function testGenerateUrl(): void
+    public function testGetPage(): void
     {
-        $stub = $this->createClientMockObject(
-            Contact::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $client] = $this->createClientMockObject(Contact::class);
 
+        $response = $client->getPage(0);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            'contacts?page=0&direction=ASC&property=name&size=100',
-            $stub->generateUrl(0)
+            $api->apiUrl . '/v1/contacts?page=0&direction=ASC&property=name&size=100',
+            $api->request->getUri()->__toString()
         );
     }
 
     public function testCreate(): void
     {
-        $stub = $this->createClientMockObject(
-            Contact::class,
-            new Response(200, [], 'body')
-        );
+        [$api, $client] = $this->createClientMockObject(Contact::class);
 
-        $response = $stub->create([
+        $response = $client->create([
             'version' => 0
         ]);
 
-        $this->assertEquals('body', $response->getBody()->__toString());
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl .  '/v1/contacts',
+            $api->request->getUri()->__toString()
+        );
     }
 
     public function testGet(): void
     {
-        $stub = $this->createClientMockObject(
-            Contact::class,
-            new Response(200, [], 'body')
+        [$api, $client] = $this->createClientMockObject(Contact::class);
+
+        $response = $client->get('resource-id');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/contacts/resource-id',
+            $api->request->getUri()->__toString()
         );
-
-        $response = $stub->get('resource-id');
-
-        $this->assertEquals('body', $response->getBody()->__toString());
     }
 
     public function testUpdate(): void
     {
-        $stub = $this->createClientMockObject(
-            Contact::class,
-            new Response(200, [], 'body')
+        [$api, $client] = $this->createClientMockObject(Contact::class);
+
+        $response = $client->update('resource-id', []);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('PUT', $api->request->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/contacts/resource-id',
+            $api->request->getUri()->__toString()
         );
-
-        $response = $stub->update('resource-id', []);
-
-        $this->assertEquals('body', $response->getBody()->__toString());
     }
 }
