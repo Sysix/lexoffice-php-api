@@ -224,5 +224,6 @@ $response = $api->file()->get($entityId);
 ### get JSON from Success and Error Response
 
 ```php
-$json = $api->*()->getAsJson($response);
+// can be possible null because the response body can be empty
+$json = \Sysix\LexOffice\Utils::getJsonFromResponse($response);
 ```

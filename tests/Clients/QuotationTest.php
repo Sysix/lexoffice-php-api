@@ -109,7 +109,7 @@ class QuotationTest extends TestClient
         [$api, $stub] = $this->createClientMultiMockObject(
             Quotation::class,
             [
-                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, ['Content-Type' => 'application/json'], '{"documentFileId": "fake-id"}'),
                 new Response()
             ]
         );

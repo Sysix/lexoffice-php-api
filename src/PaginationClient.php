@@ -41,18 +41,22 @@ abstract class PaginationClient extends BaseClient
         trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
 
         $response = $this->getPage(0);
-        /** @var stdClass{totalPages:int, content:stdClass[]} $result */
-        $result = $this->getAsJson($response);
+        /** @var ?stdClass{totalPages:int, content:stdClass[]} $result */
+        $result = Utils::getJsonFromResponse($response);
 
-        if ($result->totalPages == 1) {
+        if ($result === null || $result->totalPages == 1) {
             return $response;
         }
 
         // update content to get all contacts
         for ($i = 1; $i < $result->totalPages; $i++) {
             $responsePage = $this->getPage($i);
-            /** @var stdClass{totalPages:int, content:stdClass[]} $resultPage */
-            $resultPage = $this->getAsJson($responsePage);
+            /** @var ?stdClass{totalPages:int, content:stdClass[]} $resultPage */
+            $resultPage = Utils::getJsonFromResponse($responsePage);
+
+            if ($resultPage === null) {
+                continue;
+            }
 
             foreach ($resultPage->content as $entity) {
                 $result->content = [
@@ -62,6 +66,6 @@ abstract class PaginationClient extends BaseClient
             }
         }
 
-        return $response->withBody($this->createStream($result));
+        return $response->withBody(Utils::createStream($result));
     }
 }

@@ -126,7 +126,7 @@ class CreditNoteTest extends TestClient
         [$api, $stub] = $this->createClientMultiMockObject(
             CreditNote::class,
             [
-                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, ['Content-Type' => 'application/json'], '{"documentFileId": "fake-id"}'),
                 new Response()
             ]
         );

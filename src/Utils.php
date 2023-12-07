@@ -5,14 +5,26 @@ namespace Sysix\LexOffice;
 
 
 use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\MultipartStream;
 use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
 
 class Utils
 {
+    public static function getJsonFromResponse(ResponseInterface $response): mixed
+    {
+        $body = $response->getBody()->__toString();
+
+        if ($response->getHeaderLine("Content-Type") === "application/json") {
+            return self::jsonDecode($body);
+        }
+
+        return null;
+    }
+
     /**
-     * @param string $resource
      * @param array{size?: int, metadata?: mixed[], mode?: bool, seekable?: bool} $options
-     * @return Stream
      */
     public static function streamFor(string $resource = '', array $options = []): Stream
     {
@@ -30,10 +42,7 @@ class Utils
     }
 
     /**
-     * @param mixed $value
-     * @param int $options
      * @param int<1, max> $depth
-     * @return string
      */
     public static function jsonEncode(mixed $value, int $options = 0, int $depth = 512): string
     {
@@ -46,11 +55,7 @@ class Utils
     }
 
     /**
-     * @param string $json
-     * @param bool $assoc
      * @param int<1, max> $depth
-     * @param int $options
-     * @return mixed
      */
     public static function jsonDecode(string $json, bool $assoc = false, int $depth = 512, int $options = 0): mixed
     {
@@ -60,5 +65,29 @@ class Utils
         }
 
         return $data;
+    }
+
+    
+    public static function createStream(mixed $content): StreamInterface
+    {
+        return Utils::streamFor(Utils::jsonEncode($content));
+    }
+
+    /**
+     * @param array<string, string|bool|resource> $content
+     */
+    public static function createMultipartStream(array $content, string $boundary = null): MultipartStream
+    {
+        $stream = [];
+        $boundary = $boundary ?: '--lexoffice';
+
+        foreach ($content as $key => $value) {
+            $stream[] = [
+                'name' => $key,
+                'contents' => $value
+            ];
+        }
+
+        return new MultipartStream($stream, $boundary);
     }
 }

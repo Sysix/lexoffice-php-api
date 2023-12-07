@@ -6,6 +6,7 @@ use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Utils;
 
 class File extends BaseClient
 {
@@ -38,7 +39,7 @@ class File extends BaseClient
             throw new LexOfficeApiException('file is to big to upload: ' . $filepath . ', max upload size: ' . self::MAX_FILE_SIZE . 'bytes');
         }
 
-        $body = $this->createMultipartStream([
+        $body = Utils::createMultipartStream([
             'file' => fopen($filepath, 'r'),
             'type' => $type
         ]);

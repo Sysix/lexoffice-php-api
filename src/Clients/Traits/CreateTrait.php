@@ -3,6 +3,7 @@
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Utils;
 
 trait CreateTrait
 {
@@ -13,7 +14,7 @@ trait CreateTrait
     {
         $api = $this->api->newRequest('POST', $this->resource);
 
-        $api->request = $api->request->withBody($this->createStream($data));
+        $api->request = $api->request->withBody(Utils::createStream($data));
 
         return $api->getResponse();
     }

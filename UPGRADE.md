@@ -84,25 +84,24 @@ At the moment, it doesn't look like the endpoint will be added soon. So we will 
 
 This functions will be removed in the next major (2.0) Update
 
-- `\Sysix\Lexoffice\Clients\CreditNote::getAll`
-- `\Sysix\Lexoffice\Clients\DownPaymentInvoice::getAll`
-- `\Sysix\Lexoffice\Clients\Invoice::getAll`
-- `\Sysix\Lexoffice\Clients\OrderConfirmation::getAll`
-- `\Sysix\Lexoffice\Clients\Quotation::getAll`
-- `\Sysix\Lexoffice\Clients\Voucher::getAll`
-- `\Sysix\Lexoffice\Clients\VoucherList::setToEverything`
-- 
-- `\Sysix\Lexoffice\Clients\CreditNote::getPage`
-- `\Sysix\Lexoffice\Clients\DownPaymentInvoice::getPage`
-- `\Sysix\Lexoffice\Clients\Invoice::getPage`
-- `\Sysix\Lexoffice\Clients\OrderConfirmation::getPage`
-- `\Sysix\Lexoffice\Clients\Quotation::getPage`
-- `\Sysix\Lexoffice\Clients\Voucher::getPage`
+|Method Deprecated|Usage instead|
+|---|---|
+|`\Sysix\Lexoffice\Clients\CreditNote::getAll`|`\Sysix\Lexoffice\Clients\CreditNote::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\DownPaymentInvoice::getAll`|`\Sysix\Lexoffice\Clients\DownPaymentInvoice::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Invoice::getAll`|`\Sysix\Lexoffice\Clients\Invoice::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\OrderConfirmation::getAll`|`\Sysix\Lexoffice\Clients\OrderConfirmation::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Quotation::getAll`|`\Sysix\Lexoffice\Clients\Quotation::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Voucher::getAll`|`\Sysix\Lexoffice\Clients\Voucher::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\VoucherList::setToEverything`|not replacement|
+|`\Sysix\Lexoffice\Clients\CreditNote::getPage`|`\Sysix\Lexoffice\Clients\CreditNote::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\DownPaymentInvoice::getPage`|`\Sysix\Lexoffice\Clients\DownPaymentInvoice::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Invoice::getPage`|`\Sysix\Lexoffice\Clients\Invoice::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\OrderConfirmation::getPage`|`\Sysix\Lexoffice\Clients\OrderConfirmation::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Quotation::getPage`|`\Sysix\Lexoffice\Clients\Quotation::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\Voucher::getPage`|`\Sysix\Lexoffice\Clients\Voucher::getVoucherListClient`|
+|`\Sysix\Lexoffice\Clients\**::getAsJson`|`\Sysix\Lexoffice\Utils::getJsonFromResponse`|
 
-For almost all clients there is a new method called `getVoucherListClient` which returns a `\Sysix\LexOffice\Api\Clients\VoucherList`.  
-With this client there are more filters for the vouchers.
-
-! You need to set a non-empty `statuses` property to the `\Sysix\LexOffice\Api\Clients\VoucherList`
+! You need to set a non-empty `statuses` property to the returned `\Sysix\LexOffice\Api\Clients\VoucherList`.
 
 
 ## Strict Typed

@@ -3,9 +3,7 @@
 
 namespace Sysix\LexOffice;
 
-use GuzzleHttp\Psr7\MultipartStream;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 abstract class BaseClient implements ClientInterface
 {
@@ -17,35 +15,15 @@ abstract class BaseClient implements ClientInterface
     {
     }
 
+    /**
+     * @deprecated 1.0 use Sysix\LexOffice\Utils::getJsonFromResponse()
+     */
     public function getAsJson(ResponseInterface $response): object
     {
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, use \Sysix\LexOffice\Utils::getJsonFromResponse instead', E_USER_WARNING);
+
         $body = $response->getBody()->__toString();
 
         return Utils::jsonDecode($body);
-    }
-
-    protected function createStream(mixed $content): StreamInterface
-    {
-        return Utils::streamFor(
-            Utils::jsonEncode($content)
-        );
-    }
-
-    /**
-     * @param array<string, string|bool|resource> $content
-     */
-    protected function createMultipartStream(array $content, string $boundary = null): MultipartStream
-    {
-        $stream = [];
-        $boundary = $boundary ?: '--lexoffice';
-
-        foreach ($content as $key => $value) {
-            $stream[] = [
-                'name' => $key,
-                'contents' => $value
-            ];
-        }
-
-        return new MultipartStream($stream, $boundary);
     }
 }

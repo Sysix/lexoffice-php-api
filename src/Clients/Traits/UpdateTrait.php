@@ -3,6 +3,7 @@
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Utils;
 
 trait UpdateTrait
 {
@@ -13,7 +14,7 @@ trait UpdateTrait
     {
         $api = $this->api->newRequest('PUT', $this->resource . '/' . $id);
 
-        $api->request = $api->request->withBody($this->createStream($data));
+        $api->request = $api->request->withBody(Utils::createStream($data));
 
         return $api->getResponse();
     }

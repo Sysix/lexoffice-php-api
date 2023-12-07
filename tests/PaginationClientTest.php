@@ -51,7 +51,7 @@ class PaginationClientTest extends TestClient
         $reflection_property->setValue($object, $value);
     }
 
-    public function testGetAll(): void
+    public function testGetAllSingle(): void
     {
         $this->expectDeprecationV1Warning('getAll');
 
@@ -63,11 +63,16 @@ class PaginationClientTest extends TestClient
             '{"content": [], "totalPages": 1}',
             $stub->getAll()->getBody()->__toString()
         );
+    }
+
+    public function testGetAllMultiple(): void
+    {
+        $this->expectDeprecationV1Warning('getAll');
 
         [, $stub] = $this->createPaginationClientMockObject(
             [
-                new Response(200, [], '{"content": [{"name": "a"}], "totalPages": 2}'),
-                new Response(200, [], '{"content": [{"name": "b"}], "totalPages": 2}')
+                new Response(200, ['Content-Type' => 'application/json'], '{"content": [{"name": "a"}], "totalPages": 2}'),
+                new Response(200, ['Content-Type' => 'application/json'], '{"content": [{"name": "b"}], "totalPages": 2}')
             ]
         );
 

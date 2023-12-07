@@ -5,6 +5,7 @@ namespace Sysix\LexOffice\Clients\Traits;
 use Sysix\LexOffice\Clients\File;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
+use Sysix\LexOffice\Utils;
 
 trait DocumentClientTrait
 {
@@ -21,8 +22,13 @@ trait DocumentClientTrait
             return $response;
         }
 
-        /** @var stdClass{documentField: string} $content */
-        $content = $this->getAsJson($response);
+        /** @var ?stdClass{documentField: string} $content */
+        $content = Utils::getJsonFromResponse($response);
+
+        if ($content === null) {
+            return $response;
+        }
+
         $fileClient = new File($this->api);
 
         return $fileClient->get($content->documentFileId);

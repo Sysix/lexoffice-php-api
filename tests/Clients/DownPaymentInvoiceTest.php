@@ -74,7 +74,7 @@ class DownPaymentInvoiceTest extends TestClient
         [$api, $stub] = $this->createClientMultiMockObject(
             DownPaymentInvoice::class,
             [
-                new Response(200, [], '{"documentFileId": "fake-id"}'),
+                new Response(200, ['Content-Type' => 'application/json'], '{"documentFileId": "fake-id"}'),
                 new Response()
             ]
         );
