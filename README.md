@@ -59,15 +59,17 @@ $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 /** @var \Sysix\LexOffice\Api $api */
 $client = $api->contact();
 
+// filters
 $client->size = 100;
 $client->sortDirection = 'ASC';
 $client->sortProperty = 'name';
+$client->number = 123456;
+$client->customer = true;
+$client->vendor = false;
 
 // get a page
 $response = $client->getPage(0);    
 
-//get all
-$response = $client->getAll();
 
 // other methods
 $response = $client->get($entityId);
@@ -169,9 +171,6 @@ $client->size = 100;
 
 // get a page
 $response = $client->getPage(0);
-
-//get all
-$response = $client->getAll();
 ```
 
 
@@ -182,6 +181,8 @@ $client = $api->voucherlist();
 $client->size = 100;
 $client->sortDirection = 'DESC';
 $client->sortColumn = 'voucherNumber';
+
+// filters required
 $client->types = [
     'salesinvoice',
     'salescreditnote',
@@ -204,14 +205,18 @@ $client->statuses = [
     'rejected'
 ];
 
-// get everything what we can, not recommend:
-//$client->setToEverything()
+// filters optional
+$client->archived = true;
+$client->contactId = 'some-uuid-string';
+$client->voucherDateFrom = new \DateTime('2023-12-01');
+$client->voucherDateTo = new \DateTime('2023-12-01');
+$client->createdDateFrom = new \DateTime('2023-12-01');;
+$client->createdDateTo = new \DateTime('2023-12-01');
+$client->updatedDateFrom = new \DateTime('2023-12-01');
+$client->updatedDateTo = new \DateTime('2023-12-01');
 
 // get a page
 $response = $client->getPage(0);
-
-//get all
-$response = $client->getAll();
 ```
 
 ### File Endpoint
