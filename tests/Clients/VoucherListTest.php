@@ -38,13 +38,17 @@ class VoucherListTest extends TestClient
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
+        $stub->types = ['invoice'];
+        $stub->statuses = ['open'];
+        $stub->archived = true;
+
         $response = $stub->getAll();
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
         $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=invoice%2Csalescreditnote%2Cpurchaseinvoice%2Cpurchasecreditnote&voucherStatus=open%2Cpaid%2Cpaidoff%2Cvoided%2Ctransferred%2Csepadebit&size=100',
+            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=invoice&voucherStatus=open&archived=1&size=100',
             $api->request->getUri()->__toString()
         );
     }
