@@ -88,7 +88,7 @@ class OrderConfirmationTest extends TestClient
 
         $this->assertInstanceOf(VoucherList::class, $client);
     }
-    
+
 
     public function testDocument(): void
     {
@@ -111,7 +111,7 @@ class OrderConfirmationTest extends TestClient
             OrderConfirmation::class,
             [
                 new Response(200, [], '{"documentFileId": "fake-id"}'),
-                new Response(200, [], '{}')
+                new Response()
             ]
         );
 
@@ -124,5 +124,21 @@ class OrderConfirmationTest extends TestClient
             $api->apiUrl . '/v1/files/fake-id',
             $api->request->getUri()->__toString()
         );
+    }
+    
+    public function testFailedDocumentContent(): void
+    {
+        [$api, $stub] = $this->createClientMultiMockObject(
+            OrderConfirmation::class,
+            [
+                new Response(500),
+                new Response()
+            ]
+        );
+
+        $response = $stub->document('resource-id', true);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertEquals(500, $response->getStatusCode());
     }
 }

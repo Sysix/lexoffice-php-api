@@ -17,6 +17,10 @@ trait DocumentClientTrait
             return $response;
         }
 
+        if ($response->getStatusCode() !== 200) {
+            return $response;
+        }
+
         /** @var stdClass{documentField: string} $content */
         $content = $this->getAsJson($response);
         $fileClient = new File($this->api);
