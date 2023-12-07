@@ -31,7 +31,7 @@ class Voucher extends BaseClient
             'file' => fopen($filepath, 'r')
         ]);
 
-        $api = $this->api->newRequest('POST', $this->resource . '/' . rawurldecode($id), [
+        $api = $this->api->newRequest('POST', $this->resource . '/' . rawurlencode($id), [
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
