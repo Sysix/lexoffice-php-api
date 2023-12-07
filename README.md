@@ -35,7 +35,22 @@ $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 
 #### Optimize your HTTP Client
 
-This library does nothing 
+This library only prepares the `\Psr\Http\Message\RequestInterface` for the HTTP Client and returns its Response.  
+There are almost no error checks, no caching and no rate limiting. Your PSR-18 HTTP Client should come with a way to deal with it.  
+
+Here is a example with `guzzlehttp/guzzle` , `kevinrob/guzzle-cache-middleware` and `spatie/guzzle-rate-limiter-middleware`:
+
+```php
+$apiKey = getenv('LEX_OFFICE_API_KEY'); 
+
+$stack = \GuzzleHttp\HandlerStack();
+$stack->push(new \Kevinrob\GuzzleCache\CacheMiddleware\CacheMiddleware(), 'cache');
+$stack->push(\Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware\RateLimiterMiddleware::perSecond(2));
+
+$httpClient = \GuzzleHttp\Client(['handler' => $stack]);
+$api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
+
+```
 
 ### Contact Endpoint
 ```php
