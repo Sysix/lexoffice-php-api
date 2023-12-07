@@ -3,6 +3,7 @@
 namespace Sysix\LexOffice\Tests\Clients;
 
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Config\FileClient\VoucherConfig;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Tests\TestClient;
@@ -56,7 +57,7 @@ class FileTest extends TestClient
             $this->fail('could not open file ' . $file);
         }
 
-        fseek($fp, File::MAX_FILE_SIZE + 1,SEEK_CUR);
+        fseek($fp, VoucherConfig::MAX_FILE_SIZE + 1,SEEK_CUR);
         fwrite($fp,'a');
         fclose($fp);
 

@@ -6,38 +6,26 @@ use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Config\FileClientConfig;
 use Sysix\LexOffice\Utils;
 
 class File extends BaseClient
 {
     use GetTrait;
 
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
-
     protected string $resource = 'files';
-
-    /** @var string[] */
-    protected array $supportedExtension = ['png', 'jpg', 'pdf'];
 
     /**
      * @throws LexOfficeApiException
      */
     public function upload(string $filepath, string $type): ResponseInterface
     {
-        $regex = '/.(' . implode('|', $this->supportedExtension) . ')/';
-        $matchResult = preg_match($regex, $filepath, $matches);
-
-        if (!$matchResult || !$matches[0]) {
-            throw new LexOfficeApiException('file extension is not supported: ' . basename($filepath) . ' ');
+        if ($type !== 'voucher') {
+            throw new \InvalidArgumentException('only upload type voucher is supported');
         }
 
-        if (!is_file($filepath)) {
-            throw new LexOfficeApiException('file could not be found to upload: ' . $filepath);
-        }
-
-        if (filesize($filepath) > self::MAX_FILE_SIZE) {
-            throw new LexOfficeApiException('file is to big to upload: ' . $filepath . ', max upload size: ' . self::MAX_FILE_SIZE . 'bytes');
-        }
+        $config = FileClientConfig::getVoucherConfig();
+        $config->validateFileFromFilePath($filepath);
 
         $body = Utils::createMultipartStream([
             'file' => fopen($filepath, 'r'),

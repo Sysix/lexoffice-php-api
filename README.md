@@ -126,6 +126,7 @@ $response = $api->voucher()->create($data);
 $response = $api->voucher()->update($entityId, $data);
 $response = $api->voucher()->document($entityId); // get document ID
 $response = $api->voucher()->document($entityId, true); // get file content
+$response = $api->voucher()->upload($entitiyId, $filepath);
 ```
 
 
