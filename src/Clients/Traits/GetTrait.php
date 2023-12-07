@@ -8,7 +8,7 @@ trait GetTrait
 {
     public function get(string $id): ResponseInterface
     {
-        return $this->api->newRequest('GET', $this->resource . '/' . $id)
+        return $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id))
             ->getResponse();
     }
 }

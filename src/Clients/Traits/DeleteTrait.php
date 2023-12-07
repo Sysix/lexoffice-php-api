@@ -9,7 +9,7 @@ trait DeleteTrait
 
     public function delete(string $id): ResponseInterface
     {
-        return $this->api->newRequest('DELETE', $this->resource . '/' . $id)
+        return $this->api->newRequest('DELETE', $this->resource . '/' . rawurlencode($id))
             ->getResponse();
     }
 }

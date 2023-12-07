@@ -12,7 +12,7 @@ trait UpdateTrait
      */
     public function update(string $id, array $data): ResponseInterface
     {
-        $api = $this->api->newRequest('PUT', $this->resource . '/' . $id);
+        $api = $this->api->newRequest('PUT', $this->resource . '/' . rawurlencode($id));
 
         $api->request = $api->request->withBody(Utils::createStream($data));
 
