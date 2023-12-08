@@ -18,7 +18,7 @@ abstract class BaseClient implements ClientInterface
     /**
      * @deprecated 1.0 use Sysix\LexOffice\Utils::getJsonFromResponse()
      */
-    public function getAsJson(ResponseInterface $response): object
+    public function getAsJson(ResponseInterface $response): mixed
     {
         trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, use \Sysix\LexOffice\Utils::getJsonFromResponse instead', E_USER_DEPRECATED);
 
