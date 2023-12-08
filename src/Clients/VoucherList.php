@@ -10,13 +10,12 @@ class VoucherList extends PaginationClient
     protected string $resource = 'voucherlist';
 
     public string $sortColumn = 'voucherNumber';
-    public string $sortDirection = 'DESC';
 
     /** @var string[] $types */
-    public array $types = [];
+    public array $types;
 
     /** @var string[] $statuses */
-    public array $statuses = [];
+    public array $statuses;
 
     public ?bool $archived = null;
 
@@ -71,7 +70,6 @@ class VoucherList extends PaginationClient
     {
         $dateFormat = DateTimeInterface::ATOM;
 
-        $params['sort'] = $this->sortColumn . ',' . $this->sortDirection;
         $params['voucherType'] = implode(',', $this->types);
         $params['voucherStatus'] = implode(',', $this->statuses);
         $params['archived'] = $this->archived;

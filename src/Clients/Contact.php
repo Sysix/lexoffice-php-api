@@ -15,9 +15,6 @@ class Contact extends PaginationClient
 
     protected string $resource = 'contacts';
 
-    public string $sortDirection = 'ASC';
-
-    public string $sortProperty = 'name';
 
     public ?int $number = null;
 
@@ -27,8 +24,6 @@ class Contact extends PaginationClient
 
     protected function buildQueryParams(array $params): string
     {
-        $params['direction'] = $this->sortDirection;
-        $params['property'] = $this->sortProperty;
         $params['number'] = $this->number;
         $params['customer'] = $this->customer;
         $params['vendor'] = $this->vendor;

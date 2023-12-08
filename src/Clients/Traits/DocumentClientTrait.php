@@ -11,7 +11,8 @@ trait DocumentClientTrait
 {
     public function document(string $id, bool $asContent = false): ResponseInterface
     {
-        $response = $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/document')
+        $response = $this->api
+            ->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/document')
             ->getResponse();
 
         if ($asContent === false) {

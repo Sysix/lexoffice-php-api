@@ -55,21 +55,17 @@ $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 ### Contact Endpoint
 ```php
 
-// get a page
 /** @var \Sysix\LexOffice\Api $api */
 $client = $api->contact();
 
 // filters
 $client->size = 100;
-$client->sortDirection = 'ASC';
-$client->sortProperty = 'name';
 $client->number = 123456;
 $client->customer = true;
 $client->vendor = false;
 
 // get a page
 $response = $client->getPage(0);    
-
 
 // other methods
 $response = $client->get($entityId);
@@ -162,16 +158,18 @@ $response = $api->profile()->get();
 ### Recurring Templates Endpoint
 ```php
 
-// get single entitiy
-$response = $api->recurringTemplate()->get($entityId);
-
-// use pagination
 $client = $api->recurringTemplate();
-$client->size = 100;
 
+// filters
+$client->size = 100;
+$client->sortDirection = 'DESC';
+$client->sortColumn = 'updatedDate';
 
 // get a page
 $response = $client->getPage(0);
+
+// other methods
+$response = $api->recurringTemplate()->get($entityId);
 ```
 
 

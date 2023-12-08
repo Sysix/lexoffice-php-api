@@ -10,4 +10,6 @@ class RecurringTemplate extends PaginationClient
     use GetTrait;
 
     protected string $resource = 'recurring-templates';
+
+    public string $sortColumn = 'updatedDate';
 }

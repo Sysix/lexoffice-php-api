@@ -18,7 +18,7 @@ class ContactTest extends TestClient
 
         $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/contacts?page=0&direction=ASC&property=name&size=100',
+            $api->apiUrl . '/v1/contacts?page=0&size=100',
             $api->request->getUri()->__toString()
         );
     }
@@ -34,7 +34,7 @@ class ContactTest extends TestClient
         $client->getPage(0);
 
         $this->assertEquals(
-            $api->apiUrl . '/v1/contacts?page=0&direction=ASC&property=name&number=12345&customer=1&vendor=0&size=100',
+            $api->apiUrl . '/v1/contacts?page=0&number=12345&customer=1&vendor=0&size=100',
             $api->request->getUri()->__toString()
         );
     }

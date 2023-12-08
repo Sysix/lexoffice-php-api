@@ -9,6 +9,10 @@ abstract class PaginationClient extends BaseClient
 {
     public int $size = 100;
 
+    public string $sortColumn;
+    
+    public string $sortDirection = 'DESC';
+
     protected function generatePageUrl(int $page): string
     {
         return $this->resource . '?' . $this->buildQueryParams([
@@ -22,6 +26,11 @@ abstract class PaginationClient extends BaseClient
     protected function buildQueryParams(array $params): string
     {
         $params['size'] = $this->size;
+
+        // contact endpoint can't be sorted but is a Pagination client
+        if (isset($this->sortColumn)) {
+            $params['sort'] = $this->sortColumn . ',' . $this->sortDirection;
+        }
 
         return http_build_query($params);
     }

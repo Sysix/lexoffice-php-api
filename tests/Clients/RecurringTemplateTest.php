@@ -31,7 +31,7 @@ class RecurringTemplateTest extends TestClient
 
         $this->assertEquals('GET', $api->request->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/recurring-templates?page=0&size=100',
+            $api->apiUrl . '/v1/recurring-templates?page=0&size=100&sort=updatedDate%2CDESC',
             $api->request->getUri()->__toString()
         );
     }
