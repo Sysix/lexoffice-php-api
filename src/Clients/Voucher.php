@@ -45,7 +45,7 @@ class Voucher extends BaseClient
      */
     public function getAll(): ResponseInterface
     {
-        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
 
         $client = new VoucherList($this->api);
 
@@ -54,7 +54,7 @@ class Voucher extends BaseClient
          */
         $client->statuses = ['open', 'paid', 'paidoff', 'voided', 'transferred', 'sepadebit'];
         $client->types = ['salesinvoice', 'salescreditnote', 'purchaseinvoice', 'purchasecreditnote'];
-
+    
         return $client->getAll();
     }
 }

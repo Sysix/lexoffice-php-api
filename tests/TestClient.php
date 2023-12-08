@@ -95,7 +95,7 @@ class TestClient extends TestCase
     {
         set_error_handler(static function (int $errno, string $errstr): void {
             throw new  DeprecationException($errstr, $errno);
-        }, E_USER_WARNING);
+        }, E_USER_DEPRECATED);
 
         $this->expectException(DeprecationException::class);
 

@@ -38,7 +38,7 @@ abstract class PaginationClient extends BaseClient
      */
     public function getAll(): ResponseInterface
     {
-        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
 
         $response = $this->getPage(0);
         /** @var ?stdClass{totalPages:int, content:stdClass[]} $result */

@@ -12,7 +12,7 @@ trait VoucherListTrait
      */
     public function getPage(int $page): ResponseInterface
     {
-        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
 
         $client = new VoucherList($this->api);
         $client->setToEverything();
@@ -26,7 +26,7 @@ trait VoucherListTrait
      */
     public function getAll(): ResponseInterface
     {
-        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_WARNING);
+        trigger_error(self::class . '::' . __METHOD__ . ' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
 
         $client = new VoucherList($this->api);
         $client->setToEverything();
