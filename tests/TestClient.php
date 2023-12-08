@@ -1,130 +1,105 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests;
+namespace Sysix\LexOffice\Tests;
 
-use Clicksports\LexOffice\Api;
-use Clicksports\LexOffice\ClientInterface;
-use Clicksports\LexOffice\PaginationClient;
+use Sysix\LexOffice\Api;
+use Sysix\LexOffice\PaginationClient;
+use Sysix\LexOffice\ClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
-use ReflectionException;
 
 class TestClient extends TestCase
 {
-    /**
-     * @param Response $response
-     * @param array $methodExcept
-     * @return Api|MockObject
-     */
-    public function createApiMockObject(Response $response, $methodExcept = [])
+
+    public function tearDown(): void
     {
-        return $this->createApiMultiMockObject([$response], $methodExcept);
+        // see self::expectDeprecationV1Warning()
+        restore_error_handler();
+    }
+    /**
+     * @return Api&MockObject
+     */
+    public function createApiMockObject(Response $response)
+    {
+        return $this->createApiMultiMockObject([$response]);
     }
 
     /**
-     * @param array $responses
-     * @param array $methodExcept
-     * @return MockObject|Api
+     * @param Response[] $responses
+     * @return Api&MockObject
      */
-    public function createApiMultiMockObject(array $responses, $methodExcept = [])
+    public function createApiMultiMockObject(array $responses)
     {
         $responseMock = new MockHandler($responses);
 
         return $this
             ->getMockBuilder(Api::class)
+            ->onlyMethods([])
             ->setConstructorArgs([
                 '',
                 new Client([
                     'handler' => HandlerStack::create($responseMock)
                 ])
             ])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'setRequest',
-                'newRequest',
-                'getResponse'
-            ])
             ->getMock();
     }
 
     /**
-     * @param string $className
-     * @param Response $response
-     * @param array $methodExcept
-     * @return MockObject|ClientInterface
+     * @template T of ClientInterface
+     * @param class-string<T> $className
+     * @return array{0: Api&MockObject, 1: T&MockObject}
      */
-    public function createClientMockObject(string $className, Response $response, array $methodExcept = [])
+    public function createClientMockObject(string $className): array
     {
-        return $this->createClientMultiMockObject($className, [$response], $methodExcept);
+        return $this->createClientMultiMockObject($className, [new Response()]);
     }
 
     /**
-     * @param string $className
+     * @template T of ClientInterface
+     * @param class-string<T> $className
      * @param Response[] $responses
-     * @param array $methodExcept
-     * @return MockObject
+     * @return array{0: Api&MockObject, 1: T&MockObject}
      */
-    public function createClientMultiMockObject(string $className, array $responses, array $methodExcept = [])
+    public function createClientMultiMockObject(string $className, array $responses): array
     {
         $api = $this->createApiMultiMockObject($responses);
 
-        return $this
+        $client = $this
             ->getMockBuilder($className)
+            ->onlyMethods([])
             ->setConstructorArgs([$api])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'getAsJson',
-                'createStream'
-            ])
-            ->getMock();
-    }
-
-    /**
-     * @param array $responses
-     * @param array $methodExcept
-     * @return MockObject|PaginationClient
-     * @throws ReflectionException
-     */
-    public function createPaginationClientMockObject(array $responses, array $methodExcept = [])
-    {
-        $api = $this->createApiMultiMockObject($responses);
-
-        $stub = $this
-            ->getMockBuilder(PaginationClient::class)
-            ->setConstructorArgs([$api])
-            ->setMethodsExcept([
-                ...$methodExcept,
-                'getAsJson'
-            ])
             ->getMock();
 
-        $this->setProtectedProperty($stub, 'resource', 'resource');
-
-        return $stub;
+        return [$api, $client];
     }
 
-    /**
-     * Sets a protected property on a given object via reflection
-     *
-     * @param $object - instance in which protected value is being modified
-     * @param $property - property on instance being modified
-     * @param $value - new value of the property being modified
-     *
-     * @return void
-     *
-     * @throws ReflectionException
-     * @link https://stackoverflow.com/a/37667018/7387397
-     */
-    public function setProtectedProperty($object, $property, $value)
+    public function createCacheDir(): void
     {
-        $reflection = new ReflectionClass($object);
-        $reflection_property = $reflection->getProperty($property);
-        $reflection_property->setAccessible(true);
-        $reflection_property->setValue($object, $value);
+        $dir = $this->getCacheDir();
+
+        if (!is_dir($dir)) {
+            mkdir($dir);
+        }
+    }
+
+    public function getCacheDir(): string
+    {
+        return __DIR__ . '/cache';
+    }
+
+    public function expectDeprecationV1Warning(string $method): void
+    {
+        set_error_handler(static function (int $errno, string $errstr): void {
+            throw new  DeprecationException($errstr, $errno);
+        }, E_USER_DEPRECATED);
+
+        $this->expectException(DeprecationException::class);
+
+        // we can not check for full class names, because we are mocking objects
+        $this->expectExceptionMessage('::' . $method . ' should not be called anymore, in future versions this method WILL not exist');
     }
 }

@@ -1,7 +1,11 @@
 {
-  "name": "clicksports/lex-office-api",
+  "name": "sysix/lex-office-api",
   "type": "library",
-  "description": "Simple API Integration for Lex-Office",
+  "description": "Simple API Integration for Lexoffice",
+  "scripts": {
+    "test": "phpunit",
+    "lint": "phpstan analyse --ansi --error-format raw"
+  },
   "keywords": [
     "lex-office",
     "lexoffice",
@@ -10,24 +14,29 @@
   ],
   "license": "MIT",
   "require": {
-    "php": "^8",
+    "php": "^8.1",
     "ext-json": "*",
-    "ext-curl": "*",
-    "guzzlehttp/guzzle": "^6.2 | ^7.0",
-    "psr/cache": "^1.0 | ^2.0 | ^3.0"
+    "psr/http-client": "^1.0",
+    "guzzlehttp/psr7": "^2.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.0",
-    "symfony/cache": "^5.1"
+    "phpstan/phpstan": "^1.10",
+    "phpunit/phpunit": "^10.4",
+    "guzzlehttp/guzzle": "^7.8"
+  },
+  "suggest": {
+    "guzzlehttp/guzzle": "^7.0",
+    "kevinrob/guzzle-cache-middleware": "^5.0",
+    "spatie/guzzle-rate-limiter-middleware": "^2.0"
   },
   "autoload": {
     "psr-4": {
-      "Clicksports\\LexOffice\\": "src/"
+      "Sysix\\LexOffice\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Clicksports\\LexOffice\\Tests\\": "tests/"
+      "Sysix\\LexOffice\\Tests\\": "tests/"
     }
   },
   "minimum-stability": "dev",

@@ -1,44 +1,79 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice\Tests;
+namespace Sysix\LexOffice\Tests;
 
 use GuzzleHttp\Psr7\Response;
+use Sysix\LexOffice\Api;
+use Sysix\LexOffice\PaginationClient;
+use PHPUnit\Framework\MockObject\MockObject;
+use ReflectionClass;
+use ReflectionException;
 
 class PaginationClientTest extends TestClient
 {
-
-    public function testGenerateUrl()
+    /**
+     * @param Response[] $responses
+     * @return array{0: Api&MockObject, 1: PaginationClient&MockObject}
+     * @throws ReflectionException
+     */
+    public function createPaginationClientMockObject(array $responses)
     {
-        $stub = $this->createPaginationClientMockObject(
-            [new Response()],
-            ['generateUrl']
-        );
+        $api = $this->createApiMultiMockObject($responses);
 
-        $this->assertEquals(
-            'resource?page=0&size=100',
-            $stub->generateUrl(0)
-        );
+        $stub = $this
+            ->getMockBuilder(PaginationClient::class)
+            ->onlyMethods([])
+            ->setConstructorArgs([$api])
+            ->getMock();
+
+        $this->setProtectedProperty($stub, 'resource', 'resource');
+
+        return [$api, $stub];
     }
 
-    public function testGetAll()
+    /**
+     * Sets a protected property on a given object via reflection
+     *
+     * @param object $object - instance in which protected value is being modified
+     * @param string $property - property on instance being modified
+     * @param mixed $value - new value of the property being modified
+     *
+     * @return void
+     *
+     * @throws ReflectionException
+     * @link https://stackoverflow.com/a/37667018/7387397
+     */
+    public function setProtectedProperty(object $object, string $property, $value)
     {
-        $stub = $this->createPaginationClientMockObject(
-            [new Response(200, [], '{"content": [], "totalPages": 1}')],
-            ['getAll', 'getPage']
+        $reflection = new ReflectionClass($object);
+        $reflection_property = $reflection->getProperty($property);
+        $reflection_property->setAccessible(true);
+        $reflection_property->setValue($object, $value);
+    }
+
+    public function testGetAllSingle(): void
+    {
+        $this->expectDeprecationV1Warning('getAll');
+
+        [, $stub] = $this->createPaginationClientMockObject(
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
         $this->assertEquals(
             '{"content": [], "totalPages": 1}',
             $stub->getAll()->getBody()->__toString()
         );
+    }
 
+    public function testGetAllMultiple(): void
+    {
+        $this->expectDeprecationV1Warning('getAll');
 
-        $stub = $this->createPaginationClientMockObject(
+        [, $stub] = $this->createPaginationClientMockObject(
             [
-                new Response(200, [], '{"content": [{"name": "a"}], "totalPages": 2}'),
-                new Response(200, [], '{"content": [{"name": "b"}], "totalPages": 2}')
-            ],
-            ['getAll', 'getPage']
+                new Response(200, ['Content-Type' => 'application/json'], '{"content": [{"name": "a"}], "totalPages": 2}'),
+                new Response(200, ['Content-Type' => 'application/json'], '{"content": [{"name": "b"}], "totalPages": 2}')
+            ]
         );
 
         $this->assertEquals(
@@ -47,16 +82,17 @@ class PaginationClientTest extends TestClient
         );
     }
 
-    public function testGetPage()
+    public function testGetPage(): void
     {
-        $stub = $this->createPaginationClientMockObject(
-            [new Response(200, [], '{"content": [], "totalPages": 1}')],
-            ['getPage']
+        [$api, $stub] = $this->createPaginationClientMockObject(
+            [new Response(200, [], '{"content": [], "totalPages": 1}')]
         );
 
+        $stub->getPage(0);
+
         $this->assertEquals(
-            '{"content": [], "totalPages": 1}',
-            $stub->getPage(0)->getBody()->__toString()
+            $api->apiUrl . '/v1/resource?page=0&size=100',
+            $api->request->getUri()->__toString()
         );
     }
 }

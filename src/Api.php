@@ -1,107 +1,60 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace Clicksports\LexOffice;
+namespace Sysix\LexOffice;
 
-use Clicksports\LexOffice\Contact\Client as ContactClient;
-use Clicksports\LexOffice\Country\Client as CountryClient;
-use Clicksports\LexOffice\CreditNote\Client as CreditNoteClient;
-use Clicksports\LexOffice\DownPaymentInvoice\Client as DownPaymentInvoiceClient;
-use Clicksports\LexOffice\Event\Client as EventClient;
-use Clicksports\LexOffice\File\Client as FileClient;
-use Clicksports\LexOffice\Invoice\Client as InvoiceClient;
-use Clicksports\LexOffice\OrderConfirmation\Client as OrderConfirmationClient;
-use Clicksports\LexOffice\Payment\Client as PaymentClient;
-use Clicksports\LexOffice\PaymentCondition\Client as PaymentConditionClient;
-use Clicksports\LexOffice\Profile\Client as ProfileClient;
-use Clicksports\LexOffice\PostingCategory\Client as PostingCategoryClient;
-use Clicksports\LexOffice\Quotation\Client as QuotationClient;
-use Clicksports\LexOffice\Traits\CacheResponseTrait;
-use Clicksports\LexOffice\RecurringTemplate\Client as RecurringTemplateClient;
-use Clicksports\LexOffice\Voucher\Client as VoucherClient;
-use Clicksports\LexOffice\Voucherlist\Client as VoucherlistClient;
-use Clicksports\LexOffice\Exceptions\LexOfficeApiException;
-use Clicksports\LexOffice\Exceptions\CacheException;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\Uri;
+use Sysix\LexOffice\Clients\Contact;
+use Sysix\LexOffice\Clients\Country;
+use Sysix\LexOffice\Clients\CreditNote;
+use Sysix\LexOffice\Clients\DownPaymentInvoice;
+use Sysix\LexOffice\Clients\Event;
+use Sysix\LexOffice\Clients\File;
+use Sysix\LexOffice\Clients\Invoice;
+use Sysix\LexOffice\Clients\OrderConfirmation;
+use Sysix\LexOffice\Clients\Payment;
+use Sysix\LexOffice\Clients\PaymentCondition;
+use Sysix\LexOffice\Clients\PostingCategory;
+use Sysix\LexOffice\Clients\Profile;
+use Sysix\LexOffice\Clients\Quotation;
+use Sysix\LexOffice\Clients\RecurringTemplate;
+use Sysix\LexOffice\Clients\Voucher;
+use Sysix\LexOffice\Clients\VoucherList;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use SensitiveParameter;
 
 class Api
 {
-    use CacheResponseTrait;
-
-    /**
-     * the library version
-     */
-    public const VERSION = "0.14.1";
-
-    /**
-     * the lex-office api url
-     *
-     * @var string $apiUrl
-     */
     public string $apiUrl = 'https://api.lexoffice.io';
 
-    /**
-     * the lex-office api version
-     *
-     * @var string $apiVersion
-     */
     protected string $apiVersion = 'v1';
 
-    /**
-     * the lex-office api key
-     *
-     * @var string $apiKey
-     */
-    protected string $apiKey;
+    public RequestInterface $request;
 
-    /**
-     * @var Client $client
-     */
-    protected Client $client;
 
-    /**
-     * @var Request|null $request
-     */
-    public ?Request $request = null;
-
-    /**
-     * LexOffice constructor.
-     * @param string $apiKey
-     * @param Client|null $client
-     */
-    public function __construct(string $apiKey, Client $client = null)
+    public function __construct(
+        #[SensitiveParameter] protected string $apiKey, 
+        protected ClientInterface $client
+    )
     {
-        if (is_null($client)) {
-            $client = new Client();
-        }
-
-        $this->apiKey = $apiKey;
-        $this->client = $client;
     }
 
     /**
-     * @param $method
-     * @param $resource
-     * @param array $headers
-     * @return $this
+     * @param string[] $headers
      */
-    public function newRequest($method, $resource, $headers = []): self
+    public function newRequest(string $method, string $resource, array $headers = []): self
     {
         $this->setRequest(
-            new Request($method, $this->createApiUrl($resource), $headers)
+            new Request($method, $this->createApiUri($resource), $headers)
         );
 
         return $this;
     }
 
-    /**
-     * @param RequestInterface $request
-     * @return $this
-     */
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): self
     {
         $request = $request
             ->withHeader('Authorization', 'Bearer ' . $this->apiKey)
@@ -117,173 +70,93 @@ class Api
         return $this;
     }
 
-    /**
-     * @param string $resource
-     * @return string
-     */
-    protected function createApiUrl(string $resource): string
+    protected function createApiUri(string $resource): UriInterface
     {
-        return $this->apiUrl . '/' . $this->apiVersion . '/' . $resource;
+        return new Uri($this->apiUrl . '/' . $this->apiVersion . '/' . $resource);
     }
 
-    /**
-     * @return ResponseInterface
-     * @throws CacheException
-     * @throws LexOfficeApiException
-     */
-    public function getResponse()
+    public function getResponse(): ResponseInterface
     {
-        $cache = null;
-        if ($this->cacheInterface) {
-            $response = $cache = $this->getCacheResponse($this->request);
-        }
-
-        // when no cacheInterface is set or the cache is invalid
-        if (!isset($response) || !$response) {
-            try {
-                $response = $this->client->send($this->request);
-            } catch (GuzzleException $exception) {
-                throw new LexOfficeApiException(
-                    $exception->getMessage(),
-                    $exception->getCode(),
-                    $exception
-                );
-            }
-        }
-
-        // set cache response when cache is invalid
-        if ($this->cacheInterface && !$cache) {
-            $this->setCacheResponse($this->request, $response);
-        }
-
-        return $response;
+        return $this->client->sendRequest($this->request);
     }
 
-    /**
-     * @return ContactClient
-     */
-    public function contact()
+    public function contact(): Contact
     {
-        return new ContactClient($this);
+        return new Contact($this);
     }
 
-    /**
-     * @return CountryClient
-     */
-    public function country()
+    public function country(): Country
     {
-        return new CountryClient($this);
+        return new Country($this);
     }
 
-    /**
-     * @return EventClient
-     */
-    public function event()
+    public function event(): Event
     {
-        return new EventClient($this);
+        return new Event($this);
     }
 
-    /**
-     * @return InvoiceClient
-     */
-    public function invoice()
+    public function invoice(): Invoice
     {
-        return new InvoiceClient($this);
+        return new Invoice($this);
     }
 
-    /**
-     * @return DownPaymentInvoiceClient
-     */
-    public function downPaymentInvoice()
+    public function downPaymentInvoice(): DownPaymentInvoice
     {
-        return new DownPaymentInvoiceClient($this);
+        return new DownPaymentInvoice($this);
     }
 
-    /**
-     * @return OrderConfirmationClient
-     */
-    public function orderConfirmation()
+    public function orderConfirmation(): OrderConfirmation
     {
-        return new OrderConfirmationClient($this);
+        return new OrderConfirmation($this);
     }
 
-    /**
-     * @return PaymentClient
-     */
-    public function payment()
+    public function payment(): Payment
     {
-        return new PaymentClient($this);
+        return new Payment($this);
     }
 
-    /**
-     * @return PaymentConditionClient
-     */
-    public function paymentCondition()
+    public function paymentCondition(): PaymentCondition
     {
-        return new PaymentConditionClient($this);
+        return new PaymentCondition($this);
     }
 
-    /**
-     * @return CreditNoteClient
-     */
-    public function creditNote()
+    public function creditNote(): CreditNote
     {
-        return new CreditNoteClient($this);
+        return new CreditNote($this);
     }
 
-    /**
-     * @return QuotationClient
-     */
-    public function quotation()
+    public function quotation(): Quotation
     {
-        return new QuotationClient($this);
+        return new Quotation($this);
     }
 
-    /**
-     * @return VoucherClient
-     */
-    public function voucher()
+    public function voucher(): Voucher
     {
-        return new VoucherClient($this);
+        return new Voucher($this);
     }
 
-    /**
-     * @return RecurringTemplateClient
-     */
-    public function recurringTemplate()
+    public function recurringTemplate(): RecurringTemplate
     {
-        return new RecurringTemplateClient($this);
+        return new RecurringTemplate($this);
     }
 
-    /**
-     * @return VoucherlistClient
-     */
-    public function voucherlist()
+    public function voucherlist(): VoucherList
     {
-        return new VoucherlistClient($this);
+        return new VoucherList($this);
     }
 
-    /**
-     * @return ProfileClient
-     */
-    public function profile()
+    public function profile(): Profile
     {
-        return new ProfileClient($this);
+        return new Profile($this);
     }
 
-    /**
-     * @return PostingCategoryClient
-     */
-    public function postingCategory()
+    public function postingCategory(): PostingCategory
     {
-        return new PostingCategoryClient($this);
+        return new PostingCategory($this);
     }
 
-    /**
-     * @return FileClient
-     */
-    public function file()
+    public function file(): File
     {
-        return new FileClient($this);
+        return new File($this);
     }
 }

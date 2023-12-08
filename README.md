@@ -1,60 +1,71 @@
 # Lexoffice PHP API
 
-![tests](https://github.com/clicksports/lexoffice-php-api/workflows/tests/badge.svg)
-[![Latest Stable Version](https://poser.pugx.org/clicksports/lex-office-api/v)](//packagist.org/packages/clicksports/lex-office-api)
-[![License](https://poser.pugx.org/clicksports/lex-office-api/license)](//packagist.org/packages/clicksports/lex-office-api)
+![tests](https://github.com/sysix/lexoffice-php-api/workflows/tests/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/sysix/lex-office-api/v)](//packagist.org/packages/sysix/lex-office-api)
+[![License](https://poser.pugx.org/sysix/lex-office-api/license)](//packagist.org/packages/sysix/lex-office-api)
 
 ## Requirements
 
-PHP: >= 7.4  
-Extensions: [Composer](https://getcomposer.org/), [PHP-JSON](https://www.php.net/manual/en/book.json.php)
+PHP: >= 8.1  
+Extensions: 
+- [Composer](https://getcomposer.org/)
+- [PHP-JSON](https://www.php.net/manual/en/book.json.php)
+- [PSR-18 HTTP-Client](https://packagist.org/providers/psr/http-client-implementation)
 
 ## Install
 
 composer:  
-`composer require clicksports/lex-office-api`
+`composer require sysix/lex-office-api`
 
 ## Usage
 
-Search for the official API Documentation [here](https://developers.lexoffice.io/docs/).  
+Search for the [official API Documentation](https://developers.lexoffice.io/docs/).  
 You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 
 ### Basic
 ```php
-$apiKey = getenv('LEX_OFFICE_API_KEY'); // store keys in .env file
-$api = new \Clicksports\LexOffice\Api($apiKey);
+// store keys in .env file
+$apiKey = getenv('LEX_OFFICE_API_KEY'); 
+
+// in this example we are using guzzlehttp/guzzle package, it can be any PSR-18 HTTP Client 
+// see: https://packagist.org/providers/psr/http-client-implementation
+$httpClient = \GuzzleHttp\Client();
+$api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 ```
 
-### set cache
+#### Optimize your HTTP Client
+
+This library only prepares the `\Psr\Http\Message\RequestInterface` for the HTTP Client and returns its Response.  
+There are almost no error checks, no caching and no rate limiting. Your PSR-18 HTTP Client should come with a way to deal with it.  
+
+Here is a example with `guzzlehttp/guzzle` , `kevinrob/guzzle-cache-middleware` and `spatie/guzzle-rate-limiter-middleware`:
 
 ```php
-// can be any PSR-6 compatibly cache handler
-// in this example we are using symfony/cache
-$cacheInterface = new \Symfony\Component\Cache\Adapter\FilesystemAdapter(
-  'lexoffice',
-  3600,
- __DIR__ . '/cache'
-);
+$apiKey = getenv('LEX_OFFICE_API_KEY'); 
 
-$api->setCacheInterface($cacheInterface);
+$stack = \GuzzleHttp\HandlerStack();
+$stack->push(new \Kevinrob\GuzzleCache\CacheMiddleware\CacheMiddleware(), 'cache');
+$stack->push(\Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware\RateLimiterMiddleware::perSecond(2));
+
+$httpClient = \GuzzleHttp\Client(['handler' => $stack]);
+$api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
+
 ```
 
 ### Contact Endpoint
 ```php
 
-// get a page
-/** @var \Clicksports\LexOffice\Api $api */
+/** @var \Sysix\LexOffice\Api $api */
 $client = $api->contact();
 
+// filters
 $client->size = 100;
-$client->sortDirection = 'ASC';
-$client->sortProperty = 'name';
+$client->number = 123456;
+$client->customer = true;
+$client->vendor = false;
 
 // get a page
 $response = $client->getPage(0);    
-
-//get all
-$response = $client->getAll();
 
 // other methods
 $response = $client->get($entityId);
@@ -70,7 +81,7 @@ $response = $api->country()->getAll();
 
 ### Invoices Endpoint
 ```php
-$response = $api->invoice()->getAll();
+$voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
 $response = $api->invoice()->document($entityId); // get document ID
@@ -79,7 +90,7 @@ $response = $api->invoice()->document($entityId, true); // get file content
 
 ### Down Payment Invoices Endpoint
 ```php
-$response = $api->downPaymentInvoice()->getAll();
+$voucherList = $api->downPaymentInvoice()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->downPaymentInvoice()->get($entityId);
 $response = $api->downPaymentInvoice()->create($data);
 $response = $api->downPaymentInvoice()->document($entityId); // get document ID
@@ -88,7 +99,7 @@ $response = $api->downPaymentInvoice()->document($entityId, true); // get file c
 
 ### Order Confirmation Endpoint
 ```php
-$response = $api->orderConfirmation()->getAll();
+$voucherList = $api->orderConfirmation()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->orderConfirmation()->get($entityId);
 $response = $api->orderConfirmation()->create($data);
 $response = $api->orderConfirmation()->document($entityId); // get document ID
@@ -97,7 +108,7 @@ $response = $api->orderConfirmation()->document($entityId, true); // get file co
 
 ### Quotation Endpoint
 ```php
-$response = $api->quotation()->getAll();
+$voucherList = $api->quotation()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->quotation()->get($entityId);
 $response = $api->quotation()->create($data);
 $response = $api->quotation()->document($entityId); // get document ID
@@ -106,18 +117,18 @@ $response = $api->quotation()->document($entityId, true); // get file content
 
 ### Voucher Endpoint
 ```php
-$response = $api->voucher()->getAll();
 $response = $api->voucher()->get($entityId);
 $response = $api->voucher()->create($data);
 $response = $api->voucher()->update($entityId, $data);
 $response = $api->voucher()->document($entityId); // get document ID
 $response = $api->voucher()->document($entityId, true); // get file content
+$response = $api->voucher()->upload($entitiyId, $filepath);
 ```
 
 
 ### Credit Notes Endpoint
 ```php
-$response = $api->creditNote()->getAll();
+$voucherList = $api->creditNote()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->creditNote()->get($entityId);
 $response = $api->creditNote()->create($data);
 $response = $api->creditNote()->document($entityId); // get document ID
@@ -147,19 +158,18 @@ $response = $api->profile()->get();
 ### Recurring Templates Endpoint
 ```php
 
-// get single entitiy
-$response = $api->recurringTemplate()->get($entityId);
-
-// use pagination
 $client = $api->recurringTemplate();
-$client->size = 100;
 
+// filters
+$client->size = 100;
+$client->sortDirection = 'DESC';
+$client->sortColumn = 'updatedDate';
 
 // get a page
 $response = $client->getPage(0);
 
-//get all
-$response = $client->getAll();
+// other methods
+$response = $api->recurringTemplate()->get($entityId);
 ```
 
 
@@ -170,6 +180,8 @@ $client = $api->voucherlist();
 $client->size = 100;
 $client->sortDirection = 'DESC';
 $client->sortColumn = 'voucherNumber';
+
+// filters required
 $client->types = [
     'salesinvoice',
     'salescreditnote',
@@ -192,14 +204,18 @@ $client->statuses = [
     'rejected'
 ];
 
-// get everything what we can, not recommend:
-//$client->setToEverything()
+// filters optional
+$client->archived = true;
+$client->contactId = 'some-uuid-string';
+$client->voucherDateFrom = new \DateTime('2023-12-01');
+$client->voucherDateTo = new \DateTime('2023-12-01');
+$client->createdDateFrom = new \DateTime('2023-12-01');;
+$client->createdDateTo = new \DateTime('2023-12-01');
+$client->updatedDateFrom = new \DateTime('2023-12-01');
+$client->updatedDateTo = new \DateTime('2023-12-01');
 
 // get a page
 $response = $client->getPage(0);
-
-//get all
-$response = $client->getAll();
 ```
 
 ### File Endpoint
@@ -209,18 +225,9 @@ $response = $api->file()->get($entityId);
 ```
 
 
-### get JSON from Response
+### get JSON from Success and Error Response
 
 ```php
-$json = $api->*()->getAsJson($response);
-```
-
-### get JSON from Error Response
-
-```php
-try {
-   $api->*->*();
-} catch(\Clicksports\LexOffice\Exceptions\LexOfficeApiException $exception) {
-   $json = $api->*()->getAsJson($exception->getPrevious()->getResponse());
-}
+// can be possible null because the response body can be empty
+$json = \Sysix\LexOffice\Utils::getJsonFromResponse($response);
 ```

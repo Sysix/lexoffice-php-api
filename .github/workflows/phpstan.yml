@@ -1,0 +1,17 @@
+name: Run Shepherd
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: php-actions/composer@v6
+      - uses: php-actions/phpstan@v3
+        with:
+          path: src/ tests/
+          level: 9
+
+  
