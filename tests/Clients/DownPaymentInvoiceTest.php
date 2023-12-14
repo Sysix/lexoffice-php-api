@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -24,7 +26,7 @@ class DownPaymentInvoiceTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
-    
+
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
@@ -66,7 +68,7 @@ class DownPaymentInvoiceTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/down-payment-invoices/resource-id/document',
             $api->request->getUri()->__toString()
-        );       
+        );
     }
 
     public function testDocumentContent(): void
@@ -90,7 +92,6 @@ class DownPaymentInvoiceTest extends TestClient
         );
     }
 
-    
     public function testFailedDocumentContent(): void
     {
         [$api, $stub] = $this->createClientMultiMockObject(

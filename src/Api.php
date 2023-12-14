@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice;
 
@@ -34,12 +36,10 @@ class Api
 
     public RequestInterface $request;
 
-
     public function __construct(
-        #[SensitiveParameter] protected string $apiKey, 
+        #[SensitiveParameter] protected string $apiKey,
         protected ClientInterface $client
-    )
-    {
+    ) {
     }
 
     /**
@@ -60,8 +60,7 @@ class Api
             ->withHeader('Authorization', 'Bearer ' . $this->apiKey)
             ->withHeader('Accept', 'application/json');
 
-
-        if (!$request->hasHeader('Content-Type') && in_array($request->getMethod(), ['POST', 'PUT'])) {
+        if (!$request->hasHeader('Content-Type') && in_array($request->getMethod(), ['POST', 'PUT'], true)) {
             $request = $request->withHeader('Content-Type', 'application/json');
         }
 

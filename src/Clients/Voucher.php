@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
@@ -50,11 +52,11 @@ class Voucher extends BaseClient
         $client = new VoucherList($this->api);
 
         /**
-         * @link https://developers.lexoffice.io/docs/#vouchers-endpoint-purpose
+         * @see https://developers.lexoffice.io/docs/#vouchers-endpoint-purpose
          */
         $client->statuses = ['open', 'paid', 'paidoff', 'voided', 'transferred', 'sepadebit'];
         $client->types = ['salesinvoice', 'salescreditnote', 'purchaseinvoice', 'purchasecreditnote'];
-    
+
         return $client->getAll();
     }
 }

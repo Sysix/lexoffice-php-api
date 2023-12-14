@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -10,7 +12,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class InvoiceTest extends TestClient
 {
-
     public function testCreate(): void
     {
         [$api, $stub] = $this->createClientMockObject(Invoice::class);
@@ -106,7 +107,6 @@ class InvoiceTest extends TestClient
         $this->assertInstanceOf(VoucherList::class, $client);
     }
 
-
     public function testDocument(): void
     {
         [$api, $stub] = $this->createClientMockObject(Invoice::class);
@@ -119,7 +119,7 @@ class InvoiceTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/invoices/resource-id/document',
             $api->request->getUri()->__toString()
-        );       
+        );
     }
 
     public function testDocumentContent(): void

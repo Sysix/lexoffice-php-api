@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 
 namespace Sysix\LexOffice;
 
@@ -11,8 +12,7 @@ abstract class BaseClient implements ClientInterface
 
     public function __construct(
         protected Api $api
-        )
-    {
+    ) {
     }
 
     /**

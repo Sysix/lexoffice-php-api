@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice;
 
@@ -10,13 +12,13 @@ abstract class PaginationClient extends BaseClient
     public int $size = 100;
 
     public string $sortColumn;
-    
+
     public string $sortDirection = 'DESC';
 
     protected function generatePageUrl(int $page): string
     {
         return $this->resource . '?' . $this->buildQueryParams([
-            'page'=> $page
+            'page' => $page
         ]);
     }
 

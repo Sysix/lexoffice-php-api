@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -24,7 +26,7 @@ class FileTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
-    
+
     public function testUploadNotSupportedExtension(): void
     {
         $this->expectException(LexOfficeApiException::class);
@@ -38,7 +40,7 @@ class FileTest extends TestClient
     {
         $this->expectException(LexOfficeApiException::class);
 
-        [, $stub] = $this->createClientMockObject(File::class,);
+        [, $stub] = $this->createClientMockObject(File::class);
 
         $stub->upload('not_existing.jpg', 'voucher');
     }
@@ -57,8 +59,8 @@ class FileTest extends TestClient
             $this->fail('could not open file ' . $file);
         }
 
-        fseek($fp, VoucherConfig::MAX_FILE_SIZE + 1,SEEK_CUR);
-        fwrite($fp,'a');
+        fseek($fp, VoucherConfig::MAX_FILE_SIZE + 1, SEEK_CUR);
+        fwrite($fp, 'a');
         fclose($fp);
 
         $stub->upload($file, 'voucher');
@@ -78,8 +80,8 @@ class FileTest extends TestClient
             $this->fail('could not open file ' . $file);
         }
 
-        fseek($fp, 5,SEEK_CUR);
-        fwrite($fp,'a');
+        fseek($fp, 5, SEEK_CUR);
+        fwrite($fp, 'a');
         fclose($fp);
 
         $response = $stub->upload($file, 'voucher');

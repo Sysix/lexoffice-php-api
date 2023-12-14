@@ -1,4 +1,6 @@
-<?php declare (strict_types=1);
+<?php
+
+declare (strict_types=1);
 
 namespace Sysix\LexOffice\Config\FileClient;
 
@@ -6,7 +8,7 @@ use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 
 class VoucherConfig
 {
-    const MAX_FILE_SIZE = 5 * 1024 * 1024;
+    public const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
     /** @var string[] */
     protected array $supportedExtension = ['png', 'jpg', 'pdf'];

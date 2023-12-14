@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -8,7 +10,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class EventTest extends TestClient
 {
-
     public function testCreate(): void
     {
         [$api, $stub] = $this->createClientMockObject(Event::class);
@@ -38,7 +39,7 @@ class EventTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/event-subscriptions/resource-id',
             $api->request->getUri()->__toString()
-        );    
+        );
     }
 
     public function testGetAll(): void
