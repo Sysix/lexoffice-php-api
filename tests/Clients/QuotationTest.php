@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -10,7 +12,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class QuotationTest extends TestClient
 {
-
     public function testCreate(): void
     {
         [$api, $stub] = $this->createClientMockObject(Quotation::class);
@@ -63,7 +64,7 @@ class QuotationTest extends TestClient
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
-        
+
         [$api, $stub] = $this->createClientMultiMockObject(
             Quotation::class,
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
@@ -101,7 +102,7 @@ class QuotationTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/quotations/resource-id/document',
             $api->request->getUri()->__toString()
-        );       
+        );
     }
 
     public function testDocumentContent(): void
@@ -124,7 +125,7 @@ class QuotationTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
-    
+
     public function testFailedDocumentContent(): void
     {
         [$api, $stub] = $this->createClientMultiMockObject(

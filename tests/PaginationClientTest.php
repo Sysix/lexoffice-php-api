@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests;
 
@@ -13,8 +15,10 @@ class PaginationClientTest extends TestClient
 {
     /**
      * @param Response[] $responses
-     * @return array{0: Api&MockObject, 1: PaginationClient&MockObject}
+     *
      * @throws ReflectionException
+     *
+     * @return array{0: Api&MockObject, 1: PaginationClient&MockObject}
      */
     public function createPaginationClientMockObject(array $responses)
     {
@@ -32,16 +36,15 @@ class PaginationClientTest extends TestClient
     }
 
     /**
-     * Sets a protected property on a given object via reflection
+     * Sets a protected property on a given object via reflection.
      *
-     * @param object $object - instance in which protected value is being modified
+     * @param object $object   - instance in which protected value is being modified
      * @param string $property - property on instance being modified
-     * @param mixed $value - new value of the property being modified
-     *
-     * @return void
+     * @param mixed  $value    - new value of the property being modified
      *
      * @throws ReflectionException
-     * @link https://stackoverflow.com/a/37667018/7387397
+     *
+     * @see https://stackoverflow.com/a/37667018/7387397
      */
     public function setProtectedProperty(object $object, string $property, $value)
     {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -9,7 +11,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class VoucherListTest extends TestClient
 {
-
     public function testGetPage(): void
     {
         [$api, $stub] = $this->createClientMockObject(VoucherList::class);

@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests;
 
-use Sysix\LexOffice\Api;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
@@ -77,7 +78,7 @@ class ApiTest extends TestClient
     }
 
     /**
-     * @link https://developers.lexoffice.io/docs/#error-codes
+     * @see https://developers.lexoffice.io/docs/#error-codes
      */
     public function testGetFailedResponse(): void
     {

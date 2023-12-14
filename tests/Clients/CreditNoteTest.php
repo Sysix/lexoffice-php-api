@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -62,7 +64,7 @@ class CreditNoteTest extends TestClient
     public function testGetPage(): void
     {
         $this->expectDeprecationV1Warning('getPage');
-        
+
         [$api, $stub] = $this->createClientMockObject(CreditNote::class);
 
         $response = $stub->getPage(0);
@@ -79,7 +81,7 @@ class CreditNoteTest extends TestClient
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
-        
+
         [$api, $stub] = $this->createClientMultiMockObject(
             CreditNote::class,
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
@@ -105,7 +107,6 @@ class CreditNoteTest extends TestClient
         $this->assertInstanceOf(VoucherList::class, $client);
     }
 
-
     public function testDocument(): void
     {
         [$api, $stub] = $this->createClientMockObject(CreditNote::class);
@@ -118,7 +119,7 @@ class CreditNoteTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/credit-notes/resource-id/document',
             $api->request->getUri()->__toString()
-        );       
+        );
     }
 
     public function testDocumentContent(): void
@@ -141,7 +142,7 @@ class CreditNoteTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
-    
+
     public function testFailedDocumentContent(): void
     {
         [$api, $stub] = $this->createClientMultiMockObject(

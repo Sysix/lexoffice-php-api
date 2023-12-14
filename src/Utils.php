@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Sysix\LexOffice;
-
 
 use GuzzleHttp\Psr7\Stream;
 use GuzzleHttp\Psr7\MultipartStream;
@@ -16,7 +14,7 @@ class Utils
     {
         $body = $response->getBody()->__toString();
 
-        if ($response->getHeaderLine("Content-Type") === "application/json") {
+        if ($response->getHeaderLine('Content-Type') === 'application/json') {
             return self::jsonDecode($body);
         }
 
@@ -67,7 +65,6 @@ class Utils
         return $data;
     }
 
-    
     public static function createStream(mixed $content): StreamInterface
     {
         return Utils::streamFor(Utils::jsonEncode($content));

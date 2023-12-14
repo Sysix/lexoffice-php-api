@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
@@ -14,7 +16,6 @@ class Contact extends PaginationClient
     use UpdateTrait;
 
     protected string $resource = 'contacts';
-
 
     public ?int $number = null;
 

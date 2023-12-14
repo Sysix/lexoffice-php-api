@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -11,7 +13,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class VoucherTest extends TestClient
 {
-
     public function testCreate(): void
     {
         [$api, $stub] = $this->createClientMockObject(Voucher::class);
@@ -72,7 +73,7 @@ class VoucherTest extends TestClient
     {
         $this->expectException(LexOfficeApiException::class);
 
-        [, $stub] = $this->createClientMockObject(Voucher::class,);
+        [, $stub] = $this->createClientMockObject(Voucher::class);
 
         $stub->upload('resource-id', 'not_existing.jpg');
     }
@@ -91,8 +92,8 @@ class VoucherTest extends TestClient
             $this->fail('could not open file ' . $file);
         }
 
-        fseek($fp, VoucherConfig::MAX_FILE_SIZE + 1,SEEK_CUR);
-        fwrite($fp,'a');
+        fseek($fp, VoucherConfig::MAX_FILE_SIZE + 1, SEEK_CUR);
+        fwrite($fp, 'a');
         fclose($fp);
 
         $stub->upload('resource-id', $file);
@@ -112,8 +113,8 @@ class VoucherTest extends TestClient
             $this->fail('could not open file ' . $file);
         }
 
-        fseek($fp, 5,SEEK_CUR);
-        fwrite($fp,'a');
+        fseek($fp, 5, SEEK_CUR);
+        fwrite($fp, 'a');
         fclose($fp);
 
         $response = $stub->upload('resource-id', $file);

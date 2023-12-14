@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
@@ -58,7 +60,7 @@ class VoucherList extends PaginationClient
             'paid',
             'paidoff',
             'voided',
-            //'overdue',
+            // 'overdue',
             'accepted',
             'rejected'
         ];

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
@@ -10,7 +12,6 @@ use Sysix\LexOffice\Tests\TestClient;
 
 class OrderConfirmationTest extends TestClient
 {
-
     public function testCreate(): void
     {
         [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);
@@ -46,7 +47,7 @@ class OrderConfirmationTest extends TestClient
     public function testGetPage(): void
     {
         $this->expectDeprecationV1Warning('getPage');
-        
+
         [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);
 
         $response = $stub->getPage(0);
@@ -63,7 +64,7 @@ class OrderConfirmationTest extends TestClient
     public function testGetAll(): void
     {
         $this->expectDeprecationV1Warning('getAll');
-        
+
         [$api, $stub] = $this->createClientMultiMockObject(
             OrderConfirmation::class,
             [new Response(200, [], '{"content": [], "totalPages": 1}')]
@@ -89,7 +90,6 @@ class OrderConfirmationTest extends TestClient
         $this->assertInstanceOf(VoucherList::class, $client);
     }
 
-
     public function testDocument(): void
     {
         [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);
@@ -102,7 +102,7 @@ class OrderConfirmationTest extends TestClient
         $this->assertEquals(
             $api->apiUrl . '/v1/order-confirmations/resource-id/document',
             $api->request->getUri()->__toString()
-        );       
+        );
     }
 
     public function testDocumentContent(): void
@@ -125,7 +125,7 @@ class OrderConfirmationTest extends TestClient
             $api->request->getUri()->__toString()
         );
     }
-    
+
     public function testFailedDocumentContent(): void
     {
         [$api, $stub] = $this->createClientMultiMockObject(
