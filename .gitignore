@@ -1,7 +1,7 @@
 /tests/cache/
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode,php-cs-fixer
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode,php-cs-fixer
 
 ### Composer ###
 composer.phar
@@ -58,6 +58,16 @@ Temporary Items
 ### macOS Patch ###
 # iCloud generated files
 *.icloud
+
+### PHP-CS-Fixer ###
+# Covers PHP CS Fixer
+# Reference: https://cs.symfony.com/
+
+# Generated files
+.php-cs-fixer.cache
+
+# Local config See: https://cs.symfony.com/doc/config.html
+.php-cs-fixer.php
 
 ### PhpStorm+all ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -207,4 +217,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode,php-cs-fixer
