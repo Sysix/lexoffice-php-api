@@ -46,7 +46,7 @@ class PaginationClientTest extends TestClient
      *
      * @see https://stackoverflow.com/a/37667018/7387397
      */
-    public function setProtectedProperty(object $object, string $property, $value)
+    public function setProtectedProperty(object $object, string $property, $value): void
     {
         $reflection = new ReflectionClass($object);
         $reflection_property = $reflection->getProperty($property);
