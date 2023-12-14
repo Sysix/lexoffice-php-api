@@ -1,4 +1,4 @@
-name: Run Shepherd
+name: Run PHPStan
 
 on: [pull_request]
 
