@@ -79,6 +79,15 @@ $response = $client->update($entityId, $data);
 $response = $api->country()->getAll();
 ```
 
+### Deliverys Notes Endpoint
+```php
+$voucherList = $api->deliveryNote()->getVoucherListClient(); // see VoucherlistClient Documentation
+$response = $api->deliveryNote()->get($entityId);
+$response = $api->deliveryNote()->create($data);
+$response = $api->deliveryNote()->document($entityId); // get document ID
+$response = $api->deliveryNote()->document($entityId, true); // get file content
+```
+
 ### Invoices Endpoint
 ```php
 $voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient Documentation

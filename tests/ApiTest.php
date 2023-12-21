@@ -22,6 +22,7 @@ use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Clients\RecurringTemplate;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\DeliveryNote;
 
 class ApiTest extends TestClient
 {
@@ -37,22 +38,23 @@ class ApiTest extends TestClient
     {
         $stub = $this->createApiMockObject(new Response());
 
-        $this->assertInstanceOf(Country::class, $stub->country());
         $this->assertInstanceOf(Contact::class, $stub->contact());
-        $this->assertInstanceOf(Event::class, $stub->event());
-        $this->assertInstanceOf(Invoice::class, $stub->invoice());
-        $this->assertInstanceOf(DownPaymentInvoice::class, $stub->downPaymentInvoice());
-        $this->assertInstanceOf(OrderConfirmation::class, $stub->orderConfirmation());
-        $this->assertInstanceOf(Quotation::class, $stub->quotation());
-        $this->assertInstanceOf(Voucher::class, $stub->voucher());
-        $this->assertInstanceOf(VoucherList::class, $stub->voucherlist());
-        $this->assertInstanceOf(Profile::class, $stub->profile());
+        $this->assertInstanceOf(Country::class, $stub->country());
         $this->assertInstanceOf(CreditNote::class, $stub->creditNote());
+        $this->assertInstanceOf(DeliveryNote::class, $stub->deliveryNote());
+        $this->assertInstanceOf(DownPaymentInvoice::class, $stub->downPaymentInvoice());
+        $this->assertInstanceOf(Event::class, $stub->event());
+        $this->assertInstanceOf(File::class, $stub->file());
+        $this->assertInstanceOf(Invoice::class, $stub->invoice());
+        $this->assertInstanceOf(OrderConfirmation::class, $stub->orderConfirmation());
         $this->assertInstanceOf(Payment::class, $stub->payment());
         $this->assertInstanceOf(PaymentCondition::class, $stub->paymentCondition());
-        $this->assertInstanceOf(File::class, $stub->file());
-        $this->assertInstanceOf(RecurringTemplate::class, $stub->recurringTemplate());
         $this->assertInstanceOf(PostingCategory::class, $stub->postingCategory());
+        $this->assertInstanceOf(Profile::class, $stub->profile());
+        $this->assertInstanceOf(Quotation::class, $stub->quotation());
+        $this->assertInstanceOf(RecurringTemplate::class, $stub->recurringTemplate());
+        $this->assertInstanceOf(Voucher::class, $stub->voucher());
+        $this->assertInstanceOf(VoucherList::class, $stub->voucherlist());
     }
 
     public function testApiUrl(): void
