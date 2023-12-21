@@ -79,6 +79,18 @@ $response = $client->update($entityId, $data);
 $response = $api->country()->getAll();
 ```
 
+### Credit Notes Endpoint
+```php
+$voucherList = $api->creditNote()->getVoucherListClient(); // see VoucherlistClient Documentation
+$response = $api->creditNote()->get($entityId);
+$response = $api->creditNote()->create($data);
+$response = $api->creditNote()->create($data, true); // finalized
+$response = $api->creditNote()->document($entityId); // get document ID
+$response = $api->creditNote()->document($entityId, true); // get file content
+$response = $api->creditNote()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->creditNote()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
+```
+
 ### Deliverys Notes Endpoint
 ```php
 $voucherList = $api->deliveryNote()->getVoucherListClient(); // see VoucherlistClient Documentation
@@ -86,17 +98,8 @@ $response = $api->deliveryNote()->get($entityId);
 $response = $api->deliveryNote()->create($data);
 $response = $api->deliveryNote()->document($entityId); // get document ID
 $response = $api->deliveryNote()->document($entityId, true); // get file content
-```
-
-### Invoices Endpoint
-```php
-$voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient Documentation
-$response = $api->invoice()->get($entityId);
-$response = $api->invoice()->create($data);
-$response = $api->invoice()->document($entityId); // get document ID
-$response = $api->invoice()->document($entityId, true); // get file content
-$response = $api->invoice()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->invoice()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
+$response = $api->deliveryNote()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->deliveryNote()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Down Payment Invoices Endpoint
@@ -110,6 +113,34 @@ $response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); //
 $response = $api->downPaymentInvoice()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
+### Event Subscriptions Endpooint
+```php
+// TODO: get
+$response = $api->voucher()->create($data);
+$response = $api->voucher()->delete($entityId);
+$response = $api->voucher()->getAll();
+```
+
+### File Endpoint
+```php
+$response = $api->file()->upload($filePath, $voucherType);
+$response = $api->file()->get($entityId); // accept every file
+$response = $api->file()->get($entityId, 'image/*'); // accept only images
+$response = $api->file()->get($entityId, 'application/xml'); // get XRechung XML File (if possible)
+```
+
+### Invoices Endpoint
+```php
+$voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient Documentation
+$response = $api->invoice()->get($entityId);
+$response = $api->invoice()->create($data);
+$response = $api->invoice()->create($data, true); // finalized
+$response = $api->invoice()->document($entityId); // get document ID
+$response = $api->invoice()->document($entityId, true); // get file content
+$response = $api->invoice()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->invoice()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
+```
+
 ### Order Confirmation Endpoint
 ```php
 $voucherList = $api->orderConfirmation()->getVoucherListClient(); // see VoucherlistClient Documentation
@@ -119,41 +150,6 @@ $response = $api->orderConfirmation()->document($entityId); // get document ID
 $response = $api->orderConfirmation()->document($entityId, true); // get file content
 $response = $api->orderConfirmation()->document($entityId, true, 'image/*'); // accept only images
 $response = $api->orderConfirmation()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
-```
-
-### Quotation Endpoint
-```php
-$voucherList = $api->quotation()->getVoucherListClient(); // see VoucherlistClient Documentation
-$response = $api->quotation()->get($entityId);
-$response = $api->quotation()->create($data);
-$response = $api->quotation()->document($entityId); // get document ID
-$response = $api->quotation()->document($entityId, true); // get file content
-$response = $api->quotation()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->quotation()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
-```
-
-### Voucher Endpoint
-```php
-$response = $api->voucher()->get($entityId);
-$response = $api->voucher()->create($data);
-$response = $api->voucher()->update($entityId, $data);
-$response = $api->voucher()->document($entityId); // get document ID
-$response = $api->voucher()->document($entityId, true); // get file content
-$response = $api->voucher()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->voucher()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
-$response = $api->voucher()->upload($entitiyId, $filepath);
-```
-
-
-### Credit Notes Endpoint
-```php
-$voucherList = $api->creditNote()->getVoucherListClient(); // see VoucherlistClient Documentation
-$response = $api->creditNote()->get($entityId);
-$response = $api->creditNote()->create($data);
-$response = $api->creditNote()->document($entityId); // get document ID
-$response = $api->creditNote()->document($entityId, true); // get file content
-$response = $api->creditNote()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->creditNote()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Payment  Endpoint
@@ -176,6 +172,18 @@ $response = $api->postingCategory()->getAll();
 $response = $api->profile()->get();
 ```
 
+### Quotation Endpoint
+```php
+$voucherList = $api->quotation()->getVoucherListClient(); // see VoucherlistClient Documentation
+$response = $api->quotation()->get($entityId);
+$response = $api->quotation()->create($data);
+$response = $api->quotation()->create($data, true); // finalized
+$response = $api->quotation()->document($entityId); // get document ID
+$response = $api->quotation()->document($entityId, true); // get file content
+$response = $api->quotation()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->quotation()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
+```
+
 ### Recurring Templates Endpoint
 ```php
 
@@ -193,6 +201,17 @@ $response = $client->getPage(0);
 $response = $api->recurringTemplate()->get($entityId);
 ```
 
+### Voucher Endpoint
+```php
+$response = $api->voucher()->get($entityId);
+$response = $api->voucher()->create($data);
+$response = $api->voucher()->update($entityId, $data);
+$response = $api->voucher()->document($entityId); // get document ID
+$response = $api->voucher()->document($entityId, true); // get file content
+$response = $api->voucher()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->voucher()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
+$response = $api->voucher()->upload($entitiyId, $filepath);
+```
 
 ### Voucherlist Endpoint
 ```php
@@ -238,15 +257,6 @@ $client->updatedDateTo = new \DateTime('2023-12-01');
 // get a page
 $response = $client->getPage(0);
 ```
-
-### File Endpoint
-```php
-$response = $api->file()->upload($filePath, $voucherType);
-$response = $api->file()->get($entityId); // accept every file
-$response = $api->file()->get($entityId, 'image/*'); // accept only images
-$response = $api->file()->get($entityId, 'application/xml'); // get XRechung XML File (if possible)
-```
-
 
 ### get JSON from Success and Error Response
 

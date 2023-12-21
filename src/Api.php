@@ -30,7 +30,6 @@ use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Interfaces\ApiInterface;
 
-
 class Api implements ApiInterface
 {
     public string $apiUrl = 'https://api.lexoffice.io';
