@@ -8,10 +8,12 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\DeleteTrait;
+use Sysix\LexOffice\Clients\Traits\GetTrait;
 
 class Event extends BaseClient
 {
     use CreateTrait;
+    use GetTrait;
     use DeleteTrait;
 
     protected string $resource = 'event-subscriptions';
