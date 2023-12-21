@@ -14,6 +14,7 @@ use SensitiveParameter;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
+use Sysix\LexOffice\Clients\DeliveryNote;
 use Sysix\LexOffice\Clients\DownPaymentInvoice;
 use Sysix\LexOffice\Clients\Event;
 use Sysix\LexOffice\Clients\File;
@@ -94,19 +95,33 @@ class Api implements ApiInterface
         return new Country($this);
     }
 
+    public function creditNote(): CreditNote
+    {
+        return new CreditNote($this);
+    }
+
+    public function deliveryNote(): DeliveryNote
+    {
+        return new DeliveryNote($this);
+    }
+    public function downPaymentInvoice(): DownPaymentInvoice
+    {
+        return new DownPaymentInvoice($this);
+    }
+
     public function event(): Event
     {
         return new Event($this);
     }
 
+    public function file(): File
+    {
+        return new File($this);
+    }
+
     public function invoice(): Invoice
     {
         return new Invoice($this);
-    }
-
-    public function downPaymentInvoice(): DownPaymentInvoice
-    {
-        return new DownPaymentInvoice($this);
     }
 
     public function orderConfirmation(): OrderConfirmation
@@ -123,30 +138,9 @@ class Api implements ApiInterface
     {
         return new PaymentCondition($this);
     }
-
-    public function creditNote(): CreditNote
+    public function postingCategory(): PostingCategory
     {
-        return new CreditNote($this);
-    }
-
-    public function quotation(): Quotation
-    {
-        return new Quotation($this);
-    }
-
-    public function voucher(): Voucher
-    {
-        return new Voucher($this);
-    }
-
-    public function recurringTemplate(): RecurringTemplate
-    {
-        return new RecurringTemplate($this);
-    }
-
-    public function voucherlist(): VoucherList
-    {
-        return new VoucherList($this);
+        return new PostingCategory($this);
     }
 
     public function profile(): Profile
@@ -154,13 +148,24 @@ class Api implements ApiInterface
         return new Profile($this);
     }
 
-    public function postingCategory(): PostingCategory
+    public function quotation(): Quotation
     {
-        return new PostingCategory($this);
+        return new Quotation($this);
     }
 
-    public function file(): File
+    public function recurringTemplate(): RecurringTemplate
     {
-        return new File($this);
+        return new RecurringTemplate($this);
     }
+
+    public function voucher(): Voucher
+    {
+        return new Voucher($this);
+    }
+
+    public function voucherlist(): VoucherList
+    {
+        return new VoucherList($this);
+    }
+
 }
