@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Tests;
 
 use GuzzleHttp\Psr7\Response;
-use Sysix\LexOffice\Api;
-use Sysix\LexOffice\PaginationClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use ReflectionClass;
 use ReflectionException;
+use Sysix\LexOffice\Api;
+use Sysix\LexOffice\PaginationClient;
 
 class PaginationClientTest extends TestClient
 {
@@ -95,7 +95,7 @@ class PaginationClientTest extends TestClient
 
         $this->assertEquals(
             $api->apiUrl . '/v1/resource?page=0&size=100',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 }

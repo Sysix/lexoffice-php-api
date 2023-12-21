@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
-use Sysix\LexOffice\BaseClient;
-use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Config\FileClientConfig;
+use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Sysix\LexOffice\Utils;
 
 class File extends BaseClient
@@ -18,7 +18,7 @@ class File extends BaseClient
     {
         $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id));
 
-        $this->api->request = $this->api->request->withHeader('Accept', $acceptHeader);
+        $this->api->setRequest($this->api->getRequest()->withHeader('Accept', $acceptHeader));
 
         return $this->api->getResponse();
     }
@@ -44,7 +44,7 @@ class File extends BaseClient
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
-        $api->request = $api->request->withBody($body);
+        $api->setRequest($api->getRequest()->withBody($body));
 
         return $api->getResponse();
     }

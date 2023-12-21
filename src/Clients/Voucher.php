@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\BaseClient;
-use Sysix\LexOffice\Config\FileClientConfig;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Clients\Traits\UpdateTrait;
+use Sysix\LexOffice\Config\FileClientConfig;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Sysix\LexOffice\Utils;
-use Psr\Http\Message\ResponseInterface;
 
 class Voucher extends BaseClient
 {
@@ -37,7 +37,7 @@ class Voucher extends BaseClient
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
-        $api->request = $api->request->withBody($body);
+        $api->setRequest($api->getRequest()->withBody($body));
 
         return $api->getResponse();
     }

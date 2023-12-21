@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients\Traits;
 
-use Sysix\LexOffice\Clients\File;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
+use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Utils;
 
 trait DocumentClientTrait

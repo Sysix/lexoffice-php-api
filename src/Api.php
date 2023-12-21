@@ -4,7 +4,13 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice;
 
+use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\UriInterface;
+use SensitiveParameter;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
@@ -21,20 +27,15 @@ use Sysix\LexOffice\Clients\Quotation;
 use Sysix\LexOffice\Clients\RecurringTemplate;
 use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
-use GuzzleHttp\Psr7\Request;
-use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
-use SensitiveParameter;
+use Sysix\LexOffice\Interfaces\ApiInterface;
 
-class Api
+class Api implements ApiInterface
 {
     public string $apiUrl = 'https://api.lexoffice.io';
 
     protected string $apiVersion = 'v1';
 
-    public RequestInterface $request;
+    protected RequestInterface $request;
 
     public function __construct(
         #[SensitiveParameter] protected string $apiKey,
@@ -42,9 +43,6 @@ class Api
     ) {
     }
 
-    /**
-     * @param string[] $headers
-     */
     public function newRequest(string $method, string $resource, array $headers = []): self
     {
         $this->setRequest(
@@ -71,14 +69,19 @@ class Api
         return $this;
     }
 
-    protected function createApiUri(string $resource): UriInterface
+    public function getRequest(): RequestInterface
     {
-        return new Uri($this->apiUrl . '/' . $this->apiVersion . '/' . $resource);
+        return $this->request;
     }
 
     public function getResponse(): ResponseInterface
     {
         return $this->client->sendRequest($this->request);
+    }
+
+    protected function createApiUri(string $resource): UriInterface
+    {
+        return new Uri($this->apiUrl . '/' . $this->apiVersion . '/' . $resource);
     }
 
     public function contact(): Contact

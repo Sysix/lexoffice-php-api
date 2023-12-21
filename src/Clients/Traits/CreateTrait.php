@@ -16,7 +16,7 @@ trait CreateTrait
     {
         $api = $this->api->newRequest('POST', $this->resource);
 
-        $api->request = $api->request->withBody(Utils::createStream($data));
+        $api->setRequest($api->getRequest()->withBody(Utils::createStream($data)));
 
         return $api->getResponse();
     }

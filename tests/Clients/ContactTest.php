@@ -18,10 +18,10 @@ class ContactTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/contacts?page=0&size=100',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -37,7 +37,7 @@ class ContactTest extends TestClient
 
         $this->assertEquals(
             $api->apiUrl . '/v1/contacts?page=0&number=12345&customer=1&vendor=0&size=100',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -51,10 +51,10 @@ class ContactTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl .  '/v1/contacts',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -66,10 +66,10 @@ class ContactTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/contacts/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -81,10 +81,10 @@ class ContactTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('PUT', $api->request->getMethod());
+        $this->assertEquals('PUT', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/contacts/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 }

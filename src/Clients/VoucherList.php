@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
-use Sysix\LexOffice\PaginationClient;
 use DateTimeInterface;
+use Sysix\LexOffice\PaginationClient;
 
 class VoucherList extends PaginationClient
 {
