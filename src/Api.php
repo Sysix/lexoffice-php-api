@@ -56,9 +56,11 @@ class Api
 
     public function setRequest(RequestInterface $request): self
     {
-        $request = $request
-            ->withHeader('Authorization', 'Bearer ' . $this->apiKey)
-            ->withHeader('Accept', 'application/json');
+        $request = $request->withHeader('Authorization', 'Bearer ' . $this->apiKey);
+
+        if (!$request->hasHeader('Accept')) {
+            $request = $request->withHeader('Accept', 'application/json');
+        }
 
         if (!$request->hasHeader('Content-Type') && in_array($request->getMethod(), ['POST', 'PUT'], true)) {
             $request = $request->withHeader('Content-Type', 'application/json');

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Clients;
 
 use Sysix\LexOffice\BaseClient;
-use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Config\FileClientConfig;
@@ -13,9 +12,16 @@ use Sysix\LexOffice\Utils;
 
 class File extends BaseClient
 {
-    use GetTrait;
-
     protected string $resource = 'files';
+
+    public function get(string $id, string $acceptHeader = '*/*'): ResponseInterface
+    {
+        $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id));
+
+        $this->api->request = $this->api->request->withHeader('Accept', $acceptHeader);
+
+        return $this->api->getResponse();
+    }
 
     /**
      * @throws LexOfficeApiException

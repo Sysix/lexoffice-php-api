@@ -21,10 +21,20 @@ class FileTest extends TestClient
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
         $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('*/*', $api->request->getHeaderLine('Accept'));
         $this->assertEquals(
             $api->apiUrl . '/v1/files/resource-id',
             $api->request->getUri()->__toString()
         );
+    }
+
+    public function testGetWithAccceptHeader(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(File::class);
+
+        $stub->get('resource-id', 'application/xml');
+
+        $this->assertEquals('application/xml', $api->request->getHeaderLine('Accept'));
     }
 
     public function testUploadNotSupportedExtension(): void
