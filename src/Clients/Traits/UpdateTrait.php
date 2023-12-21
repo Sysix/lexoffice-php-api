@@ -16,7 +16,7 @@ trait UpdateTrait
     {
         $api = $this->api->newRequest('PUT', $this->resource . '/' . rawurlencode($id));
 
-        $api->request = $api->request->withBody(Utils::createStream($data));
+        $api->setRequest($api->getRequest()->withBody(Utils::createStream($data)));
 
         return $api->getResponse();
     }

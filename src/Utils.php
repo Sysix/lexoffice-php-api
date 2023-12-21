@@ -2,8 +2,8 @@
 
 namespace Sysix\LexOffice;
 
-use GuzzleHttp\Psr7\Stream;
 use GuzzleHttp\Psr7\MultipartStream;
+use GuzzleHttp\Psr7\Stream;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;

@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace Sysix\LexOffice;
 
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Interfaces\ApiInterface;
+use Sysix\LexOffice\Interfaces\ClientInterface;
 
 abstract class BaseClient implements ClientInterface
 {
     protected string $resource;
 
     public function __construct(
-        protected Api $api
+        protected ApiInterface $api
     ) {
     }
 

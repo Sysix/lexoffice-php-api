@@ -20,10 +20,10 @@ class EventTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/event-subscriptions',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -35,10 +35,10 @@ class EventTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('DELETE', $api->request->getMethod());
+        $this->assertEquals('DELETE', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/event-subscriptions/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -50,10 +50,10 @@ class EventTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/event-subscriptions',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 

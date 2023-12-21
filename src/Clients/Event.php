@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\DeleteTrait;
-use Psr\Http\Message\ResponseInterface;
 
 class Event extends BaseClient
 {

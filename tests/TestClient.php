@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests;
 
-use Sysix\LexOffice\Api;
-use Sysix\LexOffice\ClientInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Sysix\LexOffice\Api;
+use Sysix\LexOffice\Interfaces\ClientInterface;
 
 class TestClient extends TestCase
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients;
 
-use Sysix\LexOffice\BaseClient;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\BaseClient;
 
 class Profile extends BaseClient
 {
