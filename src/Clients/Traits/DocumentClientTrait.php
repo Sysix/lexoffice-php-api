@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients\Traits;
 
-use Sysix\LexOffice\Clients\File;
 use Psr\Http\Message\ResponseInterface;
 use stdClass;
+use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Utils;
 
 trait DocumentClientTrait
 {
-    public function document(string $id, bool $asContent = false): ResponseInterface
+    public function document(string $id, bool $asContent = false, string $acceptHeader = '*/*'): ResponseInterface
     {
         $response = $this->api
             ->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/document')
@@ -34,6 +34,6 @@ trait DocumentClientTrait
 
         $fileClient = new File($this->api);
 
-        return $fileClient->get($content->documentFileId);
+        return $fileClient->get($content->documentFileId, $acceptHeader);
     }
 }

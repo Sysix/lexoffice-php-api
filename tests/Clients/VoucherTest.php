@@ -23,10 +23,10 @@ class VoucherTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/vouchers',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -38,10 +38,10 @@ class VoucherTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/vouchers/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -53,10 +53,10 @@ class VoucherTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('PUT', $api->request->getMethod());
+        $this->assertEquals('PUT', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/vouchers/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -123,15 +123,15 @@ class VoucherTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/vouchers/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
 
         $this->assertStringContainsString(
             'multipart/form-data',
-            $api->request->getHeaderLine('Content-Type')
+            $api->getRequest()->getHeaderLine('Content-Type')
         );
     }
 
@@ -148,10 +148,10 @@ class VoucherTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=salesinvoice%2Csalescreditnote%2Cpurchaseinvoice%2Cpurchasecreditnote&voucherStatus=open%2Cpaid%2Cpaidoff%2Cvoided%2Ctransferred%2Csepadebit&size=100',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 }

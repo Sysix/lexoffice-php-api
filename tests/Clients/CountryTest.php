@@ -18,10 +18,10 @@ class CountryTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/countries',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 }

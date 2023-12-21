@@ -23,10 +23,10 @@ class VoucherListTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/voucherlist?page=0&voucherType=invoice&voucherStatus=open&archived=1&size=100&sort=voucherNumber%2CDESC',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -47,10 +47,10 @@ class VoucherListTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/voucherlist?page=0&voucherType=invoice&voucherStatus=open&archived=1&size=100&sort=voucherNumber%2CDESC',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 }

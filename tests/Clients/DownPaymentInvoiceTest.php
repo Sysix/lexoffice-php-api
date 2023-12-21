@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\DownPaymentInvoice;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
@@ -20,10 +20,10 @@ class DownPaymentInvoiceTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/down-payment-invoices/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -40,10 +40,10 @@ class DownPaymentInvoiceTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=downpaymentinvoice&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -64,10 +64,10 @@ class DownPaymentInvoiceTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/down-payment-invoices/resource-id/document',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 
@@ -85,10 +85,10 @@ class DownPaymentInvoiceTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/files/fake-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
     }
 

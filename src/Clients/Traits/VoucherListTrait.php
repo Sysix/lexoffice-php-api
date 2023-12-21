@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Clients\Traits;
 
-use Sysix\LexOffice\Clients\VoucherList;
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\VoucherList;
 
 trait VoucherListTrait
 {

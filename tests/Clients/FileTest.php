@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Tests\Clients;
 
 use Psr\Http\Message\ResponseInterface;
+use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Config\FileClient\VoucherConfig;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
-use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Tests\TestClient;
 
 class FileTest extends TestClient
@@ -20,11 +20,21 @@ class FileTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('GET', $api->request->getMethod());
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals('*/*', $api->getRequest()->getHeaderLine('Accept'));
         $this->assertEquals(
             $api->apiUrl . '/v1/files/resource-id',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
+    }
+
+    public function testGetWithAccceptHeader(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(File::class);
+
+        $stub->get('resource-id', 'application/xml');
+
+        $this->assertEquals('application/xml', $api->getRequest()->getHeaderLine('Accept'));
     }
 
     public function testUploadNotSupportedExtension(): void
@@ -90,15 +100,15 @@ class FileTest extends TestClient
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
 
-        $this->assertEquals('POST', $api->request->getMethod());
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
             $api->apiUrl . '/v1/files',
-            $api->request->getUri()->__toString()
+            $api->getRequest()->getUri()->__toString()
         );
 
         $this->assertStringContainsString(
             'multipart/form-data',
-            $api->request->getHeaderLine('Content-Type')
+            $api->getRequest()->getHeaderLine('Content-Type')
         );
     }
 }

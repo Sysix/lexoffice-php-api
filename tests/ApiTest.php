@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests;
 
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
+use Sysix\LexOffice\Clients\DeliveryNote;
 use Sysix\LexOffice\Clients\DownPaymentInvoice;
 use Sysix\LexOffice\Clients\Event;
 use Sysix\LexOffice\Clients\File;
@@ -14,15 +17,12 @@ use Sysix\LexOffice\Clients\Invoice;
 use Sysix\LexOffice\Clients\OrderConfirmation;
 use Sysix\LexOffice\Clients\Payment;
 use Sysix\LexOffice\Clients\PaymentCondition;
-use Sysix\LexOffice\Clients\Profile;
 use Sysix\LexOffice\Clients\PostingCategory;
+use Sysix\LexOffice\Clients\Profile;
 use Sysix\LexOffice\Clients\Quotation;
+use Sysix\LexOffice\Clients\RecurringTemplate;
 use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
-use Sysix\LexOffice\Clients\RecurringTemplate;
-use GuzzleHttp\Psr7\Response;
-use Psr\Http\Message\ResponseInterface;
-use Sysix\LexOffice\Clients\DeliveryNote;
 
 class ApiTest extends TestClient
 {
@@ -63,12 +63,12 @@ class ApiTest extends TestClient
             new Response(200, [], 'post-content')
         );
 
-        $this->assertStringStartsWith('api.lexoffice.io', $stub->request->getUri()->getHost());
+        $this->assertStringStartsWith('api.lexoffice.io', $stub->getRequest()->getUri()->getHost());
 
         $stub->apiUrl = 'https://test.de';
         $stub->newRequest('POST', 'post-content');
 
-        $this->assertStringStartsWith('test.de', $stub->request->getUri()->getHost());
+        $this->assertStringStartsWith('test.de', $stub->getRequest()->getUri()->getHost());
     }
 
     public function testGetSuccessResponse(): void
@@ -112,17 +112,17 @@ class ApiTest extends TestClient
 
     public function testRequestHeaders(): void
     {
-        $stub = $this->createApiMockObject(
+        $api = $this->createApiMockObject(
             new Response(200, [], 'post-content')
         );
 
-        $this->assertCount(1, $stub->request->getHeader('Authorization'));
-        $this->assertEquals('application/json', $stub->request->getHeaderLine('Accept'));
+        $this->assertCount(1, $api->getRequest()->getHeader('Authorization'));
+        $this->assertEquals('application/json', $api->getRequest()->getHeaderLine('Accept'));
 
-        $stub->newRequest('POST', '/');
-        $this->assertEquals('application/json', $stub->request->getHeaderLine('Content-Type'));
+        $api->newRequest('POST', '/');
+        $this->assertEquals('application/json', $api->getRequest()->getHeaderLine('Content-Type'));
 
-        $stub->newRequest('PUT', '/');
-        $this->assertEquals('application/json', $stub->request->getHeaderLine('Content-Type'));
+        $api->newRequest('PUT', '/');
+        $this->assertEquals('application/json', $api->getRequest()->getHeaderLine('Content-Type'));
     }
 }
