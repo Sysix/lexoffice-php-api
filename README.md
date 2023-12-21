@@ -115,10 +115,10 @@ $response = $api->downPaymentInvoice()->document($entityId, true, 'application/x
 
 ### Event Subscriptions Endpooint
 ```php
-// TODO: get
-$response = $api->voucher()->create($data);
-$response = $api->voucher()->delete($entityId);
-$response = $api->voucher()->getAll();
+$response = $api->event()->get($entityId);
+$response = $api->event()->create($data);
+$response = $api->event()->delete($entityId);
+$response = $api->event()->getAll();
 ```
 
 ### File Endpoint
