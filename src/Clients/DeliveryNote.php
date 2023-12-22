@@ -8,14 +8,16 @@ use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\DocumentClientTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
+use Sysix\LexOffice\Clients\Traits\PursueTrait;
 use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class DeliveryNote extends BaseClient
 {
-    use GetTrait;
     use CreateTrait;
-    use VoucherListTrait;
     use DocumentClientTrait;
+    use GetTrait;
+    use PursueTrait;
+    use VoucherListTrait;
 
     protected string $resource = 'delivery-notes';
 

@@ -29,6 +29,23 @@ class OrderConfirmationTest extends TestClient
         );
     }
 
+    public function testPursue(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);
+
+        $response = $stub->pursue('resource-id', [
+            'version' => 0
+        ]);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/order-confirmations?precedingSalesVoucherId=resource-id',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
     public function testGet(): void
     {
         [$api, $stub] = $this->createClientMockObject(OrderConfirmation::class);

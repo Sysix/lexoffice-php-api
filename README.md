@@ -25,7 +25,7 @@ You need an [API Key](https://app.lexoffice.de/addons/public-api) for that.
 ### Basic
 ```php
 // store keys in .env file
-$apiKey = getenv('LEX_OFFICE_API_KEY'); 
+$apiKey = getenv('LEXOFFICE_API_KEY'); 
 
 // in this example we are using guzzlehttp/guzzle package, it can be any PSR-18 HTTP Client 
 // see: https://packagist.org/providers/psr/http-client-implementation
@@ -33,7 +33,7 @@ $httpClient = \GuzzleHttp\Client();
 $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
 ```
 
-#### Optimize your HTTP Client
+### Optimize your HTTP Client
 
 This library only prepares the `\Psr\Http\Message\RequestInterface` for the HTTP Client and returns its Response.  
 There are almost no error checks, no caching and no rate limiting. Your PSR-18 HTTP Client should come with a way to deal with it.  
@@ -41,7 +41,7 @@ There are almost no error checks, no caching and no rate limiting. Your PSR-18 H
 Here is a example with `guzzlehttp/guzzle` , `kevinrob/guzzle-cache-middleware` and `spatie/guzzle-rate-limiter-middleware`:
 
 ```php
-$apiKey = getenv('LEX_OFFICE_API_KEY'); 
+$apiKey = getenv('LEXOFFICE_API_KEY'); 
 
 $stack = \GuzzleHttp\HandlerStack();
 $stack->push(new \Kevinrob\GuzzleCache\CacheMiddleware\CacheMiddleware(), 'cache');
@@ -49,8 +49,9 @@ $stack->push(\Spatie\GuzzleRateLimiterMiddleware\RateLimiterMiddleware\RateLimit
 
 $httpClient = \GuzzleHttp\Client(['handler' => $stack]);
 $api = new \Sysix\LexOffice\Api($apiKey, $httpClient);
-
 ```
+
+## Endpoints
 
 ### Contact Endpoint
 ```php
@@ -85,10 +86,11 @@ $voucherList = $api->creditNote()->getVoucherListClient(); // see VoucherlistCli
 $response = $api->creditNote()->get($entityId);
 $response = $api->creditNote()->create($data);
 $response = $api->creditNote()->create($data, true); // finalized
+$response = $api->creditNote()->pursue($precedingSalesVoucherId, $data);
+$response = $api->creditNote()->pursue($precedingSalesVoucherId, $data, true); // finalized
 $response = $api->creditNote()->document($entityId); // get document ID
 $response = $api->creditNote()->document($entityId, true); // get file content
 $response = $api->creditNote()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->creditNote()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Deliverys Notes Endpoint
@@ -96,10 +98,10 @@ $response = $api->creditNote()->document($entityId, true, 'application/xml'); //
 $voucherList = $api->deliveryNote()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->deliveryNote()->get($entityId);
 $response = $api->deliveryNote()->create($data);
+$response = $api->deliveryNote()->pursue($precedingSalesVoucherId, $data);
 $response = $api->deliveryNote()->document($entityId); // get document ID
 $response = $api->deliveryNote()->document($entityId, true); // get file content
 $response = $api->deliveryNote()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->deliveryNote()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Down Payment Invoices Endpoint
@@ -110,7 +112,6 @@ $response = $api->downPaymentInvoice()->create($data);
 $response = $api->downPaymentInvoice()->document($entityId); // get document ID
 $response = $api->downPaymentInvoice()->document($entityId, true); // get file content
 $response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->downPaymentInvoice()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Event Subscriptions Endpooint
@@ -135,6 +136,8 @@ $voucherList = $api->invoice()->getVoucherListClient(); // see VoucherlistClient
 $response = $api->invoice()->get($entityId);
 $response = $api->invoice()->create($data);
 $response = $api->invoice()->create($data, true); // finalized
+$response = $api->invoice()->pursue($precedingSalesVoucherId, $data);
+$response = $api->invoice()->pursue($precedingSalesVoucherId, $data, true); // finalized
 $response = $api->invoice()->document($entityId); // get document ID
 $response = $api->invoice()->document($entityId, true); // get file content
 $response = $api->invoice()->document($entityId, true, 'image/*'); // accept only images
@@ -146,10 +149,10 @@ $response = $api->invoice()->document($entityId, true, 'application/xml'); // ge
 $voucherList = $api->orderConfirmation()->getVoucherListClient(); // see VoucherlistClient Documentation
 $response = $api->orderConfirmation()->get($entityId);
 $response = $api->orderConfirmation()->create($data);
+$response = $api->orderConfirmation()->pursue($precedingSalesVoucherId, $data);
 $response = $api->orderConfirmation()->document($entityId); // get document ID
 $response = $api->orderConfirmation()->document($entityId, true); // get file content
 $response = $api->orderConfirmation()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->orderConfirmation()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Payment  Endpoint
@@ -181,7 +184,6 @@ $response = $api->quotation()->create($data, true); // finalized
 $response = $api->quotation()->document($entityId); // get document ID
 $response = $api->quotation()->document($entityId, true); // get file content
 $response = $api->quotation()->document($entityId, true, 'image/*'); // accept only images
-$response = $api->quotation()->document($entityId, true, 'application/xml'); // get XRechung XML File (if possible)
 ```
 
 ### Recurring Templates Endpoint
@@ -257,6 +259,8 @@ $client->updatedDateTo = new \DateTime('2023-12-01');
 // get a page
 $response = $client->getPage(0);
 ```
+
+## Utils 
 
 ### get JSON from Success and Error Response
 
