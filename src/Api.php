@@ -16,6 +16,7 @@ use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
 use Sysix\LexOffice\Clients\DeliveryNote;
 use Sysix\LexOffice\Clients\DownPaymentInvoice;
+use Sysix\LexOffice\Clients\Dunning;
 use Sysix\LexOffice\Clients\Event;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Clients\Invoice;
@@ -107,6 +108,11 @@ class Api implements ApiInterface
     public function downPaymentInvoice(): DownPaymentInvoice
     {
         return new DownPaymentInvoice($this);
+    }
+
+    public function dunning(): Dunning
+    {
+        return new Dunning($this);
     }
 
     public function event(): Event

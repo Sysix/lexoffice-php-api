@@ -11,6 +11,7 @@ use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Clients\CreditNote;
 use Sysix\LexOffice\Clients\DeliveryNote;
 use Sysix\LexOffice\Clients\DownPaymentInvoice;
+use Sysix\LexOffice\Clients\Dunning;
 use Sysix\LexOffice\Clients\Event;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Clients\Invoice;
@@ -43,6 +44,7 @@ class ApiTest extends TestClient
         $this->assertInstanceOf(CreditNote::class, $stub->creditNote());
         $this->assertInstanceOf(DeliveryNote::class, $stub->deliveryNote());
         $this->assertInstanceOf(DownPaymentInvoice::class, $stub->downPaymentInvoice());
+        $this->assertInstanceOf(Dunning::class, $stub->dunning());
         $this->assertInstanceOf(Event::class, $stub->event());
         $this->assertInstanceOf(File::class, $stub->file());
         $this->assertInstanceOf(Invoice::class, $stub->invoice());

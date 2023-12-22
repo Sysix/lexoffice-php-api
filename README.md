@@ -114,6 +114,15 @@ $response = $api->downPaymentInvoice()->document($entityId, true); // get file c
 $response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); // accept only images
 ```
 
+### Dunnings Endpoint
+```php
+$response = $api->dunning()->get($entityId);
+$response = $api->dunning()->pursue($precedingSalesVoucherId, $data);
+$response = $api->downPaymentInvoice()->document($entityId); // get document ID
+$response = $api->downPaymentInvoice()->document($entityId, true); // get file content
+$response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); // accept only images
+```
+
 ### Event Subscriptions Endpooint
 ```php
 $response = $api->event()->get($entityId);
