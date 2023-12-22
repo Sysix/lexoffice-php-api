@@ -44,6 +44,23 @@ class DeliveryNoteTest extends TestClient
         );
     }
 
+    public function testPursue(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(DeliveryNote::class);
+
+        $response = $stub->pursue('resource-id', [
+            'version' => 0
+        ]);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/delivery-notes?precedingSalesVoucherId=resource-id',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
     public function testGetPage(): void
     {
         $this->expectDeprecationV1Warning('getPage');

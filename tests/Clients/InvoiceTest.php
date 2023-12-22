@@ -46,6 +46,40 @@ class InvoiceTest extends TestClient
         );
     }
 
+    public function testPursue(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $response = $stub->pursue('resource-id', [
+            'version' => 0
+        ]);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices?precedingSalesVoucherId=resource-id',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
+    public function testPursueinalized(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $response = $stub->pursue('resource-id', [
+            'version' => 0
+        ], true);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('POST', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices?precedingSalesVoucherId=resource-id&finalize=true',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
     public function testGet(): void
     {
         [$api, $stub] = $this->createClientMockObject(Invoice::class);
