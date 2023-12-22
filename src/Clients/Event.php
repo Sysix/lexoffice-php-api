@@ -13,8 +13,8 @@ use Sysix\LexOffice\Clients\Traits\GetTrait;
 class Event extends BaseClient
 {
     use CreateTrait;
-    use GetTrait;
     use DeleteTrait;
+    use GetTrait;
 
     protected string $resource = 'event-subscriptions';
 
