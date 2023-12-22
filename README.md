@@ -118,9 +118,9 @@ $response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); //
 ```php
 $response = $api->dunning()->get($entityId);
 $response = $api->dunning()->pursue($precedingSalesVoucherId, $data);
-$response = $api->downPaymentInvoice()->document($entityId); // get document ID
-$response = $api->downPaymentInvoice()->document($entityId, true); // get file content
-$response = $api->downPaymentInvoice()->document($entityId, true, 'image/*'); // accept only images
+$response = $api->dunning()->document($entityId); // get document ID
+$response = $api->dunning()->document($entityId, true); // get file content
+$response = $api->dunning()->document($entityId, true, 'image/*'); // accept only images
 ```
 
 ### Event Subscriptions Endpooint
