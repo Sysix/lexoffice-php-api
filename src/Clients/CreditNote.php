@@ -12,10 +12,10 @@ use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class CreditNote extends BaseClient
 {
-    use GetTrait;
     use CreateFinalizeTrait;
-    use VoucherListTrait;
     use DocumentClientTrait;
+    use GetTrait;
+    use VoucherListTrait;
 
     protected string $resource = 'credit-notes';
 

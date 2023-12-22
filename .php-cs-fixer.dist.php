@@ -15,6 +15,7 @@ return (new PhpCsFixer\Config())
         'multiline_whitespace_before_semicolons' => true,
         'native_type_declaration_casing' => true,
         'ordered_imports' => ['imports_order' => ['class', 'function', 'const'], 'sort_algorithm' => 'alpha'],
+        'ordered_traits' => true,
         'no_alias_functions' => true,
         'no_alias_language_construct_call' => true,
         'no_alternative_syntax' => true,

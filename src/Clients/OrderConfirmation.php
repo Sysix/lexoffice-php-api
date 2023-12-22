@@ -13,9 +13,9 @@ use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 class OrderConfirmation extends BaseClient
 {
     use CreateTrait;
+    use DocumentClientTrait;
     use GetTrait;
     use VoucherListTrait;
-    use DocumentClientTrait;
 
     protected string $resource = 'order-confirmations';
 

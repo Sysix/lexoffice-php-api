@@ -11,9 +11,9 @@ use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class DownPaymentInvoice extends BaseClient
 {
+    use DocumentClientTrait;
     use GetTrait;
     use VoucherListTrait;
-    use DocumentClientTrait;
 
     protected string $resource = 'down-payment-invoices';
 
