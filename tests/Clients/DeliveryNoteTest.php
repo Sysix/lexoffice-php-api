@@ -73,7 +73,7 @@ class DeliveryNoteTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=deliverynote&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
+            $api->apiUrl . '/v1/voucherlist?page=0&voucherType=deliverynote&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100&sort=voucherNumber%2CDESC',
             $api->getRequest()->getUri()->__toString()
         );
     }
@@ -93,7 +93,7 @@ class DeliveryNoteTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=deliverynote&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100',
+            $api->apiUrl . '/v1/voucherlist?page=0&voucherType=deliverynote&voucherStatus=draft%2Copen%2Cpaid%2Cpaidoff%2Cvoided%2Caccepted%2Crejected&size=100&sort=voucherNumber%2CDESC',
             $api->getRequest()->getUri()->__toString()
         );
     }

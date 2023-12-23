@@ -150,7 +150,7 @@ class VoucherTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/voucherlist?page=0&sort=voucherNumber%2CDESC&voucherType=salesinvoice%2Csalescreditnote%2Cpurchaseinvoice%2Cpurchasecreditnote&voucherStatus=open%2Cpaid%2Cpaidoff%2Cvoided%2Ctransferred%2Csepadebit&size=100',
+            $api->apiUrl . '/v1/voucherlist?page=0&voucherType=salesinvoice%2Csalescreditnote%2Cpurchaseinvoice%2Cpurchasecreditnote&voucherStatus=open%2Cpaid%2Cpaidoff%2Cvoided%2Ctransferred%2Csepadebit&size=100&sort=voucherNumber%2CDESC',
             $api->getRequest()->getUri()->__toString()
         );
     }
