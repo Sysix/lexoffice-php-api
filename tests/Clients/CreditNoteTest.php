@@ -179,7 +179,7 @@ class CreditNoteTest extends TestClient
 
     public function testFailedDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
+        [, $stub] = $this->createClientMultiMockObject(
             CreditNote::class,
             [
                 new Response(500),
