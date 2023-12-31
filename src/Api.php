@@ -47,11 +47,9 @@ class Api implements ApiInterface
 
     public function newRequest(string $method, string $resource, array $headers = []): self
     {
-        $this->setRequest(
+        return $this->setRequest(
             new Request($method, $this->createApiUri($resource), $headers)
         );
-
-        return $this;
     }
 
     public function setRequest(RequestInterface $request): self

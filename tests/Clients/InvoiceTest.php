@@ -179,7 +179,7 @@ class InvoiceTest extends TestClient
 
     public function testFailedDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
+        [, $stub] = $this->createClientMultiMockObject(
             Invoice::class,
             [
                 new Response(500),

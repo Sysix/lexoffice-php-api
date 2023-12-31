@@ -24,25 +24,23 @@ class Utils
     }
 
     /**
-     * @param array{size?: int, metadata?: mixed[], mode?: bool, seekable?: bool} $options
+     * @param array{size?: int, metadata?: mixed[]} $options
      */
     public static function streamFor(string $resource = '', array $options = []): Stream
     {
-        if (is_scalar($resource)) {
-            $stream = fopen('php://temp', 'r+');
-            if ($resource !== '' && $stream) {
-                fwrite($stream, $resource);
-                fseek($stream, 0);
+        $stream = fopen('php://temp', 'r+');
+        if ($resource !== '' && $stream) {
+            fwrite($stream, $resource);
+            fseek($stream, 0);
 
-                return new Stream($stream, $options);
-            }
+            return new Stream($stream, $options);
         }
 
         throw new InvalidArgumentException('Invalid resource type: ' . gettype($resource));
     }
 
     /**
-     * @param int<1, max> $depth
+     * @param int<1, 2147483647> $depth
      */
     public static function jsonEncode(mixed $value, int $options = 0, int $depth = 512): string
     {
@@ -55,7 +53,7 @@ class Utils
     }
 
     /**
-     * @param int<1, max> $depth
+     * @param int<1, 2147483647> $depth
      */
     public static function jsonDecode(string $json, bool $assoc = false, int $depth = 512, int $options = 0): mixed
     {
@@ -69,7 +67,7 @@ class Utils
 
     public static function createStream(mixed $content): StreamInterface
     {
-        return Utils::streamFor(Utils::jsonEncode($content));
+        return self::streamFor(self::jsonEncode($content));
     }
 
     /**

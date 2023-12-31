@@ -18,9 +18,9 @@ class File extends BaseClient
     {
         $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id));
 
-        $this->api->setRequest($this->api->getRequest()->withHeader('Accept', $acceptHeader));
-
-        return $this->api->getResponse();
+        return $this->api
+            ->setRequest($this->api->getRequest()->withHeader('Accept', $acceptHeader))
+            ->getResponse();
     }
 
     /**
@@ -44,8 +44,8 @@ class File extends BaseClient
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
-        $api->setRequest($api->getRequest()->withBody($body));
-
-        return $api->getResponse();
+        return $api
+            ->setRequest($api->getRequest()->withBody($body))
+            ->getResponse();
     }
 }

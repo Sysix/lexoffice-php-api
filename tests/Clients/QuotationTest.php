@@ -128,7 +128,7 @@ class QuotationTest extends TestClient
 
     public function testFailedDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
+        [, $stub] = $this->createClientMultiMockObject(
             Quotation::class,
             [
                 new Response(500),

@@ -37,9 +37,9 @@ class Voucher extends BaseClient
             'Content-Type' => 'multipart/form-data; boundary=' . $body->getBoundary()
         ]);
 
-        $api->setRequest($api->getRequest()->withBody($body));
-
-        return $api->getResponse();
+        return $api
+            ->setRequest($api->getRequest()->withBody($body))
+            ->getResponse();
     }
 
     /**

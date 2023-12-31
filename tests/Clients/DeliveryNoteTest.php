@@ -145,7 +145,7 @@ class DeliveryNoteTest extends TestClient
 
     public function testFailedDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
+        [, $stub] = $this->createClientMultiMockObject(
             DeliveryNote::class,
             [
                 new Response(500),
