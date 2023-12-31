@@ -20,7 +20,7 @@ class PaginationClientTest extends TestClient
     {
         $api = $this->createApiMultiMockObject($responses);
 
-        $stub = new class($api) extends PaginationClient {
+        $stub = new class ($api) extends PaginationClient {
             protected string $resource = 'resource';
         };
 

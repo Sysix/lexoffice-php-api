@@ -94,7 +94,7 @@ class DownPaymentInvoiceTest extends TestClient
 
     public function testFailedDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
+        [, $stub] = $this->createClientMultiMockObject(
             DownPaymentInvoice::class,
             [
                 new Response(500),
