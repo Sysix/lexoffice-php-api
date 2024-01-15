@@ -12,12 +12,12 @@ use Psr\Http\Message\StreamInterface;
 
 class Utils
 {
-    public static function getJsonFromResponse(ResponseInterface $response): mixed
+    public static function getJsonFromResponse(ResponseInterface $response, bool $assoc = false): mixed
     {
         $body = $response->getBody()->__toString();
 
-        if ($response->getHeaderLine('Content-Type') === 'application/json') {
-            return self::jsonDecode($body);
+        if (str_contains($response->getHeaderLine('Content-Type'), 'application/json')) {
+            return self::jsonDecode($body, $assoc);
         }
 
         return null;
