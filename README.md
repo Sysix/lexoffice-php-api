@@ -275,5 +275,6 @@ $response = $client->getPage(0);
 
 ```php
 // can be possible null because the response body can be empty
-$json = \Sysix\LexOffice\Utils::getJsonFromResponse($response);
+$json = \Sysix\LexOffice\Utils::getJsonFromResponse($response); // as object
+$json = \Sysix\LexOffice\Utils::getJsonFromResponse($response, true); // as associative array
 ```
