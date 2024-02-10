@@ -20,8 +20,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
-          coverage: none
+          php-version: 8.3
+          coverage: xdebug        
 
       - name: Install dependencies
         run: |
