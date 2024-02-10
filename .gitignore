@@ -1,4 +1,5 @@
 /tests/cache/
+/coverage*
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode,php-cs-fixer
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,composer,phpunit,phpstorm+all,visualstudiocode,php-cs-fixer
