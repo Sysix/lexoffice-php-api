@@ -58,6 +58,20 @@ class PaginationClientTest extends TestClient
         );
     }
 
+    public function testGetMultipleWithError(): void
+    {
+        $this->expectDeprecationV1Warning('getAll');
+
+        [, $stub] = $this->createPaginationClientMockObject(
+            [
+                new Response(200, ['Content-Type' => 'application/json'], '{"content": [{"name": "a"}], "totalPages": 3}'),
+                new Response(500)
+            ]
+        );
+
+        $this->assertEquals(500, $stub->getAll()->getStatusCode());
+    }
+
     public function testGetPage(): void
     {
         [$api, $stub] = $this->createPaginationClientMockObject(

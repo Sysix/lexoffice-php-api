@@ -14,13 +14,13 @@ class Utils
 {
     public static function getJsonFromResponse(ResponseInterface $response, bool $assoc = false): mixed
     {
-        $body = $response->getBody()->__toString();
-
-        if (str_contains($response->getHeaderLine('Content-Type'), 'application/json')) {
-            return self::jsonDecode($body, $assoc);
+        if (!str_contains($response->getHeaderLine('Content-Type'), 'application/json')) {
+            return null;
         }
 
-        return null;
+        $body = $response->getBody()->__toString();
+
+        return self::jsonDecode($body, $assoc);
     }
 
     /**
@@ -40,6 +40,8 @@ class Utils
     }
 
     /**
+     * @internal
+     *
      * @param int<1, 2147483647> $depth
      */
     public static function jsonEncode(mixed $value, int $options = 0, int $depth = 512): string
@@ -53,6 +55,8 @@ class Utils
     }
 
     /**
+     * @internal
+     *
      * @param int<1, 2147483647> $depth
      */
     public static function jsonDecode(string $json, bool $assoc = false, int $depth = 512, int $options = 0): mixed
@@ -65,12 +69,17 @@ class Utils
         return $data;
     }
 
+    /**
+     * @internal
+     */
     public static function createStream(mixed $content): StreamInterface
     {
         return self::streamFor(self::jsonEncode($content));
     }
 
     /**
+     * @internal
+     *
      * @param array<string, string|bool|resource> $content
      */
     public static function createMultipartStream(array $content, string $boundary = null): MultipartStream
