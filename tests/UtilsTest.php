@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Tests;
 
 use GuzzleHttp\Psr7\Response;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sysix\LexOffice\Utils;
 
@@ -54,5 +55,43 @@ class UtilsTest extends TestCase
         $this->assertEquals((object)[
             'test' => true
         ], $json);
+    }
+
+    public function testJsonDecodeValid(): void
+    {
+        $json = Utils::jsonDecode('{"content":"test","object":{"content":"test2"}}');
+
+        $this->assertEquals($json, (object)[
+            'content' => 'test',
+            'object' => (object) [
+                'content' => 'test2'
+            ]
+        ]);
+    }
+
+    public function testJsonDecodeInValid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Utils::jsonDecode('{content:"test"}'); // missing quotes for key
+    }
+
+    public function testJsonEncodeValid(): void
+    {
+        $jsonString = Utils::jsonEncode((object)[
+            'content' => 'test',
+            'object' => (object) [
+                'content' => 'test2'
+            ]
+        ]);
+
+        $this->assertEquals('{"content":"test","object":{"content":"test2"}}', $jsonString);
+    }
+
+    public function testJsonEncodeInValid(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        Utils::jsonEncode(fopen('php://temp', 'r'));
     }
 }

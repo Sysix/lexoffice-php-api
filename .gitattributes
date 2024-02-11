@@ -8,3 +8,4 @@
 /psalm.xml export-ignore
 /docker-compose.yml export-ignore
 /Dockerfile export-ignore
+/coverage.svg export-ignore

@@ -62,11 +62,16 @@ abstract class PaginationClient extends BaseClient
         // update content to get all contacts
         for ($i = 1; $i < $result->totalPages; $i++) {
             $responsePage = $this->getPage($i);
+
+            if ($responsePage->getStatusCode() !== 200) {
+                return $responsePage;
+            }
+
             /** @var ?stdClass{totalPages:int, content:stdClass[]} $resultPage */
             $resultPage = Utils::getJsonFromResponse($responsePage);
 
             if ($resultPage === null) {
-                continue;
+                return $responsePage;
             }
 
             foreach ($resultPage->content as $entity) {

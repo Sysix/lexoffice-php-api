@@ -15,10 +15,22 @@ use Sysix\LexOffice\Interfaces\ClientInterface;
 
 class TestClient extends TestCase
 {
+    /** @var string[] $userGeneratedWarnings */
+    protected array $userGeneratedWarnings = [];
+
+    /** @var string[] $expectedUserGeneratedWarnings */
+    protected array $expectedUserGeneratedWarnings = [];
+
     protected function tearDown(): void
     {
         // see self::expectDeprecationV1Warning()
         restore_error_handler();
+
+        if (!empty($this->expectedUserGeneratedWarnings)) {
+            // we really only care about the first message
+            // we can not check for full class names, because we are mocking objects
+            $this->assertStringContainsString($this->expectedUserGeneratedWarnings[0], $this->userGeneratedWarnings[0]);
+        }
     }
     /**
      * @return Api&MockObject
@@ -98,13 +110,13 @@ class TestClient extends TestCase
 
     public function expectDeprecationV1Warning(string $method): void
     {
-        set_error_handler(static function (int $errno, string $errstr): void {
-            throw new DeprecationException($errstr, $errno);
+        $self = $this;
+        set_error_handler(static function (int $errno, string $errstr) use ($self): bool {
+            $self->userGeneratedWarnings[] = $errstr;
+            return true;
         }, E_USER_DEPRECATED);
 
-        $this->expectException(DeprecationException::class);
-
         // we can not check for full class names, because we are mocking objects
-        $this->expectExceptionMessage('::' . $method . ' should not be called anymore, in future versions this method WILL not exist');
+        $this->expectedUserGeneratedWarnings[] = '::' . $method . ' should not be called anymore, in future versions this method WILL not exist';
     }
 }

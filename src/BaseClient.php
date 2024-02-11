@@ -19,6 +19,8 @@ abstract class BaseClient implements ClientInterface
 
     /**
      * @deprecated 1.0 use Sysix\LexOffice\Utils::getJsonFromResponse()
+     *
+     * @codeCoverageIgnore
      */
     public function getAsJson(ResponseInterface $response): mixed
     {

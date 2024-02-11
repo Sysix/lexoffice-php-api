@@ -52,3 +52,17 @@ jobs:
         with:
           file: coverage.xml
           base-file: test/base/coverage.xml
+
+      - if: ${{ github.event_name != 'pull_request' }}
+        uses: action-badges/create-orphan-branch@0.1.1
+        with:
+          branch-name: badges
+
+      - if: ${{ github.event_name != 'pull_request' }}
+        name: Make Coverage Badge
+        uses: action-badges/cobertura-coverage-xml-badges@0.3.0
+        with:
+          file-name: coverage.svg
+          badge-branch: badges
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+          coverage-file-name: ./coverage.xml

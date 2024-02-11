@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Config\FileClient\VoucherConfig;
@@ -35,6 +36,15 @@ class FileTest extends TestClient
         $stub->get('resource-id', 'application/xml');
 
         $this->assertEquals('application/xml', $api->getRequest()->getHeaderLine('Accept'));
+    }
+
+    public function testUploadNotSupportedType(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        [, $stub] = $this->createClientMockObject(File::class);
+
+        $stub->upload('somefile.jpg', 'invalid-type');
     }
 
     public function testUploadNotSupportedExtension(): void
