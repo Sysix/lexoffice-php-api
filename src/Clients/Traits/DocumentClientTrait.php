@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Psr\Http\Message\ResponseInterface;
-use stdClass;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Utils;
 
@@ -25,10 +24,9 @@ trait DocumentClientTrait
             return $response;
         }
 
-        /** @var ?stdClass{documentField: string} $content */
         $content = Utils::getJsonFromResponse($response);
 
-        if ($content === null) {
+        if ($content === null || !is_object($content) || !property_exists($content, 'documentFileId') || !is_string($content->documentFileId)) {
             return $response;
         }
 
