@@ -125,7 +125,7 @@ class VoucherTest extends TestClient
 
         $this->assertEquals('POST', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/vouchers/resource-id',
+            $api->apiUrl . '/v1/vouchers/resource-id/files',
             $api->getRequest()->getUri()->__toString()
         );
 
