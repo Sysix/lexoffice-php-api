@@ -1,6 +1,7 @@
 # Lexoffice PHP API
 
 ![tests](https://github.com/sysix/lexoffice-php-api/workflows/tests/badge.svg)
+![coverage](https://raw.githubusercontent.com/sysix/lexoffice-php-api/badges/.badges/development/coverage.svg)
 [![Latest Stable Version](https://poser.pugx.org/sysix/lex-office-api/v)](//packagist.org/packages/sysix/lex-office-api)
 [![License](https://poser.pugx.org/sysix/lex-office-api/license)](//packagist.org/packages/sysix/lex-office-api)
 
