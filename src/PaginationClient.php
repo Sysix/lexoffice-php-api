@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sysix\LexOffice;
 
 use Psr\Http\Message\ResponseInterface;
-use stdClass;
 
 abstract class PaginationClient extends BaseClient
 {
@@ -58,7 +57,7 @@ abstract class PaginationClient extends BaseClient
             $result === null || !is_object($result) ||
             !property_exists($result, 'totalPages') || $result->totalPages == 1 ||
             !property_exists($result, 'content')
-            ) {
+        ) {
             return $response;
         }
 
@@ -73,8 +72,8 @@ abstract class PaginationClient extends BaseClient
             $resultPage = Utils::getJsonFromResponse($responsePage);
 
             if (
-                $resultPage === null || 
-                !is_object($resultPage) || 
+                $resultPage === null ||
+                !is_object($resultPage) ||
                 !property_exists($resultPage, 'content') ||
                 !is_array($resultPage->content) ||
                 !is_array($result->content)

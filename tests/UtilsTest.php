@@ -36,7 +36,7 @@ class UtilsTest extends TestCase
         ], (string) json_encode([
             'test' => true
         ]));
-    
+
         /** @var object $json */
         $json = Utils::getJsonFromResponse($response);
 
@@ -63,7 +63,7 @@ class UtilsTest extends TestCase
 
     public function testJsonDecodeValid(): void
     {
-        
+
         /** @var object $json */
         $json = Utils::jsonDecode('{"content":"test","object":{"content":"test2"}}');
 

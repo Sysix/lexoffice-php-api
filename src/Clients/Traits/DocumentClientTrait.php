@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Psr\Http\Message\ResponseInterface;
-use stdClass;
 use Sysix\LexOffice\Clients\File;
 use Sysix\LexOffice\Utils;
 
