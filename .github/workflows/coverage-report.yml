@@ -28,7 +28,7 @@ jobs:
           composer install --prefer-dist
 
       - name: Execute tests with coverage
-        run: vendor/bin/phpunit  --configuration 'phpunit.xml' --coverage-clover=coverage.xml
+        run: vendor/bin/phpunit  --configuration 'phpunit.xml' --coverage-clover=coverage.xml --coverage-cobertura=coverage-cobertura.xml
 
       - if: ${{ github.event_name == 'pull_request' }}
         name: Download artifact
@@ -65,4 +65,4 @@ jobs:
           file-name: coverage.svg
           badge-branch: badges
           github-token: '${{ secrets.GITHUB_TOKEN }}'
-          coverage-file-name: ./coverage.xml
+          coverage-file-name: ./coverage-cobertura.xml
