@@ -1,6 +1,11 @@
 name: Run Psalm
 
-on: [pull_request]
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
 
 jobs:
   build:
@@ -8,7 +13,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: docker://ghcr.io/psalm/psalm-github-actions
+      - if: ${{ github.event_name == 'pull_request' }}
+        uses: docker://ghcr.io/psalm/psalm-github-actions
+        with:
+          composer_require_dev: true
+
+      - if: ${{ github.event_name != 'pull_request' }}
+        uses: docker://ghcr.io/psalm/psalm-github-actions
         with:
           composer_require_dev: true
           args: --shepherd
