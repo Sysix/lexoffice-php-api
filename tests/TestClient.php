@@ -41,7 +41,7 @@ class TestClient extends TestCase
     }
 
     /**
-     * @param Response[] $responses
+     * @param array<int, Response> $responses
      *
      * @return Api&MockObject
      */
@@ -76,8 +76,8 @@ class TestClient extends TestCase
     /**
      * @template T of ClientInterface
      *
-     * @param class-string<T> $className
-     * @param Response[]      $responses
+     * @param class-string<T>      $className
+     * @param array<int, Response> $responses
      *
      * @return array{0: Api&MockObject, 1: T&MockObject}
      */

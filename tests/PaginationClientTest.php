@@ -12,7 +12,7 @@ use Sysix\LexOffice\PaginationClient;
 class PaginationClientTest extends TestClient
 {
     /**
-     * @param Response[] $responses
+     * @param array<int, Response> $responses
      *
      * @return array{0: Api&MockObject, 1: PaginationClient}
      */

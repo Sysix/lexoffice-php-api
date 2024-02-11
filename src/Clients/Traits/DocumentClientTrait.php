@@ -25,10 +25,9 @@ trait DocumentClientTrait
             return $response;
         }
 
-        /** @var ?stdClass{documentField: string} $content */
         $content = Utils::getJsonFromResponse($response);
 
-        if ($content === null) {
+        if ($content === null || !is_object($content) || !property_exists($content, 'documentFileId') || !is_string($content->documentFileId)) {
             return $response;
         }
 

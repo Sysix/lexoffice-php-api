@@ -54,7 +54,9 @@ class Api implements ApiInterface
 
     public function setRequest(RequestInterface $request): self
     {
-        $request = $request->withHeader('Authorization', 'Bearer ' . $this->apiKey);
+        if (!$request->hasHeader('Authorization')) {
+            $request = $request->withHeader('Authorization', 'Bearer ' . $this->apiKey);
+        }
 
         if (!$request->hasHeader('Accept')) {
             $request = $request->withHeader('Accept', 'application/json');
