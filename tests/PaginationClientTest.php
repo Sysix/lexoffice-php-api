@@ -9,7 +9,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Sysix\LexOffice\Api;
 use Sysix\LexOffice\PaginationClient;
 
-class PaginationClientTest extends TestClient
+final class PaginationClientTest extends TestClient
 {
     /**
      * @param array<int, Response> $responses

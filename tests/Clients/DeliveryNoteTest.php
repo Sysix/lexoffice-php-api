@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\DeliveryNote;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class DeliveryNoteTest extends TestClient
+final class DeliveryNoteTest extends TestClient
 {
     public function testGet(): void
     {

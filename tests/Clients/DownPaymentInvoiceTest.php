@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\DownPaymentInvoice;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class DownPaymentInvoiceTest extends TestClient
+final class DownPaymentInvoiceTest extends TestClient
 {
     public function testGet(): void
     {

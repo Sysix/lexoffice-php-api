@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class VoucherListTest extends TestClient
+final class VoucherListTest extends TestClient
 {
     public function testGetPage(): void
     {

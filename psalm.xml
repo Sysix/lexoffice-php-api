@@ -19,6 +19,12 @@
         <PropertyNotSetInConstructor errorLevel="suppress" />
         <DeprecatedMethod errorLevel="suppress" />
         <RedundantPropertyInitializationCheck errorLevel="suppress" />
+        <MissingOverrideAttribute errorLevel="suppress" />
+        <ClassMustBeFinal>
+            <errorLevel type="suppress">
+                <directory name="src" />
+            </errorLevel>
+        </ClassMustBeFinal>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin" />

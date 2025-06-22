@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Payment;
 use Sysix\LexOffice\Tests\TestClient;
 
-class PaymentTest extends TestClient
+final class PaymentTest extends TestClient
 {
     public function testGet(): void
     {

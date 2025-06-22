@@ -11,7 +11,7 @@ use Sysix\LexOffice\Config\FileClient\VoucherConfig;
 use Sysix\LexOffice\Exceptions\LexOfficeApiException;
 use Sysix\LexOffice\Tests\TestClient;
 
-class FileTest extends TestClient
+final class FileTest extends TestClient
 {
     public function testGet(): void
     {
