@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Contact;
 use Sysix\LexOffice\Tests\TestClient;
 
-class ContactTest extends TestClient
+final class ContactTest extends TestClient
 {
     public function testGetPage(): void
     {

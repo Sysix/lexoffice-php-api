@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\OrderConfirmation;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class OrderConfirmationTest extends TestClient
+final class OrderConfirmationTest extends TestClient
 {
     public function testCreate(): void
     {

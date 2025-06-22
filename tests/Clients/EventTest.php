@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Event;
 use Sysix\LexOffice\Tests\TestClient;
 
-class EventTest extends TestClient
+final class EventTest extends TestClient
 {
     public function testCreate(): void
     {

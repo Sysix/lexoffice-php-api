@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\CreditNote;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class CreditNoteTest extends TestClient
+final class CreditNoteTest extends TestClient
 {
     public function testGet(): void
     {

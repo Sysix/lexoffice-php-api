@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\Invoice;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class InvoiceTest extends TestClient
+final class InvoiceTest extends TestClient
 {
     public function testCreate(): void
     {

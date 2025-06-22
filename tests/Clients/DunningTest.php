@@ -9,7 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Dunning;
 use Sysix\LexOffice\Tests\TestClient;
 
-class DunningTest extends TestClient
+final class DunningTest extends TestClient
 {
     public function testGet(): void
     {

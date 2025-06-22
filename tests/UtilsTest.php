@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sysix\LexOffice\Utils;
 
-class UtilsTest extends TestCase
+final class UtilsTest extends TestCase
 {
     public function testGetJsonFromResponseWithoutAnHeader(): void
     {

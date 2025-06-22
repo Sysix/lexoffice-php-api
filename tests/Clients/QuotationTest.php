@@ -10,7 +10,7 @@ use Sysix\LexOffice\Clients\Quotation;
 use Sysix\LexOffice\Clients\VoucherList;
 use Sysix\LexOffice\Tests\TestClient;
 
-class QuotationTest extends TestClient
+final class QuotationTest extends TestClient
 {
     public function testCreate(): void
     {

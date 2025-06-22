@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.4-fpm
 
 ENV XDEBUG_MODE='coverage' \
     XDEBUG_CONFIG='client_host=host.docker.internal output_dir=/var/www/tmp'

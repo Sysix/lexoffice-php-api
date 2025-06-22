@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\RecurringTemplate;
 use Sysix\LexOffice\Tests\TestClient;
 
-class RecurringTemplateTest extends TestClient
+final class RecurringTemplateTest extends TestClient
 {
     public function testGet(): void
     {

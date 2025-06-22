@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\PostingCategory;
 use Sysix\LexOffice\Tests\TestClient;
 
-class PostingCategoryTest extends TestClient
+final class PostingCategoryTest extends TestClient
 {
     public function testGetAll(): void
     {

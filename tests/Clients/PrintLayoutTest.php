@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\PrintLayout;
 use Sysix\LexOffice\Tests\TestClient;
 
-class PrintLayoutTest extends TestClient
+final class PrintLayoutTest extends TestClient
 {
     public function testGetAll(): void
     {

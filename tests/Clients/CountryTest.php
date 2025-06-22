@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Country;
 use Sysix\LexOffice\Tests\TestClient;
 
-class CountryTest extends TestClient
+final class CountryTest extends TestClient
 {
     public function testGetAll(): void
     {

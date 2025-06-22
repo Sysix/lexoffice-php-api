@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Profile;
 use Sysix\LexOffice\Tests\TestClient;
 
-class ProfileTest extends TestClient
+final class ProfileTest extends TestClient
 {
     public function testGet(): void
     {

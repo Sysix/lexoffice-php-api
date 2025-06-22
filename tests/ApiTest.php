@@ -27,7 +27,7 @@ use Sysix\LexOffice\Clients\RecurringTemplate;
 use Sysix\LexOffice\Clients\Voucher;
 use Sysix\LexOffice\Clients\VoucherList;
 
-class ApiTest extends TestClient
+final class ApiTest extends TestClient
 {
     public function createApiMockObject(Response $response)
     {
