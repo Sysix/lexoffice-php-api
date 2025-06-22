@@ -70,7 +70,7 @@ class VoucherList extends PaginationClient
 
     protected function buildQueryParams(array $params): string
     {
-        $dateFormat = DateTimeInterface::ATOM;
+        $dateFormat = 'Y-m-d';
 
         $params['voucherType'] = implode(',', $this->types);
         $params['voucherStatus'] = implode(',', $this->statuses);
