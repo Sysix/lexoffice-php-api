@@ -69,7 +69,7 @@ final class ApiTest extends TestClient
             new Response(200, [], 'post-content')
         );
 
-        $this->assertStringStartsWith('api.lexoffice.io', $stub->getRequest()->getUri()->getHost());
+        $this->assertStringStartsWith('api.lexware.io', $stub->getRequest()->getUri()->getHost());
 
         $stub->apiUrl = 'https://test.de';
         $stub->newRequest('POST', 'post-content');
