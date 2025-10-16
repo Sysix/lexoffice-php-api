@@ -18,6 +18,7 @@
     <issueHandlers>
         <PropertyNotSetInConstructor errorLevel="suppress" />
         <DeprecatedMethod errorLevel="suppress" />
+        <DeprecatedTrait errorLevel="suppress" />
         <RedundantPropertyInitializationCheck errorLevel="suppress" />
         <MissingOverrideAttribute errorLevel="suppress" />
         <ClassMustBeFinal>

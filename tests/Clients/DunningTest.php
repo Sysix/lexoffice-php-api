@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Dunning;
 use Sysix\LexOffice\Tests\TestClient;
