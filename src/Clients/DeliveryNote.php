@@ -7,6 +7,7 @@ namespace Sysix\LexOffice\Clients;
 use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateTrait;
 use Sysix\LexOffice\Clients\Traits\DocumentClientTrait;
+use Sysix\LexOffice\Clients\Traits\FileClientTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Clients\Traits\PursueTrait;
 use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
@@ -15,6 +16,7 @@ class DeliveryNote extends BaseClient
 {
     use CreateTrait;
     use DocumentClientTrait;
+    use FileClientTrait;
     use GetTrait;
     use PursueTrait;
     use VoucherListTrait;

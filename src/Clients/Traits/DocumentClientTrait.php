@@ -7,12 +7,10 @@ namespace Sysix\LexOffice\Clients\Traits;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * @deprecated use the FileClientTrait instead
+ * @deprecated use the FileClientTrait or FileClientWithAcceptHeaderTrait instead
  */
 trait DocumentClientTrait
 {
-    use FileClientTrait;
-
     public function document(string $id, bool $asContent = false, string $acceptHeader = '*/*'): ResponseInterface
     {
         trigger_error(__METHOD__.' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
@@ -25,6 +23,10 @@ trait DocumentClientTrait
             return $response;
         }
 
-        return $this->file($id, $acceptHeader);
+        $this->api->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/file');
+
+        return $this->api
+            ->setRequest($this->api->getRequest()->withHeader('Accept', $acceptHeader))
+            ->getResponse();
     }
 }

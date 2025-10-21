@@ -6,12 +6,14 @@ namespace Sysix\LexOffice\Clients;
 
 use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\DocumentClientTrait;
+use Sysix\LexOffice\Clients\Traits\FileClientWithAcceptHeaderTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
 class DownPaymentInvoice extends BaseClient
 {
     use DocumentClientTrait;
+    use FileClientWithAcceptHeaderTrait;
     use GetTrait;
     use VoucherListTrait;
 
