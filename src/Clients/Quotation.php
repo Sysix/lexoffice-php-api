@@ -7,6 +7,7 @@ namespace Sysix\LexOffice\Clients;
 use Sysix\LexOffice\BaseClient;
 use Sysix\LexOffice\Clients\Traits\CreateFinalizeTrait;
 use Sysix\LexOffice\Clients\Traits\DocumentClientTrait;
+use Sysix\LexOffice\Clients\Traits\FileClientTrait;
 use Sysix\LexOffice\Clients\Traits\GetTrait;
 use Sysix\LexOffice\Clients\Traits\VoucherListTrait;
 
@@ -14,6 +15,7 @@ class Quotation extends BaseClient
 {
     use CreateFinalizeTrait;
     use DocumentClientTrait;
+    use FileClientTrait;
     use GetTrait;
     use VoucherListTrait;
 
