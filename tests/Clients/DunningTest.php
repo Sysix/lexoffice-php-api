@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Sysix\LexOffice\Tests\Clients;
 
-use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Sysix\LexOffice\Clients\Dunning;
 use Sysix\LexOffice\Tests\TestClient;
@@ -45,6 +44,8 @@ final class DunningTest extends TestClient
 
     public function testDocument(): void
     {
+        $this->expectDeprecationV1Warning('document');
+
         [$api, $stub] = $this->createClientMockObject(Dunning::class);
 
         $response = $stub->document('resource-id');
@@ -60,13 +61,9 @@ final class DunningTest extends TestClient
 
     public function testDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
-            Dunning::class,
-            [
-                new Response(200, ['Content-Type' => 'application/json'], '{"documentFileId": "fake-id"}'),
-                new Response()
-            ]
-        );
+        $this->expectDeprecationV1Warning('document');
+
+        [$api, $stub] = $this->createClientMockObject(Dunning::class);
 
         $response = $stub->document('resource-id', true);
 
@@ -74,24 +71,23 @@ final class DunningTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/files/fake-id',
+            $api->apiUrl . '/v1/dunnings/resource-id/file',
             $api->getRequest()->getUri()->__toString()
         );
     }
 
-    public function testFailedDocumentContent(): void
+    public function testFileContent(): void
     {
-        [, $stub] = $this->createClientMultiMockObject(
-            Dunning::class,
-            [
-                new Response(500),
-                new Response()
-            ]
-        );
+        [$api, $stub] = $this->createClientMockObject(Dunning::class);
 
-        $response = $stub->document('resource-id', true);
+        $response = $stub->file('resource-id');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals(500, $response->getStatusCode());
+
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/dunnings/resource-id/file',
+            $api->getRequest()->getUri()->__toString()
+        );
     }
 }

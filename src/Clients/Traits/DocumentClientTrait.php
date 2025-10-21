@@ -5,33 +5,26 @@ declare(strict_types=1);
 namespace Sysix\LexOffice\Clients\Traits;
 
 use Psr\Http\Message\ResponseInterface;
-use Sysix\LexOffice\Clients\File;
-use Sysix\LexOffice\Utils;
 
+/**
+ * @deprecated use the FileClientTrait instead
+ */
 trait DocumentClientTrait
 {
+    use FileClientTrait;
+
     public function document(string $id, bool $asContent = false, string $acceptHeader = '*/*'): ResponseInterface
     {
-        $response = $this->api
-            ->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/document')
-            ->getResponse();
+        trigger_error(__METHOD__.' should not be called anymore, in future versions this method WILL not exist', E_USER_DEPRECATED);
 
         if ($asContent === false) {
+            $response = $this->api
+                ->newRequest('GET', $this->resource . '/' . rawurlencode($id) . '/document')
+                ->getResponse();
+
             return $response;
         }
 
-        if ($response->getStatusCode() !== 200) {
-            return $response;
-        }
-
-        $content = Utils::getJsonFromResponse($response);
-
-        if ($content === null || !is_object($content) || !property_exists($content, 'documentFileId') || !is_string($content->documentFileId)) {
-            return $response;
-        }
-
-        $fileClient = new File($this->api);
-
-        return $fileClient->get($content->documentFileId, $acceptHeader);
+        return $this->file($id, $acceptHeader);
     }
 }

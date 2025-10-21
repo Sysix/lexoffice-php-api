@@ -143,6 +143,8 @@ final class InvoiceTest extends TestClient
 
     public function testDocument(): void
     {
+        $this->expectDeprecationV1Warning('document');
+
         [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
         $response = $stub->document('resource-id');
@@ -158,13 +160,9 @@ final class InvoiceTest extends TestClient
 
     public function testDocumentContent(): void
     {
-        [$api, $stub] = $this->createClientMultiMockObject(
-            Invoice::class,
-            [
-                new Response(200, ['Content-Type' => 'application/json'], '{"documentFileId": "fake-id"}'),
-                new Response()
-            ]
-        );
+        $this->expectDeprecationV1Warning('document');
+
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
         $response = $stub->document('resource-id', true);
 
@@ -172,24 +170,23 @@ final class InvoiceTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
-            $api->apiUrl . '/v1/files/fake-id',
+            $api->apiUrl . '/v1/invoices/resource-id/file',
             $api->getRequest()->getUri()->__toString()
         );
     }
 
-    public function testFailedDocumentContent(): void
+    public function testFileContent(): void
     {
-        [, $stub] = $this->createClientMultiMockObject(
-            Invoice::class,
-            [
-                new Response(500),
-                new Response()
-            ]
-        );
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
 
-        $response = $stub->document('resource-id', true);
+        $response = $stub->file('resource-id');
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
-        $this->assertEquals(500, $response->getStatusCode());
+
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices/resource-id/file',
+            $api->getRequest()->getUri()->__toString()
+        );
     }
 }
