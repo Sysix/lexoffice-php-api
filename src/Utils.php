@@ -83,7 +83,7 @@ class Utils
      *
      * @param array<string, string|bool|resource> $content
      */
-    public static function createMultipartStream(array $content, string $boundary = null): MultipartStream
+    public static function createMultipartStream(array $content, ?string $boundary = null): MultipartStream
     {
         $stream = [];
         $boundary = !is_null($boundary) && $boundary !== '' ? $boundary : '--lexoffice';

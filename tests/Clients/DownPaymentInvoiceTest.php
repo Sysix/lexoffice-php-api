@@ -100,6 +100,29 @@ final class DownPaymentInvoiceTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
+            '*/*',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
+            $api->apiUrl . '/v1/down-payment-invoices/resource-id/file',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
+    public function testFileContentWithAcceptHeader(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(DownPaymentInvoice::class);
+
+        $response = $stub->file('resource-id', 'application/xml');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            'application/xml',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
             $api->apiUrl . '/v1/down-payment-invoices/resource-id/file',
             $api->getRequest()->getUri()->__toString()
         );
