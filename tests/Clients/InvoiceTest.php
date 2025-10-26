@@ -185,8 +185,32 @@ final class InvoiceTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
+            '*/*',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
             $api->apiUrl . '/v1/invoices/resource-id/file',
             $api->getRequest()->getUri()->__toString()
         );
     }
+
+    public function testFileContentWithAcceptHeader(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(Invoice::class);
+
+        $response = $stub->file('resource-id', 'application/xml');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            'application/xml',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
+            $api->apiUrl . '/v1/invoices/resource-id/file',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
 }

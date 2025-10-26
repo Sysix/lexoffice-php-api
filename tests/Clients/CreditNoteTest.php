@@ -185,6 +185,29 @@ final class CreditNoteTest extends TestClient
 
         $this->assertEquals('GET', $api->getRequest()->getMethod());
         $this->assertEquals(
+            '*/*',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
+            $api->apiUrl . '/v1/credit-notes/resource-id/file',
+            $api->getRequest()->getUri()->__toString()
+        );
+    }
+
+    public function testFileContentWithAcceptHeader(): void
+    {
+        [$api, $stub] = $this->createClientMockObject(CreditNote::class);
+
+        $response = $stub->file('resource-id', 'application/xml');
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+
+        $this->assertEquals('GET', $api->getRequest()->getMethod());
+        $this->assertEquals(
+            'application/xml',
+            $api->getRequest()->getHeaderLine('Accept')
+        );
+        $this->assertEquals(
             $api->apiUrl . '/v1/credit-notes/resource-id/file',
             $api->getRequest()->getUri()->__toString()
         );
